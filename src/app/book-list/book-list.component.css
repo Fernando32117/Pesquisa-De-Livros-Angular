@@ -9,72 +9,78 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 30px; /* Aumentar o espaço entre os cartões */
+  gap: 30px;
   padding: 20px;
 }
 
 .book-card {
-  justify-content: space-between;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
   padding: 15px;
-  border: none; /* Remover borda */
-  border-radius: 12px; /* Bordas mais arredondadas */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Sombra mais pronunciada */
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   background-color: white;
-  width: 220px; /* Largura ligeiramente aumentada */
-  transition: transform 0.3s, box-shadow 0.3s; /* Suavizar transições */
+  width: 220px;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .book-card:hover {
-  transform: translateY(-10px); /* Mais espaçamento ao passar o mouse */
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25); /* Efeito de sombra mais intenso */
+  transform: translateY(-10px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
 }
 
 .book-card img {
-  width: 180px; /* Largura aumentada */
-  height: 250px; /* Altura aumentada */
+  width: 98%;
+  height: 250px;
   object-fit: cover;
-  margin-bottom: 10px; /* Reduzir espaço abaixo da imagem */
-  border-radius: 8px; /* Bordas arredondadas na imagem */
+  margin-bottom: 10px;
+  border-radius: 8px;
 }
 
 .book-card h2 {
-  font-size: 1.2rem; /* Ajustar o tamanho da fonte */
-  margin: 5px 0; /* Reduzir margens */
+  font-size: 1.2rem;
+  margin: 5px 0;
   text-align: center;
   color: #333;
 }
 
 .book-card p {
   font-size: 0.9rem;
-  color: #555; /* Tom mais escuro para o texto */
-  margin-bottom: 15px; /* Aumentar espaço abaixo do texto */
+  color: #555;
+  margin-bottom: 15px;
   text-align: center;
 }
 
+.book-card-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .book-card button {
-  width: 75%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 15px; /* Aumentar o padding */
+  padding: 12px 15px;
   border: none;
-  background: linear-gradient(45deg, #8A2BE2, #DA70D6); /* Cor degradê roxo */
+  background: linear-gradient(45deg, #8A2BE2, #DA70D6);
   color: white;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 0.95rem; /* Fonte levemente maior */
+  font-size: 0.95rem;
   transition: background-color 0.3s;
-  margin-top: auto; /* Garantir que o botão esteja na parte inferior do card */
 }
 
 .book-card button:hover {
-  background-color: #5D3FD3; /* Tom mais escuro no hover */
+  background-color: #5D3FD3;
 }
 
-/* Estilo do modal */
+.book-card button span {
+  margin-right: 8px;
+}
+
 .modal {
   display: flex;
   justify-content: center;
@@ -96,15 +102,14 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
   width: 90%;
   max-width: 600px;
-  max-height: 80%; /* Limitar a altura do modal */
-  overflow-y: auto; /* Adicionar rolagem se necessário */
+  max-height: 80%;
+  overflow-y: auto;
   text-align: center;
   animation: fadeIn 0.4s;
   transition: transform 0.3s;
   transform: translateY(-10px);
 }
 
-/* Estilo da imagem do modal */
 .modal-content img {
   width: 200px;
   height: auto;
@@ -113,45 +118,40 @@ body {
   border-radius: 8px;
 }
 
-/* Estilo do botão de fechar */
 .close {
   position: absolute;
   top: 15px;
   right: 15px;
   font-size: 1.6rem;
-  color: #DA70D6;
+  color: #888;
   cursor: pointer;
-  z-index: 1001; /* Garantir que está acima do modal */
+  z-index: 1001;
 }
 
 .close:hover {
-  color: #ff4d4d; /* Efeito hover */
+  color: #ff4d4d;
 }
 
-/* Título */
 .modal-content h2 {
-  font-size: 1.8rem; /* Tamanho maior para o título */
+  font-size: 1.8rem;
   margin: 10px 0;
-  color: #DA70D6; /* Cor mais pronunciada */
-  font-weight: 600; /* Negrito */
+  color: #333;
+  font-weight: 600;
 }
 
-/* Subtítulo */
 .modal-content h3 {
-  font-size: 1.2rem; /* Tamanho do subtítulo */
-  margin: 5px 0 15px; /* Margens regularizadas */
-  color: #DA70D6; /* Tom mais suave */
+  font-size: 1.2rem;
+  margin: 5px 0 15px;
+  color: #555;
 }
 
-/* Texto do corpo */
 .modal-content p {
-  font-size: 1rem; /* Tamanho confortável do texto */
-  color: #555; /* Cor do texto */
-  line-height: 1.5; /* Altura da linha ajustada */
-  margin-bottom: 15px; /* Espaço abaixo dos parágrafos */
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 15px;
 }
 
-/* Animação de fadeIn */
 @keyframes fadeIn {
   from {
     opacity: 0;

@@ -1,15 +1,29 @@
 <div class="favorites-container">
-    <h1>Favoritos</h1>
-    <div class="favorites-list" *ngIf="favorites.length > 0; else noFavorites">
-      <div class="favorite-card" *ngFor="let book of favorites">
-        <img [src]="book.volumeInfo.imageLinks?.thumbnail" alt="Capa do Livro">
-        <h2>{{ book.volumeInfo.title }}</h2>
-        <p>{{ book.volumeInfo.authors?.join(', ') }}</p>
+  <h1>Favoritos</h1>
+  <div class="favorites-list" *ngIf="favorites.length > 0; else noFavorites">
+    <div class="favorite-card" *ngFor="let book of favorites">
+      <img [src]="book.volumeInfo.imageLinks?.thumbnail" alt="Capa do Livro">
+      <h2>{{ book.volumeInfo.title }}</h2>
+      <p>{{ book.volumeInfo.authors?.join(', ') }}</p>
+      <div class="favorite-card-buttons">
+        <button (click)="openModal(book)">Info</button>
         <button (click)="removeFavorite(book.id)">Remover</button>
       </div>
     </div>
-    <ng-template #noFavorites>
-      <p>Você ainda não adicionou nenhum livro aos favoritos.</p>
-    </ng-template>
   </div>
-  
+  <ng-template #noFavorites>
+    <p>Você ainda não adicionou nenhum livro aos favoritos.</p>
+  </ng-template>
+</div>
+
+<div class="modal" *ngIf="selectedBook">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <img [src]="selectedBook.volumeInfo.imageLinks?.thumbnail" alt="Capa do Livro">
+    <h2>{{ selectedBook.volumeInfo.title }}</h2>
+    <p><strong>Autor(es):</strong> {{ selectedBook.volumeInfo.authors?.join(', ') }}</p>
+    <p><strong>Descrição:</strong> {{ selectedBook.volumeInfo.description }}</p>
+    <p><strong>Data de Lançamento:</strong> {{ selectedBook.volumeInfo.publishedDate }}</p>
+    <p><strong>Editora:</strong> {{ selectedBook.volumeInfo.publisher }}</p>
+  </div>
+</div>

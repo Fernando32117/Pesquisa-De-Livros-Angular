@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BookStorageService } from '../book-storage.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-book-favorites',
@@ -11,13 +12,28 @@ import { BookStorageService } from '../book-storage.service';
 })
 export class BookFavoritesComponent {
   favorites: any[] = [];
+  selectedBook: any = null;
+  private subscription: Subscription;
 
   constructor(private bookStorage: BookStorageService) {
-    this.favorites = this.bookStorage.getFavorites();
+    this.subscription = this.bookStorage.favorites$.subscribe(favorites => {
+      this.favorites = favorites;
+    });
   }
 
   removeFavorite(bookId: string): void {
     this.bookStorage.removeFavorite(bookId);
-    this.favorites = this.bookStorage.getFavorites();
+  }
+
+  openModal(book: any): void {
+    this.selectedBook = book;
+  }
+
+  closeModal(): void {
+    this.selectedBook = null;
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

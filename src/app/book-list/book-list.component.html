@@ -3,7 +3,14 @@
     <img [src]="book.volumeInfo.imageLinks?.thumbnail" alt="Capa do Livro">
     <h2>{{ book.volumeInfo.title }}</h2>
     <p>{{ book.volumeInfo.authors?.join(', ') }}</p>
-    <button (click)="openModal(book)">Info</button>
+    <div class="book-card-buttons">
+      <button (click)="openModal(book)">Info</button>
+      <button (click)="toggleFavorite(book)">
+        <span *ngIf="isFavorite(book)">❤️</span>
+        <span *ngIf="!isFavorite(book)">🤍</span>
+        Favoritar
+      </button>
+    </div>
   </div>
 </div>
 
