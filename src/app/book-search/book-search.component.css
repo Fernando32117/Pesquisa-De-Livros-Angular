@@ -1,0 +1,87 @@
+body {  
+  font-family: 'Roboto', sans-serif;  
+  background-color: #f0f2f5;  
+  margin: 0;  
+  padding: 0;  
+}  
+
+.container {  
+  display: flex;  
+  flex-direction: column;  
+  align-items: center;  
+  padding: 20px;  
+  margin-top: 200px; /* Ajuste este valor conforme necessário para evitar sobreposição */
+}
+
+.question {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #4B0082; /* Cor roxa */
+  text-align: center;
+  margin-bottom: 20px;
+  animation: fadeIn 1s ease-in-out;
+  background: linear-gradient(45deg, #8A2BE2, #DA70D6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.search-bar {  
+  display: flex;  
+  width: 80%;  
+  max-width: 600px;  
+  margin-bottom: 20px;  
+  border-radius: 8px; /* Bordas arredondadas */  
+  overflow: hidden; /* Para evitar que os elementos internos ultrapassem os limites */  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Sombra mais suave */  
+  background-color: white; /* Fundo branco para a barra */  
+}  
+
+.search-bar input {  
+  flex: 1;  
+  padding: 12px; /* Ajustar padding para um visual melhor */  
+  border: none; /* Remover borda */  
+  outline: none; /* Remover contorno ao focar */  
+  font-size: 16px;  
+  background-color: #f9f9f9; /* Fundo para o input */  
+  transition: background-color 0.3s; /* Transição suave para o fundo */  
+}  
+
+.search-bar input::placeholder {  
+  color: #aaa; /* Cor do placeholder */  
+}  
+
+.search-bar input:focus {  
+  background-color: #f9f9f9; /* Mudança de fundo ao focar */  
+}  
+
+.search-bar button {  
+  padding: 15px 20px; 
+  border: none;
+  background: linear-gradient(45deg, #800080, #8A2BE2);  
+  color: white;  
+  font-size: 16px;  
+  cursor: pointer;  
+  transition: background-color 0.3s; /* Transição suave para o botão */  
+}  
+
+.search-bar button:hover {  
+  background: linear-gradient(45deg, #800050, #8A2BE2); 
+  transform: scale(1.05);  
+}  
+
+.book-list-container {  
+  width: 100%;  
+  max-width: 1200px;  
+}

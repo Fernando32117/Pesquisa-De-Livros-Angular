@@ -1,0 +1,35 @@
+.about-container {
+  padding: 40px;
+  max-width: 800px;
+  margin: 100px auto;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  text-align: center;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.about-container h1 {
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  color: #007bff;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+}
+
+.about-container p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #555;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,11 @@
+<div class="container">
+  <p class="question">O que você quer pesquisar hoje ?</p>
+  <div class="search-bar">
+    <input [(ngModel)]="query" placeholder="Digite o título ou autor do livro" />
+    <button (click)="searchBooks()">Buscar</button>
+  </div>
+  <div *ngIf="books.length > 0">
+    <app-book-list [books]="books"></app-book-list>
+  </div>
+</div>
+
