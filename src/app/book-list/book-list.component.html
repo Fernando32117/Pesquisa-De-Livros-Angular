@@ -23,5 +23,18 @@
     <p><strong>Descrição:</strong> {{ selectedBook.volumeInfo.description }}</p>
     <p><strong>Data de Lançamento:</strong> {{ selectedBook.volumeInfo.publishedDate }}</p>
     <p><strong>Editora:</strong> {{ selectedBook.volumeInfo.publisher }}</p>
+    <div>
+      <label for="notes">Notas Pessoais:</label>
+      <textarea id="notes" [(ngModel)]="selectedBook.notes"></textarea>
+    </div>
+    <div>
+      <label for="rating">Avaliação (1 a 5):</label>
+      <input type="number" id="rating" [(ngModel)]="selectedBook.rating" min="1" max="5">
+    </div>
+    <div>
+      <label for="tags">Tags:</label>
+      <input type="text" id="tags" [(ngModel)]="selectedBook.tags" placeholder="Adicione tags separadas por vírgulas">
+    </div>
+    <button (click)="saveFavorite(selectedBook)">Salvar</button>
   </div>
 </div>

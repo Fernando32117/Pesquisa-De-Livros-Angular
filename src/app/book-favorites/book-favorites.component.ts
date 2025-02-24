@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { BookStorageService } from '../book-storage.service';
 import { Subscription } from 'rxjs';
 
@@ -8,16 +9,19 @@ import { Subscription } from 'rxjs';
   templateUrl: './book-favorites.component.html',
   styleUrls: ['./book-favorites.component.css'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule, FormsModule]
 })
 export class BookFavoritesComponent {
   favorites: any[] = [];
+  filteredFavorites: any[] = [];
   selectedBook: any = null;
+  filter: string = '';
   private subscription: Subscription;
 
   constructor(private bookStorage: BookStorageService) {
     this.subscription = this.bookStorage.favorites$.subscribe(favorites => {
       this.favorites = favorites;
+      this.applyFilter();
     });
   }
 
@@ -26,11 +30,28 @@ export class BookFavoritesComponent {
   }
 
   openModal(book: any): void {
-    this.selectedBook = book;
+    this.selectedBook = { ...book };
   }
 
   closeModal(): void {
     this.selectedBook = null;
+  }
+
+  updateFavorite(book: any): void {
+    this.bookStorage.updateFavorite(book);
+    this.closeModal();
+  }
+
+  applyFilter(): void {
+    if (this.filter) {
+      const filter = this.filter.toLowerCase();
+      this.filteredFavorites = this.favorites.filter(book =>
+        book.tags.some((tag: string) => tag.toLowerCase().includes(filter)) ||
+        book.volumeInfo.title.toLowerCase().includes(filter)
+      );
+    } else {
+      this.filteredFavorites = this.favorites;
+    }
   }
 
   ngOnDestroy(): void {

@@ -1,7 +1,11 @@
 <div class="favorites-container">
   <h1>Favoritos</h1>
-  <div class="favorites-list" *ngIf="favorites.length > 0; else noFavorites">
-    <div class="favorite-card" *ngFor="let book of favorites">
+  <div class="filter">
+    <label for="filter">Filtrar por Tag ou Nome:</label>
+    <input type="text" id="filter" [(ngModel)]="filter" (input)="applyFilter()" placeholder="Digite uma tag ou nome">
+  </div>
+  <div class="favorites-list" *ngIf="filteredFavorites.length > 0; else noFavorites">
+    <div class="favorite-card" *ngFor="let book of filteredFavorites">
       <img [src]="book.volumeInfo.imageLinks?.thumbnail" alt="Capa do Livro">
       <h2>{{ book.volumeInfo.title }}</h2>
       <p>{{ book.volumeInfo.authors?.join(', ') }}</p>
@@ -25,5 +29,18 @@
     <p><strong>Descrição:</strong> {{ selectedBook.volumeInfo.description }}</p>
     <p><strong>Data de Lançamento:</strong> {{ selectedBook.volumeInfo.publishedDate }}</p>
     <p><strong>Editora:</strong> {{ selectedBook.volumeInfo.publisher }}</p>
+    <div>
+      <label for="notes">Notas Pessoais:</label>
+      <textarea id="notes" [(ngModel)]="selectedBook.notes"></textarea>
+    </div>
+    <div>
+      <label for="rating">Avaliação (1 a 5):</label>
+      <input type="number" id="rating" [(ngModel)]="selectedBook.rating" min="1" max="5">
+    </div>
+    <div>
+      <label for="tags">Tags:</label>
+      <input type="text" id="tags" [(ngModel)]="selectedBook.tags" placeholder="Adicione tags separadas por vírgulas">
+    </div>
+    <button (click)="updateFavorite(selectedBook)">Salvar</button>
   </div>
 </div>

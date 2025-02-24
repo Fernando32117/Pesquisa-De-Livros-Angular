@@ -5,13 +5,13 @@
   background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .favorites-container h1 {
   font-size: 2.5rem;
   font-weight: bold;
-  color: #4B0082; /* Cor roxa */
+  color: #4B0082;
   text-align: center;
   margin-bottom: 20px;
   animation: fadeIn 1s ease-in-out;
@@ -31,15 +31,28 @@
   }
 }
 
-.favorites-container p {
-  color: #555;
+.filter {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.filter label {
+  font-weight: bold;
+  color: #4B0082;
+  margin-right: 10px;
+}
+
+.filter input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
 .favorites-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 30px;
+  gap: 20px;
   padding: 20px;
 }
 
@@ -86,17 +99,21 @@
 .favorite-card-buttons {
   display: flex;
   justify-content: space-between;
-  width: 90%;
+  width: 100%;
 }
 
 .favorite-card button {
-  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 15px;
   border: none;
   background: linear-gradient(45deg, #8A2BE2, #DA70D6);
   color: white;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  transition: background-color 0.3s;
 }
 
 .favorite-card button:hover {
@@ -165,17 +182,38 @@
   font-weight: 600;
 }
 
-.modal-content h3 {
-  font-size: 1.2rem;
-  margin: 5px 0 15px;
-  color: #555;
+.modal-content label {
+  display: block;
+  text-align: left;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #4B0082;
 }
 
-.modal-content p {
-  font-size: 1rem;
-  color: #666;
-  line-height: 1.5;
+.modal-content textarea,
+.modal-content input[type="number"],
+.modal-content input[type="text"] {
+  width: 100%;
+  padding: 10px;
   margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.modal-content button {
+  padding: 12px 20px;
+  border: none;
+  background: linear-gradient(45deg, #8A2BE2, #DA70D6);
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.modal-content button:hover {
+  background-color: #5D3FD3;
 }
 
 @keyframes fadeIn {
