@@ -41,6 +41,17 @@
       <label for="tags">Tags:</label>
       <input type="text" id="tags" [(ngModel)]="selectedBook.tags" placeholder="Adicione tags separadas por vírgulas">
     </div>
-    <button (click)="updateFavorite(selectedBook)">Salvar</button>
+    <div class="book-links">
+      <a *ngIf="selectedBook.accessInfo?.webReaderLink" [href]="selectedBook.accessInfo.webReaderLink" target="_blank">
+        <button>Ler Completo</button>
+      </a>
+      <a *ngIf="selectedBook.saleInfo?.buyLink" [href]="selectedBook.saleInfo.buyLink" target="_blank">
+        <button>Comprar</button>
+      </a>
+      <a *ngIf="selectedBook.accessInfo?.pdf?.acsTokenLink" [href]="selectedBook.accessInfo.pdf.acsTokenLink" target="_blank">
+        <button>Baixar PDF</button>
+      </a>
+    </div>
+    <button (click)="updateFavorite(selectedBook)">Atualizar</button>
   </div>
 </div>

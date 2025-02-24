@@ -17,7 +17,8 @@ export class BookListComponent {
   constructor(private bookStorage: BookStorageService) {}
 
   openModal(book: any): void {
-    this.selectedBook = { ...book, ...this.bookStorage.getFavorites().find(fav => fav.id === book.id) };
+    const favorite = this.bookStorage.getFavorites().find(fav => fav.id === book.id);
+    this.selectedBook = favorite ? { ...book, ...favorite } : { ...book, notes: '', rating: 0, tags: [] };
   }
 
   closeModal(): void {
