@@ -47,13 +47,15 @@ export class BookFavoritesComponent {
     if (this.filter) {
       const filter = this.filter.toLowerCase();
       this.filteredFavorites = this.favorites.filter(book =>
-        book.tags.some((tag: string) => tag.toLowerCase().includes(filter)) ||
+        (Array.isArray(book.tags) && book.tags.some((tag: string) => tag.toLowerCase().includes(filter))) ||
         book.volumeInfo.title.toLowerCase().includes(filter)
       );
     } else {
       this.filteredFavorites = this.favorites;
     }
   }
+  
+  
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
