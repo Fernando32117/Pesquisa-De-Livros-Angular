@@ -30,7 +30,8 @@ export class BookFavoritesComponent {
   }
 
   openModal(book: any): void {
-    this.selectedBook = { ...book };
+    const favorite = this.bookStorage.getFavorites().find(fav => fav.id === book.id);
+    this.selectedBook = favorite ? { ...book, ...favorite } : { ...book, notes: '', rating: 0, tags: [] };
   }
 
   closeModal(): void {
