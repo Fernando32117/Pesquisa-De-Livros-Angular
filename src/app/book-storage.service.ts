@@ -13,19 +13,20 @@ export class BookStorageService {
     return this.favorites;
   }
 
-  addFavorite(book: any): void {
-    if (!this.isFavorite(book.id)) {
-      this.favorites.push({ ...book, notes: '', rating: 0, tags: [] });
+  addFavorite(updatedBook: any): void {
+    if (!this.isFavorite(updatedBook.id)) { // Corrigido aqui
+      this.favorites = [...this.favorites, updatedBook]; // Adicionando aos favoritos
       this.saveFavorites();
       this.favoritesSubject.next(this.favorites);
       alert("Livro favoritado com sucesso!");
     }
-  }
+  } 
 
   updateFavorite(updatedBook: any): void {
     this.favorites = this.favorites.map(book => book.id === updatedBook.id ? updatedBook : book);
     this.saveFavorites();
     this.favoritesSubject.next(this.favorites);
+    alert("Livro favoritado com sucesso!");
   }
 
   removeFavorite(bookId: string): void {
