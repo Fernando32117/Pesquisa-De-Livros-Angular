@@ -1,4 +1,4 @@
-<!doctype html>
+export default `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -12,3 +12,4 @@
   <app-root></app-root>
 <script src="polyfills-FFHMD2TL.js" type="module"></script><script src="main-YUTESJXY.js" type="module"></script></body>
 </html>
+`;
