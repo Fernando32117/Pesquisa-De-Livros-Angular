@@ -10,17 +10,17 @@ body {
   flex-direction: column;  
   align-items: center;  
   padding: 20px;  
-  margin-top: 200px; /* Ajuste este valor conforme necessário para evitar sobreposição */
+  margin-top: 200px;
 }
 
 .question {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: bold;
-  color: #4B0082; /* Cor roxa */
+  color: #4B0082;
   text-align: center;
   margin-bottom: 50px;
   animation: fadeIn 1s ease-in-out;
-  background: linear-gradient(45deg, #8A2BE2, #DA70D6);
+  background: linear-gradient(45deg, #8A2BE2, #800050);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -39,46 +39,47 @@ body {
 
 .search-bar {  
   display: flex;  
-  width: 80%;  
-  max-width: 600px;  
+  width: 50%;  
   margin-bottom: 20px;  
-  border-radius: 8px; /* Bordas arredondadas */  
-  overflow: hidden; /* Para evitar que os elementos internos ultrapassem os limites */  
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Sombra mais suave */  
-  background-color: white; /* Fundo branco para a barra */  
+  border-radius: 8px;
+  overflow: hidden; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  background-color: white; 
 }  
 
 .search-bar input {  
   flex: 1;  
-  padding: 12px; /* Ajustar padding para um visual melhor */  
-  border: none; /* Remover borda */  
-  outline: none; /* Remover contorno ao focar */  
-  font-size: 16px;  
-  background-color: #f9f9f9; /* Fundo para o input */  
-  transition: background-color 0.3s; /* Transição suave para o fundo */  
+  padding: 20px;
+  border: none;
+  outline: none; 
+  font-size: 20px;  
+  background-color: #f9f9f9;
+  transition: background-color 0.3s;
 }  
 
 .search-bar input::placeholder {  
-  color: #aaa; /* Cor do placeholder */  
+  color: #aaa;
 }  
 
 .search-bar input:focus {  
-  background-color: #f9f9f9; /* Mudança de fundo ao focar */  
+  background-color: #f9f9f9; 
 }  
 
 .search-bar button {  
   padding: 15px 20px; 
   border: none;
+  border-radius: 8px;
   background: linear-gradient(45deg, #800080, #8A2BE2);  
   color: white;  
-  font-size: 16px;  
+  font-size: 20px;  
   cursor: pointer;  
-  transition: background-color 0.3s; /* Transição suave para o botão */  
+  transition: background-color 0.3s;
 }  
 
 .search-bar button:hover {  
   background: linear-gradient(45deg, #800050, #8A2BE2); 
-  transform: scale(1.05);  
+  transform: scale(1.05);
+  border-radius: 8px;  
 }  
 
 .book-list-container {  

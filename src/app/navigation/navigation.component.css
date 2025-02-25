@@ -1,4 +1,93 @@
 .navbar {
+  background: linear-gradient(45deg, #8A2BE2, #DA70D6);
+  color: white;
+  padding: 10px 20px;
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+  transition: transform 0.3s;
+  animation: pulse 2s infinite;
+}
+
+.navbar-brand:hover {
+  transform: scale(1.1);
+}
+
+
+.dropdown-btn {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    color: white;
+    cursor: pointer;
+    margin-left: auto; /* Adicione esta linha */
+    margin-right: 20px
+}
+
+.navbar-menu {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  position: absolute;
+  top: 60px;
+  right: 10px;
+}
+
+.navbar-menu.show {
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 75px;
+  right: 15px;
+  background: linear-gradient(45deg, #8A2BE2, #DA70D6);
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 15px 25px;
+}
+
+.navbar-menu a {
+  text-decoration: none;
+  color: white;
+  margin-bottom: 10px;
+  transition: color 0.3s;
+}
+
+.navbar-menu a:hover {
+  color: #ffcc00;
+}
+
+
+/* .navbar {
   font-family: 'Roboto', sans-serif;
   position: fixed;
   top: 0;
@@ -71,4 +160,4 @@
 
 .navbar-menu.show {
   display: flex;
-}
+} */

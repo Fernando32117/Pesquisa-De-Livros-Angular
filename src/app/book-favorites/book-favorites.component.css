@@ -40,12 +40,14 @@
   font-weight: bold;
   color: #4B0082;
   margin-right: 10px;
+  font-size: 1.3rem;
 }
 
 .filter input {
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
+  width: 30%;
 }
 
 .favorites-list {

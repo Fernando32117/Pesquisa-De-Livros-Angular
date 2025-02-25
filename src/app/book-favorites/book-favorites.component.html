@@ -3,8 +3,7 @@
   <div class="filter">
     <label for="filter">Filtrar por Tag ou Nome:</label>
     <input type="text" id="filter" [(ngModel)]="filter" (input)="applyFilter()" placeholder="Digite uma tag ou nome">
-  </div>
-  
+  </div>  
   <div class="favorites-list" *ngIf="filteredFavorites.length > 0; else noFavorites">
     <div class="favorite-card" *ngFor="let book of filteredFavorites">
       <img [src]="book.volumeInfo.imageLinks?.thumbnail" alt="Capa do Livro">
