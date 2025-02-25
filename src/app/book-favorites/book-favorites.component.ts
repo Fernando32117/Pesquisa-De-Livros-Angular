@@ -12,6 +12,9 @@ import { Subscription } from 'rxjs';
   imports: [CommonModule, FormsModule]
 })
 export class BookFavoritesComponent {
+  ngOnInit() {
+    throw new Error('Method not implemented.');
+  }
   favorites: any[] = [];
   filteredFavorites: any[] = [];
   selectedBook: any = null;

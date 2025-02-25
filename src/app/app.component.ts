@@ -13,5 +13,9 @@ import { NavigationComponent } from './navigation/navigation.component';
   standalone: true,
   imports: [CommonModule, NavigationComponent, RouterModule]
 })
-export class AppComponent {}
+export class AppComponent {
+  title(_title: any) {
+    throw new Error('Method not implemented.');
+  }
+}
 

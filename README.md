@@ -44,6 +44,36 @@ Siga as instruções abaixo para configurar e rodar a aplicação localmente.
 
 4. Abra o navegador e navegue até `http://localhost:4200` para visualizar a aplicação.
 
+## Testes Unitários
+
+Para garantir a qualidade e robustez do código, implementei testes unitários usando Jasmine e Karma.
+
+### Executando os Testes
+
+1. Para executar os testes unitários, use o seguinte comando:
+    ```bash
+    ng test
+    ```
+
+2. Isso iniciará o Karma e executará todos os testes configurados. Você verá uma saída detalhada indicando quais testes passaram e quais falharam.
+
+### Cobertura dos Testes
+
+Os testes unitários cobrem as seguintes funcionalidades:
+
+- **BookStorageService**: Adicionar, remover, atualizar e verificar favoritos.
+- **BookListComponent**: Exibição e interação dos livros, abertura e fechamento do modal, e funcionalidade de favoritar.
+- **BookFavoritesComponent**: Exibição de favoritos, filtro de livros por tag ou nome, e interação com o modal.
+
+## Tecnologias Utilizadas
+
+- **Angular**: Framework para desenvolvimento da aplicação web.
+- **TypeScript**: Linguagem de programação utilizada no desenvolvimento.
+- **Google Books API**: API utilizada para buscar informações sobre os livros.
+- **Jasmine**: Framework de testes unitários para JavaScript.
+- **Karma**: Ferramenta de execução de testes unitários.
+- **HTML5 e CSS3**: Tecnologias padrão para estruturação e estilização da aplicação.
+
 ## Uso
 
 1. Digite o título ou autor do livro na barra de busca.
