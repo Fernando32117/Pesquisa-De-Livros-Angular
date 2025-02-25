@@ -12,7 +12,7 @@ Explorador de Livros é uma aplicação web para buscar, favoritar e organizar l
 - **Notas Pessoais**: Adiciona notas pessoais aos livros favoritos.
 - **Avaliações**: Avalia os livros com uma nota de 1 a 5.
 - **Tags**: Adiciona tags aos livros favoritos.
-- **Informações Detalhadas**: Exibe informações detalhadas sobre os livros, incluindo links para LER, BAIXAR e COMPRAR.
+- **Informações Detalhadas**: Exibe informações detalhadas sobre os livros, incluindo links para LER, BAIXAR PDF e COMPRAR.
 - **Interface Moderna**: Interface de usuário com efeitos visuais modernos, incluindo animações e gradientes.
 
 ## Instalação
@@ -29,7 +29,7 @@ Siga as instruções abaixo para configurar e rodar a aplicação localmente.
 1. Clone este repositório:
     ```bash
     git clone https://github.com/Fernando32117/Busca-de-Livros.git
-    cd explorador-de-livros
+    cd Pesquisa-De-Livros
     ```
 
 2. Instale as dependências do projeto:
