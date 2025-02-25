@@ -5,11 +5,10 @@ import { BookStorageService } from '../book-storage.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-book-favorites',
-  templateUrl: './book-favorites.component.html',
-  styleUrls: ['./book-favorites.component.css'],
-  standalone: true,
-  imports: [CommonModule, FormsModule],
+    selector: 'app-book-favorites',
+    templateUrl: './book-favorites.component.html',
+    styleUrls: ['./book-favorites.component.css'],
+    imports: [CommonModule, FormsModule]
 })
 export class BookFavoritesComponent implements OnInit {
   favorites: any[] = [];

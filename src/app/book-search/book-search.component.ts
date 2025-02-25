@@ -4,12 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { GoogleBooksService } from '../google-books.service';  
 import { BookListComponent } from '../book-list/book-list.component';  
 
-@Component({  
-  selector: 'app-book-search',  
-  templateUrl: './book-search.component.html',  
-  styleUrls: ['./book-search.component.css'],  
-  standalone: true,  
-  imports: [CommonModule, FormsModule, BookListComponent]  
+@Component({
+    selector: 'app-book-search',
+    templateUrl: './book-search.component.html',
+    styleUrls: ['./book-search.component.css'],
+    imports: [CommonModule, FormsModule, BookListComponent]
 })  
 export class BookSearchComponent {  
   query: string = '';  

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "book-explorer": {
+    "pesquisa-de-livros": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/book-explorer",
+            "outputPath": "dist/pesquisa-de-livros",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -64,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "book-explorer:build:production"
+              "buildTarget": "pesquisa-de-livros:build:production"
             },
             "development": {
-              "buildTarget": "book-explorer:build:development"
+              "buildTarget": "pesquisa-de-livros:build:development"
             }
           },
           "defaultConfiguration": "development"

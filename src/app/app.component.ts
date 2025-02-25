@@ -5,13 +5,12 @@ import { CommonModule } from '@angular/common';
 import { NavigationComponent } from './navigation/navigation.component';
 
 @Component({
-  selector: 'app-root',
-  template: `
+    selector: 'app-root',
+    template: `
     <app-navigation></app-navigation>
     <router-outlet></router-outlet>
   `,
-  standalone: true,
-  imports: [CommonModule, NavigationComponent, RouterModule]
+    imports: [CommonModule, NavigationComponent, RouterModule]
 })
 export class AppComponent {
   title(_title: any) {

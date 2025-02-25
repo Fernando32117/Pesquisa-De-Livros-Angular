@@ -4,11 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { BookStorageService } from '../book-storage.service';
 
 @Component({
-  selector: 'app-book-list',
-  templateUrl: './book-list.component.html',
-  styleUrls: ['./book-list.component.css'],
-  standalone: true,
-  imports: [CommonModule, FormsModule]
+    selector: 'app-book-list',
+    templateUrl: './book-list.component.html',
+    styleUrls: ['./book-list.component.css'],
+    imports: [CommonModule, FormsModule]
 })
 export class BookListComponent {
   @Input() books: any[] = [];
