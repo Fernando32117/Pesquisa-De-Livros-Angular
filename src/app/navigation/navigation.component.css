@@ -58,7 +58,7 @@ body {
     font-size: 1.8rem;
     color: white;
     cursor: pointer;
-    margin-left: auto; /* Adicione esta linha */
+    margin-left: auto;
     margin-right: 20px
 }
 

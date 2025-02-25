@@ -18,6 +18,8 @@ export class BookFavoritesComponent implements OnInit {
   filter: string = '';
   private subscription: Subscription;
 
+  notificationMessage: string | null = null;
+
   ngOnInit(): void {
     this.applyFilter();
   }
@@ -31,6 +33,7 @@ export class BookFavoritesComponent implements OnInit {
 
   removeFavorite(bookId: string): void {
     this.bookStorage.removeFavorite(bookId);
+    this.showNotification("Livro removido dos favoritos!");
   }
 
   openModal(book: any): void {
@@ -48,6 +51,7 @@ export class BookFavoritesComponent implements OnInit {
 
   updateFavorite(book: any): void {
     this.bookStorage.updateFavorite(book);
+    this.showNotification("Livro atualizado com sucesso!");
     this.closeModal();
   }
 
@@ -67,7 +71,13 @@ export class BookFavoritesComponent implements OnInit {
     }
   }
 
+  showNotification(message: string): void {
+    this.notificationMessage = message;
+    setTimeout(() => this.notificationMessage = null, 4500);
+  }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 }
+

@@ -1,3 +1,4 @@
+<!-- Lista de Livros -->
 <div class="book-list">
   <div class="book-card" *ngFor="let book of books">
     <img [src]="book.volumeInfo.imageLinks?.thumbnail" alt="Capa do Livro">
@@ -14,6 +15,7 @@
   </div>
 </div>
 
+<!-- Modal de Informações do Livro -->
 <div class="modal" *ngIf="selectedBook">
   <div class="modal-content">
     <span class="close" (click)="closeModal()">&times;</span>
@@ -23,6 +25,7 @@
     <p><strong>Descrição:</strong> {{ selectedBook.volumeInfo.description }}</p>
     <p><strong>Data de Lançamento:</strong> {{ selectedBook.volumeInfo.publishedDate }}</p>
     <p><strong>Editora:</strong> {{ selectedBook.volumeInfo.publisher }}</p>
+    
     <div>
       <label for="notes">Notas Pessoais:</label>
       <textarea id="notes" [(ngModel)]="selectedBook.notes"></textarea>
@@ -35,6 +38,7 @@
       <label for="tags">Tags:</label>
       <input type="text" id="tags" [(ngModel)]="selectedBook.tags" placeholder="Adicione tags separadas por vírgulas">
     </div>
+    
     <div class="book-links">
       <a *ngIf="selectedBook.accessInfo?.webReaderLink" [href]="selectedBook.accessInfo.webReaderLink" target="_blank">
         <button>Ler Completo</button>
@@ -46,6 +50,15 @@
         <button>Baixar PDF</button>
       </a>
     </div>
+    
     <button (click)="saveFavorite(selectedBook)">Favoritar</button>
+  </div>
+</div>
+
+<!-- Modal de Notificação -->
+<div *ngIf="notificationMessage" class="modal-overlay">
+  <div class="modal-content">
+    <p>{{ notificationMessage }}</p>
+    <button (click)="notificationMessage = null">Fechar</button>
   </div>
 </div>

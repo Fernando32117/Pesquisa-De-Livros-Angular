@@ -24,24 +24,24 @@ describe('BookListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('deveria criar', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should open the modal with the selected book', () => {
+  it('deve abrir o modal com o livro selecionado', () => {
     const book = { id: '1', volumeInfo: { title: 'Test Book' } };
     component.openModal(book);
     expect(component.selectedBook).toEqual(book);
   });
 
-  it('should close the modal', () => {
+  it('deveria fechar o modal', () => {
     const book = { id: '1', volumeInfo: { title: 'Test Book' } };
     component.openModal(book);
     component.closeModal();
     expect(component.selectedBook).toBeNull();
   });
 
-  it('should toggle a book as favorite', () => {
+  it('deve alternar um livro como favorito', () => {
     const book = { id: '1', volumeInfo: { title: 'Test Book' } };
     component.toggleFavorite(book);
     expect(bookStorageService.isFavorite(book.id)).toBeTrue();
@@ -49,7 +49,7 @@ describe('BookListComponent', () => {
     expect(bookStorageService.isFavorite(book.id)).toBeFalse();
   });
 
-  it('should save a book as favorite', () => {
+  it('deveria salvar um livro como favorito', () => {
     const book = { id: '1', volumeInfo: { title: 'Test Book', tags: 'tag1,tag2' } };
     component.saveFavorite(book);
     expect(bookStorageService.getFavorites()).toContain(jasmine.objectContaining({ id: '1' }));

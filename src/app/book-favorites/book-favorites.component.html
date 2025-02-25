@@ -54,4 +54,13 @@
     </div>
     <button (click)="updateFavorite(selectedBook)">Atualizar</button>
   </div>
+
+</div>
+
+<!-- Modal de Notificação -->
+<div *ngIf="notificationMessage" class="modal-overlay">
+<div class="modal-content">
+  <p>{{ notificationMessage }}</p>
+  <button (click)="notificationMessage = null">Fechar</button>
+</div>
 </div>

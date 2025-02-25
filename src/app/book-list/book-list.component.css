@@ -1,5 +1,5 @@
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Roboto', sans-serif;
   background-color: #f0f2f5;
   margin: 0;
   padding: 0;
@@ -225,3 +225,23 @@ body {
     opacity: 1;
   }
 }
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+

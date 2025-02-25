@@ -23,11 +23,11 @@ describe('BookFavoritesComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('deveria criar', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should display favorite books', () => {
+  it('deve exibir livros favoritos', () => {
     const book = { id: '1', volumeInfo: { title: 'Test Book' }, notes: 'Some notes', rating: 5, tags: ['tag1'] };
     bookStorageService.addFavorite(book);
     component.ngOnInit();
@@ -35,7 +35,7 @@ describe('BookFavoritesComponent', () => {
     expect(component.filteredFavorites).toContain(jasmine.objectContaining({ id: '1' }));
   });
 
-  it('should filter books by tag or title', () => {
+  it('deve filtrar livros por tag ou título', () => {
     const book1 = { id: '1', volumeInfo: { title: 'Test Book 1' }, notes: '', rating: 0, tags: ['tag1'] };
     const book2 = { id: '2', volumeInfo: { title: 'Another Book' }, notes: '', rating: 0, tags: ['tag2'] };
     bookStorageService.addFavorite(book1);
@@ -56,7 +56,7 @@ describe('BookFavoritesComponent', () => {
     expect(component.filteredFavorites).not.toContain(jasmine.objectContaining({ id: '1' }));
   });
 
-  it('should open and close the modal', () => {
+  it('deve abrir e fechar o modal', () => {
     const book = { id: '1', volumeInfo: { title: 'Test Book' }, notes: '', rating: 0, tags: ['tag1'] };
     component.openModal(book);
     expect(component.selectedBook).toEqual(book);
@@ -64,7 +64,7 @@ describe('BookFavoritesComponent', () => {
     expect(component.selectedBook).toBeNull();
   });
 
-  it('should remove a book from favorites', () => {
+  it('deveria remover um livro dos favoritos', () => {
     const book = { id: '1', volumeInfo: { title: 'Test Book' } };
     bookStorageService.addFavorite(book);
     component.ngOnInit();

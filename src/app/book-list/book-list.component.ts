@@ -14,6 +14,9 @@ export class BookListComponent {
   @Input() books: any[] = [];
   selectedBook: any = null;
 
+  notificationMessage: string | null = null;
+
+
   constructor(private bookStorage: BookStorageService) {}
 
   openModal(book: any): void {
@@ -28,6 +31,7 @@ export class BookListComponent {
   toggleFavorite(book: any): void {
     if (this.isFavorite(book)) {
       this.bookStorage.removeFavorite(book.id);
+      this.showNotification("Livro removido dos favoritos!");
     } else {
       this.openModal(book);
     }
@@ -35,12 +39,19 @@ export class BookListComponent {
 
   saveFavorite(book: any): void {
     this.bookStorage.addFavorite(book);
+    this.showNotification("Livro favoritado com sucesso!");
     this.closeModal();
   }
 
   updateFavorite(book: any): void {
     this.bookStorage.updateFavorite(book);
+    this.showNotification("Livro atualizado com sucesso!");
     this.closeModal();
+  }
+
+  showNotification(message: string): void {
+    this.notificationMessage = message;
+    setTimeout(() => this.notificationMessage = null, 4500);
   }
 
   isFavorite(book: any): boolean {
