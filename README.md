@@ -1,12 +1,19 @@
-# Explorador de Livros
+# Explorador de Livros com Angular
 
-**Explorador de Livros** é uma aplicação web que permite buscar, visualizar e explorar livros utilizando a API do Google Books. Os usuários podem buscar livros por título ou autor e visualizar informações detalhadas de cada livro.
+## Descrição
 
-## Funcionalidades Atuais
+Explorador de Livros é uma aplicação web para buscar, favoritar e organizar livros usando a Google Books API. Os usuários podem adicionar livros aos favoritos, adicionar notas pessoais, avaliações, tags e visualizar informações detalhadas sobre os livros além de poder editar as informações tanto na página INICIAL quanto na página de FAVORITOS.
 
-- **Buscar Livros**: Busque livros por título ou autor.
-- **Visualização de Livros**: Visualize uma lista de livros com capa, título e autor.
-- **Detalhes do Livro**: Clique no botão "Info" para visualizar mais detalhes sobre o livro em um modal.
+## Funcionalidades
+
+- **Busca de Livros**: Permite a busca de livros pela Google Books API.
+- **Favoritar Livros**: Adiciona livros à lista de favoritos.
+- **Filtro de Favoritos**: Filtra livros favoritos por tag ou nome.
+- **Notas Pessoais**: Adiciona notas pessoais aos livros favoritos.
+- **Avaliações**: Avalia os livros com uma nota de 1 a 5.
+- **Tags**: Adiciona tags aos livros favoritos.
+- **Informações Detalhadas**: Exibe informações detalhadas sobre os livros, incluindo links para LER, BAIXAR e COMPRAR.
+- **Interface Moderna**: Interface de usuário com efeitos visuais modernos, incluindo animações e gradientes.
 
 ## Instalação
 
@@ -43,12 +50,6 @@ Siga as instruções abaixo para configurar e rodar a aplicação localmente.
 2. Clique no botão "Buscar".
 3. Visualize a lista de livros correspondentes à sua busca.
 4. Clique no botão "Info" para visualizar mais detalhes sobre o livro em um modal.
-
-## Próximas Funcionalidades
-
-- **Menu de Navegação**: Adicionar um menu de navegação para a aplicação.
-- **Favoritos**: Adicionar um botão para marcar livros como favoritos.
-- **Tela de Favoritos**: Criar uma tela para visualizar e gerenciar livros favoritados, incluindo a opção de remover dos favoritos.
 
 ## Contribuição
 

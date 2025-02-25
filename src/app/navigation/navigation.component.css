@@ -1,3 +1,7 @@
+body {
+  padding-top: 60px; /* Adiciona um espaço no topo para evitar sobreposição */
+}
+
 .navbar {
   background: linear-gradient(45deg, #8A2BE2, #DA70D6);
   color: white;
@@ -7,6 +11,12 @@
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  z-index: 1000;
+  border-radius: 8px;
 }
 
 .navbar-container {
@@ -67,10 +77,10 @@
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 75px;
-  right: 15px;
+  top: 65px;
+  right: 1px;
   background: linear-gradient(45deg, #8A2BE2, #DA70D6);
-  border-radius: 4px;
+  border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   padding: 15px 25px;
 }
@@ -85,79 +95,3 @@
 .navbar-menu a:hover {
   color: #ffcc00;
 }
-
-
-/* .navbar {
-  font-family: 'Roboto', sans-serif;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 98%;
-  background: linear-gradient(45deg, #800080, #8A2BE2);
-  padding: 10px 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-}
-
-.navbar-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.navbar-brand {
-  color: #fff;
-  font-size: 1.3rem;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.dropdown-btn {
-  background: linear-gradient(45deg, #800080, #8A2BE2);
-  color: #fff;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  padding: 10px;
-  transition: background-color 0.3s, color 0.3s;
-  border-radius: 10px;
-}
-
-.dropdown-btn:hover {
-  background-color: #5D3FD3;
-  color: #ffcc00;
-  border-radius: 10px;
-}
-
-.navbar-menu {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  position: absolute;
-  top: 60px;
-  right: 10px;
-  background: linear-gradient(45deg, #800080, #8A2BE2);
-  padding: 10px;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.navbar-menu a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 1.2rem;
-  font-weight: bold;
-  padding: 10px 20px;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.navbar-menu a:hover {
-  background-color: #5D3FD3;
-  color: #ffcc00;
-  border-radius: 10px;
-}
-
-.navbar-menu.show {
-  display: flex;
-} */
