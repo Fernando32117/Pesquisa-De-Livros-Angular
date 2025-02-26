@@ -277,3 +277,174 @@
   border-radius: 5px;
   text-align: center;
 }
+
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+/* Reduzindo tamanho do título em telas menores */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2rem;
+  }
+}
+
+.filter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 50%;
+  margin: 0 auto 20px;
+}
+
+/* Ajuste para telas menores */
+@media (max-width: 480px) {
+  .filter {
+    width: 100%;
+    padding: 0 15px;
+  }
+}
+
+.filter label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #4B0082;
+}
+
+/* Reduzindo o tamanho da label em telas menores */
+@media (max-width: 480px) {
+  .filter label {
+    font-size: 1rem;
+  }
+}
+
+.filter input {
+  width: 80%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+/* Melhorando espaçamento e tamanho do input em telas menores */
+@media (max-width: 480px) {
+  .filter input {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+  .modal {
+    width: 100%;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content, .modal {
+    width: 95%;
+    padding: 10px;
+    border-radius: 8px;
+  }
+}
+
+.modal-content img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.modal-content h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.modal-content p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.modal-content textarea,
+.modal-content input {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+/* Redução de tamanho dos inputs e botões para telas menores */
+@media (max-width: 480px) {
+  .modal-content textarea,
+  .modal-content input {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+}
+
+.modal-content .book-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.modal-content button {
+  height: 50px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(45deg, #800080, #8A2BE2);
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+  align-itens: center;
+}
+
+.modal-content button:hover {
+  transform: scale(1.05);
+}
+
+/* Responsividade para modal de notificação */
+.modal-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal-overlay .modal-content {
+  width: 300px;
+  text-align: center;
+}
+
+/* Ícone de fechar */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .close {
+    font-size: 1.2rem;
+    top: 5px;
+    right: 10px;
+  }
+}

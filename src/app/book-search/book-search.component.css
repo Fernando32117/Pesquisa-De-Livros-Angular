@@ -13,6 +13,14 @@ body {
   margin-top: 200px;
 }
 
+/* Responsivo para telas menores */
+@media (max-width: 768px) {
+  .container {
+    margin-top: 100px;
+    padding: 15px;
+  }
+}
+
 .question {
   font-size: 3rem;
   font-weight: bold;
@@ -23,6 +31,14 @@ body {
   background: linear-gradient(45deg, #8A2BE2, #800050);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* Ajuste do tamanho do título para telas menores */
+@media (max-width: 480px) {
+  .question {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
 }
 
 @keyframes fadeIn {
@@ -36,7 +52,6 @@ body {
   }
 }
 
-
 .search-bar {  
   display: flex;  
   width: 50%;  
@@ -45,7 +60,21 @@ body {
   overflow: hidden; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   background-color: white; 
-}  
+}
+
+/* Reduzindo a largura da barra de pesquisa em telas menores */
+@media (max-width: 768px) {
+  .search-bar {
+    width: 80%;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-bar {
+    width: 100%;
+    flex-direction: column;
+  }
+}
 
 .search-bar input {  
   flex: 1;  
@@ -74,7 +103,15 @@ body {
   font-size: 20px;  
   cursor: pointer;  
   transition: background-color 0.3s;
-}  
+}
+
+/* Ajustando o botão em telas menores */
+@media (max-width: 480px) {
+  .search-bar button {
+    width: 100%;
+    border-radius: 0 0 8px 8px;
+  }
+}
 
 .search-bar button:hover {  
   background: linear-gradient(45deg, #800050, #8A2BE2); 
