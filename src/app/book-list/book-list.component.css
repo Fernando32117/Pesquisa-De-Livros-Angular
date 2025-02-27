@@ -24,6 +24,7 @@ body {
   background-color: white;
   width: 220px;
   transition: transform 0.3s, box-shadow 0.3s;
+  align-items: center;
 }
 
 .book-card:hover {

@@ -406,7 +406,6 @@ h1 {
   font-size: 1rem;
   cursor: pointer;
   transition: 0.3s;
-  align-itens: center;
 }
 
 .modal-content button:hover {

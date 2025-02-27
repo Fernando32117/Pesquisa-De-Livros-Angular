@@ -6,7 +6,10 @@
   </div>  
   <div class="favorites-list" *ngIf="filteredFavorites.length > 0; else noFavorites">
     <div class="favorite-card" *ngFor="let book of filteredFavorites">
-      <img [src]="book.volumeInfo.imageLinks?.thumbnail" alt="Capa do Livro">
+      <img *ngIf="book.volumeInfo.imageLinks?.thumbnail; else noImage" [src]="book.volumeInfo.imageLinks?.thumbnail" alt="Capa do Livro">
+    <ng-template #noImage>
+      <img src="../../assets/notimg.jpg" alt="Imagem não disponível">
+    </ng-template>
       <h2>{{ book.volumeInfo.title }}</h2>
       <p>{{ book.volumeInfo.authors?.join(', ') }}</p>
       <div class="favorite-card-buttons">
@@ -23,7 +26,12 @@
 <div class="modal" *ngIf="selectedBook">
   <div class="modal-content">
     <span class="close" (click)="closeModal()">&times;</span>
-    <img [src]="selectedBook.volumeInfo.imageLinks?.thumbnail" alt="Capa do Livro">
+    <!-- Verifica se a capa do livro está disponível -->
+    <img *ngIf="selectedBook.volumeInfo.imageLinks?.thumbnail; else noImage" [src]="selectedBook.volumeInfo.imageLinks?.thumbnail" alt="Capa do Livro">
+    <!-- Imagem padrão quando a capa do livro não está disponível -->
+    <ng-template #noImage>
+      <img src="../../assets/notimg.jpg" alt="Imagem não disponível">
+    </ng-template>
     <h2>{{ selectedBook.volumeInfo.title }}</h2>
     <p><strong>Autor(es):</strong> {{ selectedBook.volumeInfo.authors?.join(', ') }}</p>
     <p><strong>Descrição:</strong> {{ selectedBook.volumeInfo.description }}</p>
