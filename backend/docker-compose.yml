@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 2104
+      POSTGRES_DB: pesquisalivros
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: ..
+    container_name: node_backend
+    restart: always
+    depends_on:
+      - db
+    environment:
+      - DB_NAME=pesquisalivros
+      - DB_USER=postgres
+      - DB_PASS=2104
+      - DB_HOST=db
+    ports:
+      - "3000:3000"
+
+volumes:
+  postgres_data:
