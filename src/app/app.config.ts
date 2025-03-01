@@ -1,6 +1,10 @@
 import { provideHttpClient } from '@angular/common/http';
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideHttpClient()]
+  providers: [
+    provideHttpClient(),
+    importProvidersFrom(FormsModule) // ✅ Adiciona suporte para [(ngModel)]
+  ]
 };

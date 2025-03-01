@@ -1,11 +1,23 @@
 <nav class="navbar">
   <div class="navbar-container">
-    <a class="navbar-brand" href="/">Explorador de Livros</a>
+    <a class="navbar-brand" routerLink="/" href="book-search"
+      >Explorador de Livros</a
+    >
+    
     <button class="dropdown-btn" (click)="toggleDropdown()">☰</button>
     <div class="navbar-menu" [class.show]="dropdownOpen">
-      <a href="/">Início</a>
-      <a href="/favorites">Favoritos</a>
-      <a href="/about">Sobre</a>
+      <!-- Exibe o nome do usuário se estiver logado -->
+      <span *ngIf="isAuthenticated()">Olá, {{ username }} !</span>
+      <a (click)="goBook()" href="book-search">Início</a>
+      <a *ngIf="isAuthenticated()" (click)="goFavorite()" href="favorites"
+        >Favoritos</a
+      >
+      <a href="about">Sobre</a>
+      <!-- Se o usuário NÃO estiver autenticado, mostrar "Login" -->
+      <a *ngIf="!isAuthenticated()" routerLink="/login" href="login">Login</a>
+
+      <!-- Se o usuário estiver autenticado, mostrar "Sair" -->
+      <a *ngIf="isAuthenticated()" (click)="logout()" href="book-search">Sair</a>
     </div>
   </div>
 </nav>

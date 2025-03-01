@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';  
 import { GoogleBooksService } from '../google-books.service';  
 import { BookListComponent } from '../book-list/book-list.component';  
+import { AuthService } from '../auth.service';
 
 @Component({
     selector: 'app-book-search',
@@ -13,9 +14,11 @@ import { BookListComponent } from '../book-list/book-list.component';
 export class BookSearchComponent {  
   query: string = '';  
   books: any[] = [];  
+  isLoggedIn: boolean = false;
 
-  constructor(private booksService: GoogleBooksService) {   
+  constructor(private booksService: GoogleBooksService, private authService: AuthService) {   
     console.log('BookSearchComponent construtor chamado');  
+    this.isLoggedIn = this.authService.isAuthenticated(); // Verifica se o usuário está logado
   }  
 
   searchBooks(): void {  
@@ -25,5 +28,9 @@ export class BookSearchComponent {
     }, error => {  
       console.error('Erro ao buscar livros:', error);  
     });  
-  }  
+  } 
+  
+  canFavorite(): boolean {
+    return this.authService.isAuthenticated();
+  }
 }

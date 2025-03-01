@@ -1,11 +1,14 @@
 <div class="container">
-  <p class="question">O que você quer ler hoje ?</p>
+  <p class="question">O que você quer ler hoje?</p>
   <div class="search-bar">
-    <input [(ngModel)]="query" placeholder="Digite o título ou autor do livro" />
+    <input [(ngModel)]="query" 
+           placeholder="Digite o título ou autor do livro"
+           (keyup.enter)="searchBooks()" />
     <button (click)="searchBooks()">Buscar</button>
   </div>
   <div *ngIf="books.length > 0">
     <app-book-list [books]="books"></app-book-list>
   </div>
 </div>
+
 

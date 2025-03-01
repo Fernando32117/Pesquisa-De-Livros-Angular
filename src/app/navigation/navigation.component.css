@@ -26,6 +26,13 @@ body {
   width: 100%;
 }
 
+.username-display {
+  font-weight: bold;
+  color: white;
+  margin-right: 10px;
+}
+
+
 @keyframes pulse {
   0% {
     transform: scale(1);
