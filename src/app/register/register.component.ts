@@ -20,7 +20,6 @@ export class RegisterComponent {
 
   constructor(private router: Router) {}
 
-
   register(): void {
     if (!this.username || !this.email || !this.password || !this.confirmPassword) {
       this.errorMessage = 'Todos os campos são obrigatórios!';
@@ -33,16 +32,27 @@ export class RegisterComponent {
     }
   
     let users = JSON.parse(localStorage.getItem('users') || '[]');
+  
     if (users.some((user: any) => user.email === this.email || user.username === this.username)) {
       this.errorMessage = 'Usuário ou e-mail já cadastrados!';
       return;
     }
   
-    users.push({ username: this.username, email: this.email, password: this.password });
+    // Formatando o nome: todas as palavras começam com maiúscula
+    const formattedName = this.username
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+  
+    // Pegando apenas o primeiro nome
+    const firstName = formattedName.split(' ')[0];
+  
+    users.push({ username: firstName, email: this.email, password: this.password });
     localStorage.setItem('users', JSON.stringify(users));
   
     this.showSuccessModal = true;
   }
+
   
   closeModal(): void {
     this.showSuccessModal = false;

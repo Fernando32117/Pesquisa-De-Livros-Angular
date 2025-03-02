@@ -42,8 +42,15 @@ export class NavigationComponent {
 
   private loadUsername() {
     if (typeof localStorage !== 'undefined') {
-      this.username = localStorage.getItem('loggedInUsername');
+      const fullName = localStorage.getItem('loggedInUsername');
+      if (fullName) {
+        const firstName = fullName.split(' ')[0]; // Pegando o primeiro nome
+        this.username = firstName.charAt(0).toUpperCase() + firstName.slice(1).toLowerCase(); // Formatando com a primeira letra maiúscula
+      } else {
+        this.username = null;
+      }
     }
-  }
+  }  
+  
   
 }

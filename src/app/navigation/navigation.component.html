@@ -7,7 +7,7 @@
     <button class="dropdown-btn" (click)="toggleDropdown()">☰</button>
     <div class="navbar-menu" [class.show]="dropdownOpen">
       <!-- Exibe o nome do usuário se estiver logado -->
-      <span *ngIf="isAuthenticated()">Olá, {{ username }} !</span>
+      <span *ngIf="isAuthenticated()"> 👩‍💻 Olá, {{ username }} ! 👨‍💻</span>
       <a (click)="goBook()" href="book-search">Início</a>
       <a *ngIf="isAuthenticated()" (click)="goFavorite()" href="favorites"
         >Favoritos</a
