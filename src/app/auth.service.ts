@@ -5,12 +5,19 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private usernameSubject = new BehaviorSubject<string | null>(this.loadStoredUsername());
+  private usernameSubject = new BehaviorSubject<string | null>(null);
   public username$ = this.usernameSubject.asObservable();
 
   public isLoggedIn = false;
 
-  constructor() {}
+  constructor() {
+    if (typeof window !== 'undefined') {
+      setTimeout(() => {
+        const storedUsername = this.loadStoredUsername();
+        this.usernameSubject.next(storedUsername);
+      }, 0);
+    }
+  }
 
   private loadStoredUsername(): string | null {
     if (typeof window !== 'undefined' && localStorage.getItem('loggedInUsername')) {
