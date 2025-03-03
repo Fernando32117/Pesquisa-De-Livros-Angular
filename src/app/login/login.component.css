@@ -1,9 +1,9 @@
 /* Estilização do container do login */
 .login-container {
   background: white;
-  width: 350px;
+  width: 400px;
   padding: 20px;
-  margin: 100px auto;
+  margin: 10rem auto;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
@@ -93,4 +93,11 @@
   50% { transform: translateX(5px); }
   75% { transform: translateX(-5px); }
   100% { transform: translateX(0); }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    width: 85%;
+    padding: 15px;
+  }
 }

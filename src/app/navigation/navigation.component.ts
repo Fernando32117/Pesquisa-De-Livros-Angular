@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navigation',
@@ -10,12 +11,23 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./navigation.component.css'],
   imports: [CommonModule]
 })
-export class NavigationComponent {
+export class NavigationComponent implements OnInit, OnDestroy {
   dropdownOpen = false;
-  username: string | null = null; // Armazena o nome do usuário logado
+  username: string | null = null;
+  private usernameSubscription!: Subscription; // Para limpar a inscrição ao destruir o componente
 
-  constructor(private authService: AuthService, private router: Router) {
-    this.loadUsername(); // Carrega o nome do usuário ao iniciar o componente
+  constructor(private authService: AuthService, private router: Router) {}
+
+  ngOnInit() {
+    this.usernameSubscription = this.authService.username$.subscribe((name) => {
+      this.username = name ? this.formatName(name) : null;
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.usernameSubscription) {
+      this.usernameSubscription.unsubscribe();
+    }
   }
 
   toggleDropdown() {
@@ -28,8 +40,7 @@ export class NavigationComponent {
 
   logout() {
     this.authService.logout();
-    this.username = null; // Limpa o nome do usuário ao deslogar
-    this.router.navigate(['/login']); // Redireciona após logout
+    this.router.navigate(['/login']);
   }
 
   goBook() {
@@ -40,17 +51,8 @@ export class NavigationComponent {
     this.router.navigate(['/favorites']);
   }
 
-  private loadUsername() {
-    if (typeof localStorage !== 'undefined') {
-      const fullName = localStorage.getItem('loggedInUsername');
-      if (fullName) {
-        const firstName = fullName.split(' ')[0]; // Pegando o primeiro nome
-        this.username = firstName.charAt(0).toUpperCase() + firstName.slice(1).toLowerCase(); // Formatando com a primeira letra maiúscula
-      } else {
-        this.username = null;
-      }
-    }
-  }  
-  
-  
+  private formatName(name: string): string {
+    const firstName = name.split(' ')[0];
+    return firstName.charAt(0).toUpperCase() + firstName.slice(1).toLowerCase();
+  }
 }

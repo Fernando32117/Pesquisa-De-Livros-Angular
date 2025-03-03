@@ -1,9 +1,9 @@
 /* Estilização do container */
 .register-container {
     background: white;
-    width: 350px;
+    width: 400px;
     padding: 20px;
-    margin: 100px auto;
+    margin: 10rem auto;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
@@ -143,3 +143,9 @@
     100% { transform: translateX(0); }
   }
   
+  @media (max-width: 480px) {
+    .register-container {
+      width: 85%;
+      padding: 15px;
+    }
+  }

@@ -1,9 +1,11 @@
 <nav class="navbar">
+  
   <div class="navbar-container">
-    <a class="navbar-brand" routerLink="/" href="book-search"
-      >Explorador de Livros</a
-    >
-    
+    <a class="navbar-brand" routerLink="/" href="book-search">
+      <span class="brand-top">Explorador</span>
+      <span class="brand-bottom">de Livros</span>
+    </a>
+  
     <button class="dropdown-btn" (click)="toggleDropdown()">☰</button>
     <div class="navbar-menu" [class.show]="dropdownOpen">
       <!-- Exibe o nome do usuário se estiver logado -->

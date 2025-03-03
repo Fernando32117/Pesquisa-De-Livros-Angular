@@ -1,54 +1,65 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private usernameSubject = new BehaviorSubject<string | null>(this.loadStoredUsername());
+  public username$ = this.usernameSubject.asObservable();
+
   public isLoggedIn = false;
 
-  // Registrar um novo usuário
-  registerUser(username: string, email: string, password: string): boolean {
-    if (typeof window !== 'undefined') {
-      let users = JSON.parse(localStorage.getItem('users') || '[]');
+  constructor() {}
 
-      // Verifica se o usuário ou e-mail já existem
-      if (users.some((user: any) => user.email === email || user.username === username)) {
-        return false; // Usuário já existe
-      }
-
-      users.push({ username, email, password });
-      localStorage.setItem('users', JSON.stringify(users));
-      return true; // Registro bem-sucedido
+  private loadStoredUsername(): string | null {
+    if (typeof window !== 'undefined' && localStorage.getItem('loggedInUsername')) {
+      return localStorage.getItem('loggedInUsername');
     }
-    return false;
+    return null;
   }
 
-  // Login do usuário
+  registerUser(username: string, email: string, password: string): boolean {
+    if (typeof window === 'undefined') return false;
+
+    let users = JSON.parse(localStorage.getItem('users') || '[]');
+
+    if (users.some((user: any) => user.email === email || user.username === username)) {
+      return false;
+    }
+
+    users.push({ username, email, password });
+    localStorage.setItem('users', JSON.stringify(users));
+    return true;
+  }
+
   login(email: string, password: string): boolean {
+    if (typeof window === 'undefined') return false;
+
     let users = JSON.parse(localStorage.getItem('users') || '[]');
     const user = users.find((u: any) => u.email === email && u.password === password);
 
     if (user) {
       localStorage.setItem('token', 'fake-jwt-token');
-      localStorage.setItem('loggedInUser', email); // Salva usuário logado
-      localStorage.setItem('loggedInUsername', user.username); // Salva nome do usuário logado
+      localStorage.setItem('loggedInUser', email);
+      localStorage.setItem('loggedInUsername', user.username);
+
+      this.usernameSubject.next(user.username);
       this.isLoggedIn = true;
       return true;
     }
     return false;
   }
 
-  getUser(): any {
-    if (typeof window !== 'undefined') {
-      return JSON.parse(localStorage.getItem('currentUser') || '{}');
-    }
-    return null;
-  }
-
   logout(): void {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('token');
+      localStorage.removeItem('loggedInUser');
+      localStorage.removeItem('loggedInUsername');
+    }
+
+    this.usernameSubject.next(null);
     this.isLoggedIn = false;
-    localStorage.removeItem('token');
-    localStorage.removeItem('loggedInUser');
   }
 
   isAuthenticated(): boolean {
