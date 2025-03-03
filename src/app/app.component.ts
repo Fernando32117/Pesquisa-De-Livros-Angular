@@ -1,20 +1,17 @@
-
 import { RouterModule } from '@angular/router';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavigationComponent } from './navigation/navigation.component';
+import { AuthService } from './auth.service';
 
 @Component({
-    selector: 'app-root',
-    template: `
+  selector: 'app-root',
+  template: `
     <app-navigation></app-navigation>
     <router-outlet></router-outlet>
   `,
-    imports: [CommonModule, NavigationComponent, RouterModule]
+  imports: [CommonModule, NavigationComponent, RouterModule]
 })
 export class AppComponent {
-  title(_title: any) {
-    throw new Error('Method not implemented.');
-  }
+  constructor(public authService: AuthService) {}
 }
-

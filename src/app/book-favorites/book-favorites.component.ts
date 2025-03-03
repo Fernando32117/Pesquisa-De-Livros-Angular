@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BookStorageService } from '../book-storage.service';
@@ -10,24 +10,25 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./book-favorites.component.css'],
     imports: [CommonModule, FormsModule]
 })
-export class BookFavoritesComponent implements OnInit {
+export class BookFavoritesComponent implements OnInit, OnDestroy {
   favorites: any[] = [];
   filteredFavorites: any[] = [];
   selectedBook: any = null;
   filter: string = '';
-  private subscription: Subscription;
+  private subscription: Subscription | null = null; // ✅ Inicializada como null
 
   notificationMessage: string | null = null;
 
-  ngOnInit(): void {
-    this.applyFilter();
-  }
+  constructor(private bookStorage: BookStorageService) {}
 
-  constructor(private bookStorage: BookStorageService) {
+  ngOnInit(): void {
     this.subscription = this.bookStorage.favorites$.subscribe((favorites) => {
-      this.favorites = favorites;
+      this.favorites = this.bookStorage.getFavorites(); // Obtém os favoritos do usuário logado
       this.applyFilter();
     });
+
+    this.favorites = this.bookStorage.getFavorites();
+    this.applyFilter();
   }
 
   removeFavorite(bookId: string): void {
@@ -36,9 +37,7 @@ export class BookFavoritesComponent implements OnInit {
   }
 
   openModal(book: any): void {
-    const favorite = this.bookStorage
-      .getFavorites()
-      .find((fav) => fav.id === book.id);
+    const favorite = this.favorites.find((fav) => fav.id === book.id);
     this.selectedBook = favorite
       ? { ...book, ...favorite }
       : { ...book, notes: '', rating: 0, tags: [] };
@@ -66,7 +65,7 @@ export class BookFavoritesComponent implements OnInit {
           book.volumeInfo.title.toLowerCase().includes(filter)
       );
     } else {
-      this.filteredFavorites = this.favorites;
+      this.filteredFavorites = [...this.favorites];
     }
   }
 
@@ -76,7 +75,8 @@ export class BookFavoritesComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe(); // ✅ Verifica antes de chamar unsubscribe()
+    }
   }
 }
-

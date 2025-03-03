@@ -1,7 +1,7 @@
 <div class="favorites-container">
   <h1>Favoritos</h1>
   <div class="filter">
-    <label for="filter">Filtrar por Tag ou Nome:</label>
+    <label for="filter">Filtrar:</label>
     <input type="text" id="filter" [(ngModel)]="filter" (input)="applyFilter()" placeholder="Digite uma tag ou nome">
   </div>  
   <div class="favorites-list" *ngIf="filteredFavorites.length > 0; else noFavorites">

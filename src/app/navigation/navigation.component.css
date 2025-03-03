@@ -5,7 +5,7 @@ body {
 .navbar {
   background: linear-gradient(45deg, #8A2BE2, #DA70D6);
   color: white;
-  padding: 10px 20px;
+  padding: 1rem 3rem;
   font-family: 'Roboto', sans-serif;
   display: flex;
   justify-content: space-between;
@@ -26,6 +26,37 @@ body {
   width: 100%;
 }
 
+.username-display {
+  font-weight: bold;
+  color: white;
+  margin-right: 10px;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+  transition: transform 0.3s;
+  animation: pulse 2s infinite;
+  display: flex;
+  flex-direction: column; /* Faz o texto ficar um em cima do outro */
+  text-align: center; /* Centraliza o texto */
+  line-height: 1.2;
+}
+
+.brand-top {
+  font-size: 1.8rem; /* Ajuste o tamanho conforme necessário */
+  font-weight: bold;
+}
+
+.brand-bottom {
+  font-size: 1.3rem;
+  font-weight: normal;
+  color: #ffcc00;
+}
+
+
 @keyframes pulse {
   0% {
     transform: scale(1);
@@ -38,14 +69,6 @@ body {
   }
 }
 
-.navbar-brand {
-  font-size: 1.5rem;
-  font-weight: bold;
-  text-decoration: none;
-  color: white;
-  transition: transform 0.3s;
-  animation: pulse 2s infinite;
-}
 
 .navbar-brand:hover {
   transform: scale(1.1);
@@ -55,18 +78,18 @@ body {
 .dropdown-btn {
     background: none;
     border: none;
-    font-size: 1.8rem;
+    font-size: 2.5rem;
     color: white;
     cursor: pointer;
     margin-left: auto;
-    margin-right: 20px
+    margin-right: 10px
 }
 
 .navbar-menu {
   display: none;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
   position: absolute;
   top: 60px;
   right: 10px;
@@ -77,12 +100,16 @@ body {
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 65px;
-  right: 1px;
+  top: 100px;
+  right: 15px;
   background: linear-gradient(45deg, #8A2BE2, #DA70D6);
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  padding: 15px 25px;
+  padding: 1.1rem 2.5rem;
+}
+
+.dropdown-btn:hover {
+  color: #ffcc00;
 }
 
 .navbar-menu a {
