@@ -2,16 +2,18 @@
 
 ## Descrição
 
-Explorador de Livros é uma aplicação web para buscar, favoritar e organizar livros usando a Google Books API. Os usuários podem adicionar livros aos favoritos, adicionar notas pessoais, avaliações, tags e visualizar informações detalhadas sobre os livros além de poder editar as informações tanto na página INICIAL quanto na página de FAVORITOS.
+Explorador de Livros é uma aplicação web para buscar, favoritar e organizar livros usando a Google Books API. Agora, os usuários podem criar contas, fazer login e gerenciar seus favoritos de forma personalizada.
 
 ## Funcionalidades
 
+- **Autenticação de Usuário**: Cadastro e login seguro com senha criptografada.
 - **Busca de Livros**: Permite a busca de livros pela Google Books API.
-- **Favoritar Livros**: Adiciona livros à lista de favoritos.
+- **Favoritar Livros**: Adiciona livros à lista de favoritos (apenas para usuários autenticados).
 - **Filtro de Favoritos**: Filtra livros favoritos por tag ou nome.
 - **Notas Pessoais**: Adiciona notas pessoais aos livros favoritos.
 - **Avaliações**: Avalia os livros com uma nota de 1 a 5.
 - **Tags**: Adiciona tags aos livros favoritos.
+- **Edição de Informações**: Usuários podem editar detalhes dos livros tanto na página INICIAL quanto na página de FAVORITOS.
 - **Informações Detalhadas**: Exibe informações detalhadas sobre os livros, incluindo links para LER, BAIXAR PDF e COMPRAR.
 - **Interface Moderna**: Interface de usuário com efeitos visuais modernos, incluindo animações e gradientes.
 
@@ -19,12 +21,11 @@ Explorador de Livros é uma aplicação web para buscar, favoritar e organizar l
 
 Siga as instruções abaixo para configurar e rodar a aplicação localmente.
 
-### Pré-requisitos
+### Backend (Node.js + PostgreSQL)
 
-- Node.js e npm (Você pode baixar e instalar em [nodejs.org](https://nodejs.org/))
-- Angular CLI
-
-### Passos para Instalar
+#### Requisitos:
+- Docker e Docker Compose
+- Node.js e npm
 
 1. Clone este repositório:
     ```bash
@@ -32,21 +33,40 @@ Siga as instruções abaixo para configurar e rodar a aplicação localmente.
     cd Pesquisa-De-Livros
     ```
 
-2. Instale as dependências do projeto:
+2. Instale as dependências do backend:
     ```bash
+    cd backend
     npm install
     ```
 
-3. Rode a aplicação:
+3. Suba os containers do banco de dados e backend:
+    ```bash
+    docker-compose up -d --build
+    ```
+
+O backend rodará na porta `3000`.
+
+### Frontend (Angular)
+
+#### Requisitos:
+- Angular CLI
+
+1. Volte para a pasta raiz do projeto e instale as dependências:
+    ```bash
+    cd frontend
+    npm install
+    ```
+
+2. Rode a aplicação:
     ```bash
     ng serve
     ```
 
-4. Abra o navegador e navegue até `http://localhost:4200` para visualizar a aplicação.
+3. Abra o navegador e acesse `http://localhost:4200`.
 
 ## Testes Unitários
 
-Para garantir a qualidade e robustez do código, implementei testes unitários usando Jasmine e Karma.
+Para garantir a qualidade e robustez do código, foram implementados testes unitários usando Jasmine e Karma.
 
 ### Executando os Testes
 
@@ -64,22 +84,27 @@ Os testes unitários cobrem as seguintes funcionalidades:
 - **BookStorageService**: Adicionar, remover, atualizar e verificar favoritos.
 - **BookListComponent**: Exibição e interação dos livros, abertura e fechamento do modal, e funcionalidade de favoritar.
 - **BookFavoritesComponent**: Exibição de favoritos, filtro de livros por tag ou nome, e interação com o modal.
+- **Autenticação**: Testes para login e cadastro de usuários.
 
 ## Tecnologias Utilizadas
 
 - **Angular**: Framework para desenvolvimento da aplicação web.
-- **TypeScript**: Linguagem de programação utilizada no desenvolvimento.
+- **Node.js + Express**: Backend responsável pela autenticação e gerenciamento de favoritos.
+- **PostgreSQL**: Banco de dados para armazenar usuários e favoritos.
+- **Sequelize**: ORM para interação com o banco de dados PostgreSQL.
 - **Google Books API**: API utilizada para buscar informações sobre os livros.
-- **Jasmine**: Framework de testes unitários para JavaScript.
-- **Karma**: Ferramenta de execução de testes unitários.
+- **Bcrypt.js**: Utilizado para criptografar senhas de usuários.
+- **Jasmine e Karma**: Frameworks de testes unitários.
 - **HTML5 e CSS3**: Tecnologias padrão para estruturação e estilização da aplicação.
 
 ## Uso
 
-1. Digite o título ou autor do livro na barra de busca.
-2. Clique no botão "Buscar".
-3. Visualize a lista de livros correspondentes à sua busca.
-4. Clique no botão "Info" para visualizar mais detalhes sobre o livro em um modal.
+1. **Criar Conta**: Clique em "Registrar", preencha os dados e cadastre-se.
+2. **Login**: Use seu e-mail e senha para acessar a aplicação.
+3. **Buscar Livros**: Digite o título ou autor na barra de busca.
+4. **Visualizar Detalhes**: Clique no botão "Info" para ver mais detalhes.
+5. **Favoritar**: Clique no botão de favoritar para salvar o livro (somente disponível para usuários logados).
+6. **Gerenciar Favoritos**: Edite notas, tags e avaliações dos seus livros favoritos.
 
 ## Contribuição
 
@@ -92,3 +117,4 @@ Este projeto está licenciado sob a licença MIT. Consulte o arquivo LICENSE par
 ---
 
 Feito com ❤️ por [Fernando Souza](https://www.linkedin.com/in/gerfernandosouza/)
+
