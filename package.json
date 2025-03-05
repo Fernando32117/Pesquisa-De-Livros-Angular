@@ -1,6 +1,7 @@
 {
   "name": "pesquisa-de-livros",
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -24,15 +25,13 @@
     "@angular/ssr": "^19.1.8",
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@netlify/angular-runtime": "^2.2.2",
-<<<<<<< HEAD
+    "argon2": "^0.41.1",
+    "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "pg": "^8.13.3",
-=======
-    "express": "^4.18.2",
     "firebase": "^11.4.0",
->>>>>>> main
+    "pg": "^8.13.3",
     "rxjs": "~7.8.0",
     "sequelize": "^6.37.5",
     "sequelize-cli": "^6.6.2",
