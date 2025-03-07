@@ -53,21 +53,22 @@ export class BookFavoritesComponent implements OnInit, OnDestroy {
     this.closeModal();
   }
 
-  applyFilter(): void {
-    if (this.filter) {
-      const filter = this.filter.toLowerCase();
-      this.filteredFavorites = this.favorites.filter(
-        (book) =>
-          (Array.isArray(book.tags) &&
-            book.tags.some((tag: string) =>
-              tag.toLowerCase().includes(filter)
-            )) ||
-          book.volumeInfo.title.toLowerCase().includes(filter)
-      );
-    } else {
-      this.filteredFavorites = [...this.favorites];
-    }
-  }
+  applyFilter(): void {  
+    if (this.filter) {  
+      const filter = this.filter.toLowerCase();  
+      this.filteredFavorites = this.favorites.filter((book) => {  
+        // Verifica se as tags são uma string e transforma em array  
+        const tagsArray = Array.isArray(book.tags) ? book.tags : book.tags.split(',').map((tag: string) => tag.trim());  
+        return (  
+          (Array.isArray(tagsArray) &&  
+            tagsArray.some((tag: string) => tag.toLowerCase().includes(filter))) ||  
+          book.volumeInfo.title.toLowerCase().includes(filter)  
+        );  
+      });  
+    } else {  
+      this.filteredFavorites = [...this.favorites];  
+    }  
+  }  
 
   showNotification(message: string): void {
     this.notificationMessage = message;
