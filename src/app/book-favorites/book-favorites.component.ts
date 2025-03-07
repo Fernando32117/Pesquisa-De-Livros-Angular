@@ -55,20 +55,27 @@ export class BookFavoritesComponent implements OnInit, OnDestroy {
 
   applyFilter(): void {  
     if (this.filter) {  
-      const filter = this.filter.toLowerCase();  
+      const filter = this.normalizeString(this.filter.toLowerCase());  
       this.filteredFavorites = this.favorites.filter((book) => {  
         // Verifica se as tags são uma string e transforma em array  
         const tagsArray = Array.isArray(book.tags) ? book.tags : book.tags.split(',').map((tag: string) => tag.trim());  
+  
+        // Normaliza as tags  
+        const normalizedTags = tagsArray.map((tag: string) => this.normalizeString(tag.toLowerCase()));  
+  
         return (  
-          (Array.isArray(tagsArray) &&  
-            tagsArray.some((tag: string) => tag.toLowerCase().includes(filter))) ||  
-          book.volumeInfo.title.toLowerCase().includes(filter)  
+          normalizedTags.some((tag: string) => tag.includes(filter)) ||  
+          this.normalizeString(book.volumeInfo.title.toLowerCase()).includes(filter)  
         );  
       });  
     } else {  
       this.filteredFavorites = [...this.favorites];  
     }  
   }  
+  // Função para normalizar strings, removendo acentos  
+  private normalizeString(input: string): string {  
+    return input.normalize('NFD').replace(/[\u0300-\u036f]/g, "");  
+  }    
 
   showNotification(message: string): void {
     this.notificationMessage = message;
