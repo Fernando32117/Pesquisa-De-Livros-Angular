@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';  
 import { CommonModule } from '@angular/common';  
 import { FormsModule } from '@angular/forms';  
-import { GoogleBooksService } from '../google-books.service';  
+import { GoogleBooksService } from '../services/google-books.service';  
 import { BookListComponent } from '../book-list/book-list.component';  
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
     selector: 'app-book-search',

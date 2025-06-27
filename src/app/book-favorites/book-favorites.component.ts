@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { BookStorageService } from '../book-storage.service';
+import { BookStorageService } from '../services/book-storage.service';
 import { Subscription } from 'rxjs';
 
 @Component({

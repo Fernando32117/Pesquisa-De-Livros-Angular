@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { BookFavoritesComponent } from './book-favorites.component';
-import { BookStorageService } from '../book-storage.service';
+import { BookStorageService } from '../services/book-storage.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('BookFavoritesComponent', () => {

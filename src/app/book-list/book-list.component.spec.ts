@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { BookListComponent } from './book-list.component';
-import { BookStorageService } from '../book-storage.service';
+import { BookStorageService } from '../services/book-storage.service';
 
 describe('BookListComponent', () => {
   let component: BookListComponent;

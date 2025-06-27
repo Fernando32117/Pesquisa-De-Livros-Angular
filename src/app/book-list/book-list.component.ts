@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { BookStorageService } from '../book-storage.service';
-import { AuthService } from '../auth.service'; // Importa o AuthService
+import { BookStorageService } from '../services/book-storage.service';
+import { AuthService } from '../services/auth.service'; // Importa o AuthService
 import { Router } from '@angular/router';
 
 @Component({
