@@ -1,0 +1,25 @@
+<div class="container">
+  <p class="question">O que voce quer ler hoje?</p>
+
+  <div class="search-bar">
+    <input
+      [(ngModel)]="query"
+      placeholder="Digite o titulo ou autor do livro"
+      (keyup.enter)="searchBooks()"
+    />
+    <button (click)="searchBooks()">Buscar</button>
+  </div>
+
+  <p *ngIf="isLoading" class="status-message">Buscando livros...</p>
+  <p *ngIf="errorMessage" class="status-message error">{{ errorMessage }}</p>
+  <p
+    *ngIf="hasSearched && !isLoading && !errorMessage && books.length === 0"
+    class="status-message"
+  >
+    Nenhum livro encontrado para essa busca.
+  </p>
+
+  <div *ngIf="books.length > 0">
+    <app-book-list [books]="books"></app-book-list>
+  </div>
+</div>

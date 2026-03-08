@@ -1,63 +1,61 @@
-<!-- Lista de Livros -->
 <div class="book-list">
   <div class="book-card" *ngFor="let book of books">
-    <!-- <img [src]="book.volumeInfo.imageLinks?.thumbnail" alt="Capa do Livro"> -->
     <img
-      *ngIf="book.volumeInfo.imageLinks?.thumbnail; else noImage"
-      [src]="book.volumeInfo.imageLinks?.thumbnail"
+      *ngIf="book.thumbnail; else noImage"
+      [src]="book.thumbnail"
       alt="Capa do Livro"
     />
     <ng-template #noImage>
-      <img src="../../assets/notimg.jpg" alt="Imagem não disponível" />
+      <img src="/assets/notimg.jpg" alt="Imagem nao disponivel" />
     </ng-template>
-    <h2>{{ book.volumeInfo.title }}</h2>
-    <p>{{ book.volumeInfo.authors?.join(", ") }}</p>
+
+    <h2>{{ book.title }}</h2>
+    <p>{{ book.authors.join(", ") }}</p>
 
     <div class="book-card-buttons">
       <button (click)="openModal(book)">Info</button>
       <button (click)="toggleFavorite(book)">
-        <span *ngIf="isFavorite(book)">❤️</span>
-        <span *ngIf="!isFavorite(book)">🤍</span>
+        <span *ngIf="isFavorite(book)">&#10084;</span>
+        <span *ngIf="!isFavorite(book)">&#129321;</span>
         Favoritar
       </button>
     </div>
-    
   </div>
 
-  <!-- Modal de Informações do Livro -->
   <div class="modal" *ngIf="selectedBook">
     <div class="modal-content">
       <span class="close" (click)="closeModal()">&times;</span>
-      <!-- Verifica se a capa do livro está disponível -->
+
       <img
-        *ngIf="selectedBook.volumeInfo.imageLinks?.thumbnail; else noImage"
-        [src]="selectedBook.volumeInfo.imageLinks?.thumbnail"
+        *ngIf="selectedBook.thumbnail; else noImage"
+        [src]="selectedBook.thumbnail"
         alt="Capa do Livro"
       />
-      <!-- Imagem padrão quando a capa do livro não está disponível -->
       <ng-template #noImage>
-        <img src="../../assets/notimg.jpg" alt="Imagem não disponível" />
+        <img src="/assets/notimg.jpg" alt="Imagem nao disponivel" />
       </ng-template>
-      <h2>{{ selectedBook.volumeInfo.title }}</h2>
+
+      <h2>{{ selectedBook.title }}</h2>
+      <p><strong>Autor(es):</strong> {{ selectedBook.authors.join(", ") }}</p>
       <p>
-        <strong>Autor(es):</strong>
-        {{ selectedBook.volumeInfo.authors?.join(", ") }}
+        <strong>Descricao:</strong>
+        {{ selectedBook.description || "Nao informada." }}
       </p>
       <p>
-        <strong>Descrição:</strong> {{ selectedBook.volumeInfo.description }}
+        <strong>Data de Lancamento:</strong>
+        {{ selectedBook.publishedDate || "Nao informada." }}
       </p>
       <p>
-        <strong>Data de Lançamento:</strong>
-        {{ selectedBook.volumeInfo.publishedDate }}
+        <strong>Editora:</strong>
+        {{ selectedBook.publisher || "Nao informada." }}
       </p>
-      <p><strong>Editora:</strong> {{ selectedBook.volumeInfo.publisher }}</p>
 
       <div>
         <label for="notes">Notas Pessoais:</label>
         <textarea id="notes" [(ngModel)]="selectedBook.notes"></textarea>
       </div>
       <div>
-        <label for="rating">Avaliação (1 a 5):</label>
+        <label for="rating">Avaliacao (1 a 5):</label>
         <input
           type="number"
           id="rating"
@@ -72,29 +70,40 @@
           type="text"
           id="tags"
           [(ngModel)]="selectedBook.tags"
-          placeholder="Adicione tags separadas por vírgulas"
+          placeholder="Adicione tags separadas por virgulas"
         />
       </div>
 
       <div class="book-links">
         <a
-          *ngIf="selectedBook.accessInfo?.webReaderLink"
-          [href]="selectedBook.accessInfo.webReaderLink"
+          *ngIf="selectedBook.readUrl"
+          [href]="selectedBook.readUrl"
           target="_blank"
+          rel="noopener"
         >
-          <button>Ler Completo</button>
+          <button>Ver Livro</button>
         </a>
         <a
-          *ngIf="selectedBook.saleInfo?.buyLink"
-          [href]="selectedBook.saleInfo.buyLink"
+          *ngIf="selectedBook.infoUrl"
+          [href]="selectedBook.infoUrl"
           target="_blank"
+          rel="noopener"
+        >
+          <button>Mais Detalhes</button>
+        </a>
+        <a
+          *ngIf="selectedBook.buyUrl"
+          [href]="selectedBook.buyUrl"
+          target="_blank"
+          rel="noopener"
         >
           <button>Comprar</button>
         </a>
         <a
-          *ngIf="selectedBook.accessInfo?.pdf?.acsTokenLink"
-          [href]="selectedBook.accessInfo.pdf.acsTokenLink"
+          *ngIf="selectedBook.pdfUrl"
+          [href]="selectedBook.pdfUrl"
           target="_blank"
+          rel="noopener"
         >
           <button>Baixar PDF</button>
         </a>
@@ -104,7 +113,6 @@
     </div>
   </div>
 
-  <!-- Modal de Notificação -->
   <div *ngIf="notificationMessage" class="modal-overlay">
     <div class="modal-content">
       <p>{{ notificationMessage }}</p>
@@ -112,11 +120,10 @@
     </div>
   </div>
 
-  <!-- Modal de Login -->
   <div class="modal-overlay" *ngIf="showLoginModal">
     <div class="modal-content">
       <p>
-        Você precisa estar logado para favoritar um livro. Deseja fazer login?
+        Voce precisa estar logado para favoritar um livro. Deseja fazer login?
       </p>
       <button (click)="navigateToLogin()">Sim, fazer login</button>
       <button (click)="closeLoginModal()">Cancelar</button>

@@ -1,0 +1,93 @@
+<div class="favorites-container">
+  <h1>Favoritos</h1>
+  <div class="filter">
+    <label for="filter">Filtrar:</label>
+    <input
+      type="text"
+      id="filter"
+      [(ngModel)]="filter"
+      (input)="applyFilter()"
+      placeholder="Digite uma tag ou nome"
+    />
+  </div>
+
+  <div class="favorites-list" *ngIf="filteredFavorites.length > 0; else noFavorites">
+    <div class="favorite-card" *ngFor="let book of filteredFavorites">
+      <img *ngIf="book.thumbnail; else noImage" [src]="book.thumbnail" alt="Capa do Livro" />
+      <ng-template #noImage>
+        <img src="/assets/notimg.jpg" alt="Imagem nao disponivel" />
+      </ng-template>
+
+      <h2>{{ book.title }}</h2>
+      <p>{{ book.authors.join(', ') }}</p>
+
+      <div class="favorite-card-buttons">
+        <button (click)="openModal(book)">Info</button>
+        <button (click)="removeFavorite(book.id)">Remover</button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noFavorites>
+    <p>Voce ainda nao adicionou nenhum livro aos favoritos.</p>
+  </ng-template>
+</div>
+
+<div class="modal" *ngIf="selectedBook">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+
+    <img *ngIf="selectedBook.thumbnail; else noImage" [src]="selectedBook.thumbnail" alt="Capa do Livro" />
+    <ng-template #noImage>
+      <img src="/assets/notimg.jpg" alt="Imagem nao disponivel" />
+    </ng-template>
+
+    <h2>{{ selectedBook.title }}</h2>
+    <p><strong>Autor(es):</strong> {{ selectedBook.authors.join(', ') }}</p>
+    <p><strong>Descricao:</strong> {{ selectedBook.description || 'Nao informada.' }}</p>
+    <p><strong>Data de Lancamento:</strong> {{ selectedBook.publishedDate || 'Nao informada.' }}</p>
+    <p><strong>Editora:</strong> {{ selectedBook.publisher || 'Nao informada.' }}</p>
+
+    <div>
+      <label for="notes">Notas Pessoais:</label>
+      <textarea id="notes" [(ngModel)]="selectedBook.notes"></textarea>
+    </div>
+    <div>
+      <label for="rating">Avaliacao (1 a 5):</label>
+      <input type="number" id="rating" [(ngModel)]="selectedBook.rating" min="1" max="5" />
+    </div>
+    <div>
+      <label for="tags">Tags:</label>
+      <input
+        type="text"
+        id="tags"
+        [(ngModel)]="selectedBook.tags"
+        placeholder="Adicione tags separadas por virgulas"
+      />
+    </div>
+
+    <div class="book-links">
+      <a *ngIf="selectedBook.readUrl" [href]="selectedBook.readUrl" target="_blank" rel="noopener">
+        <button>Ver Livro</button>
+      </a>
+      <a *ngIf="selectedBook.infoUrl" [href]="selectedBook.infoUrl" target="_blank" rel="noopener">
+        <button>Mais Detalhes</button>
+      </a>
+      <a *ngIf="selectedBook.buyUrl" [href]="selectedBook.buyUrl" target="_blank" rel="noopener">
+        <button>Comprar</button>
+      </a>
+      <a *ngIf="selectedBook.pdfUrl" [href]="selectedBook.pdfUrl" target="_blank" rel="noopener">
+        <button>Baixar PDF</button>
+      </a>
+    </div>
+
+    <button (click)="updateFavorite(selectedBook)">Atualizar</button>
+  </div>
+</div>
+
+<div *ngIf="notificationMessage" class="modal-overlay">
+  <div class="modal-content">
+    <p>{{ notificationMessage }}</p>
+    <button (click)="notificationMessage = null">Fechar</button>
+  </div>
+</div>

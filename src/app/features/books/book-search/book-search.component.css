@@ -123,3 +123,14 @@ body {
   width: 100%;  
   max-width: 1200px;  
 }
+
+.status-message {
+  margin: 8px 0 16px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.status-message.error {
+  color: #b42318;
+  font-weight: 600;
+}

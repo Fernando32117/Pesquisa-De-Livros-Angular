@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { BookSearchComponent } from './book-search/book-search.component';
-import { BookFavoritesComponent } from './book-favorites/book-favorites.component';
-import { AboutComponent } from './about/about.component';
-import { LoginComponent } from './login/login.component';
-import { AuthGuard } from './auth.guard';
-import { RegisterComponent } from './register/register.component';
+import { BookSearchComponent } from './features/books/book-search/book-search.component';
+import { BookFavoritesComponent } from './features/books/book-favorites/book-favorites.component';
+import { AboutComponent } from './features/about/about.component';
+import { LoginComponent } from './features/auth/login/login.component';
+import { AuthGuard } from './core/guards/auth.guard';
+import { RegisterComponent } from './features/auth/register/register.component';
 
 export const routes: Routes = [
   { path: 'book-search', component: BookSearchComponent },
