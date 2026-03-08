@@ -1,71 +1,367 @@
-<div class="favorites-container">
-  <h1>Favoritos</h1>
-  <div class="filter">
-    <label for="filter">Filtrar:</label>
-    <input
-      type="text"
-      id="filter"
-      [(ngModel)]="filter"
-      (input)="applyFilter()"
-      placeholder="Digite uma tag ou nome"
-    />
-  </div>
+<div
+  class="min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-fuchsia-50 pt-24 px-4 sm:px-6 lg:px-8 pb-12"
+>
+  <!-- Header -->
+  <div class="max-w-7xl mx-auto mb-12">
+    <div class="text-center mb-8 animate-fade-in">
+      <h1
+        class="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 bg-clip-text text-transparent leading-tight pb-2"
+      >
+        Meus Livros Favoritos
+      </h1>
+      <p class="text-gray-600 text-lg">
+        Sua coleção pessoal de leituras especiais
+      </p>
+    </div>
 
-  <div class="favorites-list" *ngIf="filteredFavorites.length > 0; else noFavorites">
-    <div class="favorite-card" *ngFor="let book of filteredFavorites">
-      <img [src]="getCoverUrl(book.thumbnail)" (error)="onImageError($event)" alt="Capa do Livro" />
-
-      <h2>{{ book.title }}</h2>
-      <p>{{ book.authors.join(', ') }}</p>
-
-      <div class="favorite-card-buttons">
-        <button (click)="openModal(book)">Info</button>
-        <button (click)="removeFavorite(book.id)">Remover</button>
+    <!-- Search/Filter Bar -->
+    <div class="max-w-2xl mx-auto animate-slide-up">
+      <div class="relative group">
+        <div
+          class="absolute -inset-0.5 bg-gradient-to-r from-violet-600 to-fuchsia-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-300"
+        ></div>
+        <div
+          class="relative flex bg-white rounded-2xl shadow-lg overflow-hidden"
+        >
+          <div class="flex-1 flex items-center px-6 py-4">
+            <svg
+              class="w-6 h-6 text-gray-400 mr-3"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+              ></path>
+            </svg>
+            <input
+              type="text"
+              id="filter"
+              [(ngModel)]="filter"
+              (input)="applyFilter()"
+              placeholder="Filtrar por título ou autor..."
+              class="flex-1 outline-none text-lg text-gray-700 placeholder-gray-400"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- Favorites Grid -->
+  <div
+    class="max-w-7xl mx-auto"
+    *ngIf="filteredFavorites.length > 0; else noFavorites"
+  >
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+    >
+      <div
+        *ngFor="let book of filteredFavorites"
+        class="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden cursor-pointer animate-scale-in"
+      >
+        <!-- Book Cover -->
+        <div
+          class="relative overflow-hidden bg-gradient-to-br from-purple-100 to-fuchsia-100 aspect-[2/3]"
+        >
+          <img
+            [src]="getCoverUrl(book.thumbnail)"
+            (error)="onImageError($event)"
+            alt="Capa do Livro"
+            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          />
+          <div
+            class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-opacity duration-300"
+          ></div>
+
+          <!-- Favorite Badge -->
+          <div class="absolute top-3 right-3">
+            <div class="bg-pink-500 text-white p-2 rounded-full shadow-lg">
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                <path
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                ></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Book Info -->
+        <div class="p-5">
+          <h2
+            class="text-lg font-bold text-gray-800 mb-2 line-clamp-2 group-hover:text-purple-700 transition-colors"
+          >
+            {{ book.title }}
+          </h2>
+          <p class="text-sm text-gray-600 mb-4 line-clamp-1">
+            {{ book.authors.join(", ") }}
+          </p>
+
+          <!-- Action Buttons -->
+          <div class="flex gap-2">
+            <button
+              (click)="openModal(book)"
+              class="flex-1 px-4 py-2.5 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white text-sm font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95"
+            >
+              Ver Detalhes
+            </button>
+            <button
+              (click)="removeFavorite(book.id)"
+              class="px-4 py-2.5 bg-red-50 border-2 border-red-300 text-red-600 font-semibold text-sm rounded-xl hover:bg-red-100 hover:border-red-400 transition-all duration-300 transform hover:scale-105 active:scale-95"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
   <ng-template #noFavorites>
-    <p>Voce ainda nao adicionou nenhum livro aos favoritos.</p>
+    <div class="max-w-2xl mx-auto text-center py-16 animate-scale-in">
+      <div class="mb-6">
+        <svg
+          class="w-32 h-32 mx-auto text-gray-300"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+          ></path>
+        </svg>
+      </div>
+      <h3 class="text-2xl font-bold text-gray-700 mb-3">
+        {{ filter ? "Nenhum favorito encontrado" : "Sua lista está vazia" }}
+      </h3>
+      <p class="text-gray-500 text-lg mb-8">
+        {{
+          filter
+            ? "Tente buscar com outras palavras-chave"
+            : "Comece a adicionar seus livros favoritos!"
+        }}
+      </p>
+      <a
+        href="book-search"
+        class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg"
+      >
+        <svg
+          class="w-5 h-5 mr-2"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          ></path>
+        </svg>
+        Buscar Livros
+      </a>
+    </div>
   </ng-template>
 </div>
 
-<div class="modal" *ngIf="selectedBook">
-  <div class="modal-content">
-    <span class="close" (click)="closeModal()">&times;</span>
-
-    <img [src]="getCoverUrl(selectedBook.thumbnail)" (error)="onImageError($event)" alt="Capa do Livro" />
-
-    <h2>{{ selectedBook.title }}</h2>
-    <div class="book-meta">
-      <p><strong>Autor(es):</strong> {{ selectedBook.authors.join(', ') }}</p>
-      <p><strong>Descricao:</strong> {{ selectedBook.description || 'Nao informada.' }}</p>
-      <p><strong>Data de Lancamento:</strong> {{ selectedBook.publishedDate || 'Nao informada.' }}</p>
-      <p><strong>Editora:</strong> {{ selectedBook.publisher || 'Nao informada.' }}</p>
+<!-- Modal de Detalhes (reutiliza o modal do book-list) -->
+<div
+  *ngIf="selectedBook"
+  class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in"
+  (click)="closeModal()"
+>
+  <div
+    class="bg-white rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto animate-scale-in"
+    (click)="$event.stopPropagation()"
+  >
+    <!-- Header -->
+    <div
+      class="sticky top-0 bg-gradient-to-r from-violet-600 to-purple-600 text-white px-8 py-6 flex justify-between items-center rounded-t-3xl"
+    >
+      <h2 class="text-2xl font-bold">Detalhes do Livro</h2>
+      <button
+        (click)="closeModal()"
+        class="w-10 h-10 rounded-full bg-white bg-opacity-20 hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center"
+      >
+        <svg
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          ></path>
+        </svg>
+      </button>
     </div>
 
-    <div class="book-links">
-      <a *ngIf="selectedBook.readUrl" [href]="selectedBook.readUrl" target="_blank" rel="noopener">
-        <button>Ver Livro</button>
-      </a>
-      <a *ngIf="selectedBook.infoUrl" [href]="selectedBook.infoUrl" target="_blank" rel="noopener">
-        <button>Mais Detalhes</button>
-      </a>
-      <a *ngIf="selectedBook.buyUrl" [href]="selectedBook.buyUrl" target="_blank" rel="noopener">
-        <button>Comprar</button>
-      </a>
-      <a *ngIf="selectedBook.pdfUrl" [href]="selectedBook.pdfUrl" target="_blank" rel="noopener">
-        <button>Baixar PDF</button>
-      </a>
-    </div>
+    <!-- Content -->
+    <div class="p-8">
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Book Cover -->
+        <div class="md:col-span-1">
+          <div class="sticky top-24">
+            <div class="relative group">
+              <div
+                class="absolute -inset-1 bg-gradient-to-r from-violet-600 to-fuchsia-600 rounded-2xl blur opacity-25"
+              ></div>
+              <img
+                [src]="getCoverUrl(selectedBook.thumbnail)"
+                (error)="onImageError($event)"
+                alt="Capa do Livro"
+                class="relative w-full rounded-2xl shadow-xl"
+              />
+            </div>
+          </div>
+        </div>
 
-    <button (click)="closeModal()">Fechar</button>
+        <!-- Book Details -->
+        <div class="md:col-span-2 space-y-6">
+          <div>
+            <h3 class="text-3xl font-bold text-gray-900 mb-3">
+              {{ selectedBook.title }}
+            </h3>
+            <p class="text-xl text-purple-600 font-semibold">
+              {{ selectedBook.authors.join(", ") }}
+            </p>
+          </div>
+
+          <div class="space-y-4">
+            <div class="bg-gray-50 rounded-xl p-4">
+              <h4 class="text-sm font-semibold text-gray-500 uppercase mb-2">
+                Descrição
+              </h4>
+              <p class="text-gray-700 leading-relaxed">
+                {{ selectedBook.description || "Descrição não disponível." }}
+              </p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-purple-50 rounded-xl p-4">
+                <h4 class="text-sm font-semibold text-purple-600 mb-2">
+                  Data de Lançamento
+                </h4>
+                <p class="text-gray-800">
+                  {{ selectedBook.publishedDate || "Não informada" }}
+                </p>
+              </div>
+
+              <div class="bg-fuchsia-50 rounded-xl p-4">
+                <h4 class="text-sm font-semibold text-fuchsia-600 mb-2">
+                  Editora
+                </h4>
+                <p class="text-gray-800">
+                  {{ selectedBook.publisher || "Não informada" }}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Links -->
+          <div class="flex flex-wrap gap-3 pt-4">
+            <a
+              *ngIf="selectedBook.readUrl"
+              [href]="selectedBook.readUrl"
+              target="_blank"
+              rel="noopener"
+              class="flex-1 min-w-[140px] px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold rounded-xl text-center transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg"
+            >
+              📖 Ver Livro
+            </a>
+            <a
+              *ngIf="selectedBook.infoUrl"
+              [href]="selectedBook.infoUrl"
+              target="_blank"
+              rel="noopener"
+              class="flex-1 min-w-[140px] px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold rounded-xl text-center transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg"
+            >
+              ℹ️ Mais Detalhes
+            </a>
+            <a
+              *ngIf="selectedBook.buyUrl"
+              [href]="selectedBook.buyUrl"
+              target="_blank"
+              rel="noopener"
+              class="flex-1 min-w-[140px] px-6 py-3 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-semibold rounded-xl text-center transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg"
+            >
+              🛒 Comprar
+            </a>
+            <a
+              *ngIf="selectedBook.pdfUrl"
+              [href]="selectedBook.pdfUrl"
+              target="_blank"
+              rel="noopener"
+              class="flex-1 min-w-[140px] px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-semibold rounded-xl text-center transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg"
+            >
+              📥 Baixar PDF
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<div *ngIf="notificationMessage" class="modal-overlay">
-  <div class="modal-content">
-    <p>{{ notificationMessage }}</p>
-    <button (click)="notificationMessage = null">Fechar</button>
+<!-- Notificação -->
+<div
+  *ngIf="notificationMessage"
+  class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in"
+  (click)="notificationMessage = null"
+>
+  <div
+    class="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full animate-scale-in"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="flex items-center justify-center mb-4">
+      <div
+        class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center"
+      >
+        <svg
+          class="w-8 h-8 text-green-600"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M5 13l4 4L19 7"
+          ></path>
+        </svg>
+      </div>
+    </div>
+    <p class="text-center text-gray-800 text-lg mb-6">
+      {{ notificationMessage }}
+    </p>
+    <button
+      (click)="notificationMessage = null"
+      class="w-full px-6 py-3 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white font-semibold rounded-xl transition-all duration-300"
+    >
+      Fechar
+    </button>
   </div>
 </div>

@@ -2,119 +2,175 @@
 
 ## Descrição
 
-Explorador de Livros é uma aplicação web para buscar, favoritar e organizar livros usando a Google Books API. Agora, os usuários podem criar contas, fazer login e gerenciar seus favoritos de forma personalizada.
+Explorador de Livros é uma aplicação web moderna e responsiva para buscar, favoritar e organizar livros usando a Open Library API. Uma solução completa desenvolvida com Angular 19 e Tailwind CSS, oferecendo autenticação local e gerenciamento de favoritos.
 
-## Funcionalidades
+## ✨ Funcionalidades
 
-- **Autenticação de Usuário**: Cadastro e login seguro com senha criptografada.
-- **Busca de Livros**: Permite a busca de livros pela Google Books API.
-- **Favoritar Livros**: Adiciona livros à lista de favoritos (apenas para usuários autenticados).
-- **Filtro de Favoritos**: Filtra livros favoritos por tag ou nome.
-- **Notas Pessoais**: Adiciona notas pessoais aos livros favoritos.
-- **Avaliações**: Avalia os livros com uma nota de 1 a 5.
-- **Tags**: Adiciona tags aos livros favoritos.
-- **Edição de Informações**: Usuários podem editar detalhes dos livros tanto na página INICIAL quanto na página de FAVORITOS.
-- **Informações Detalhadas**: Exibe informações detalhadas sobre os livros, incluindo links para LER, BAIXAR PDF e COMPRAR.
-- **Interface Moderna**: Interface de usuário com efeitos visuais modernos, incluindo animações e gradientes.
+- **🔐 Autenticação Local**: Cadastro e login com armazenamento seguro no navegador (LocalStorage)
+- **🔍 Busca de Livros**: Busca integrada com Open Library API por título, autor ou tema
+- **❤️ Favoritar Livros**: Adiciona livros à lista de favoritos (apenas para usuários autenticados)
+- **🏷️ Filtro de Favoritos**: Filtra livros favoritos por tag ou nome
+- **✏️ Edição Completa**: Edita detalhes dos livros tanto na página inicial quanto na página de favoritos
+- **📖 Informações Detalhadas**: Links diretos para ler, baixar PDF e comprar livros
+- **🎭 Interface Moderna**: Design profissional com Tailwind CSS, gradientes, animações e efeitos glassmorphism
+- **📱 Totalmente Responsivo**: Perfeito em desktop, tablet e smartphone
 
-## Instalação
+## 🚀 Instalação
 
 Siga as instruções abaixo para configurar e rodar a aplicação localmente.
 
-### Backend (Node.js + PostgreSQL)
+### Requisitos
 
-#### Requisitos:
-- Docker e Docker Compose
-- Node.js e npm
+- Node.js (v18 ou superior)
+- npm ou yarn
+- Angular CLI (opcional, mas recomendado)
 
-1. Clone este repositório:
-    ```bash
-    git clone https://github.com/Fernando32117/Busca-de-Livros.git
-    cd Pesquisa-De-Livros
-    ```
+### Passo a Passo
 
-2. Instale as dependências do backend:
-    ```bash
-    cd backend
-    npm install
-    ```
+1. **Clone este repositório:**
 
-3. Suba os containers do banco de dados e backend:
-    ```bash
-    docker-compose up -d --build
-    ```
+   ```bash
+   git clone https://github.com/Fernando32117/Busca-de-Livros.git
+   cd Pesquisa-De-Livros-Angular
+   ```
 
-O backend rodará na porta `3000`.
+2. **Instale as dependências:**
 
-### Frontend (Angular)
+   ```bash
+   npm install
+   ```
 
-#### Requisitos:
-- Angular CLI
+3. **Rode a aplicação:**
 
-1. Volte para a pasta raiz do projeto e instale as dependências:
-    ```bash
-    cd frontend
-    npm install
-    ```
+   ```bash
+   npm start
+   ```
 
-2. Rode a aplicação:
-    ```bash
-    ng serve
-    ```
+   Ou com Angular CLI:
 
-3. Abra o navegador e acesse `http://localhost:4200`.
+   ```bash
+   ng serve
+   ```
 
-## Testes Unitários
+4. **Acesse no navegador:**
+
+   Abra `http://localhost:4200`
+
+**Pronto! 🎉** A aplicação está rodando e todos os dados serão armazenados localmente no navegador.
+
+### Armazenamento de Dados
+
+- **LocalStorage**: Todos os dados (usuários, favoritos, notas, tags, avaliações) são armazenados localmente no navegador
+- **Segurança**: Os dados ficam isolados por domínio e apenas acessíveis no navegador do usuário
+- **Persistência**: Os dados permanecem mesmo após fechar o navegador, até que o usuário limpe o cache
+
+### APIs Externas
+
+- **Open Library API**: Utilizada apenas para buscar informações sobre livros (capa, descrição, autores, etc.)
+
+## 🧪 Testes Unitários
 
 Para garantir a qualidade e robustez do código, foram implementados testes unitários usando Jasmine e Karma.
 
 ### Executando os Testes
 
-1. Para executar os testes unitários, use o seguinte comando:
-    ```bash
-    ng test
-    ```
+```bash
+npm test
+```
 
-2. Isso iniciará o Karma e executará todos os testes configurados. Você verá uma saída detalhada indicando quais testes passaram e quais falharam.
+Ou com Angular CLI:
+
+```bash
+ng test
+```
+
+Isso iniciará o Karma e executará todos os testes. Você verá uma saída detalhada indicando quais testes passaram.
 
 ### Cobertura dos Testes
 
-Os testes unitários cobrem as seguintes funcionalidades:
+Os testes unitários cobrem:
 
-- **BookStorageService**: Adicionar, remover, atualizar e verificar favoritos.
-- **BookListComponent**: Exibição e interação dos livros, abertura e fechamento do modal, e funcionalidade de favoritar.
-- **BookFavoritesComponent**: Exibição de favoritos, filtro de livros por tag ou nome, e interação com o modal.
-- **Autenticação**: Testes para login e cadastro de usuários.
+- ✅ **BookStorageService**: Adicionar, remover, atualizar e verificar favoritos
+- ✅ **BookListComponent**: Exibição e interação dos livros, modal e favoritar
+- ✅ **BookFavoritesComponent**: Exibição de favoritos, filtros e modal
+- ✅ **AuthService & AuthGuard**: Autenticação, login, registro e proteção de rotas
 
-## Tecnologias Utilizadas
+## 🛠️ Tecnologias Utilizadas
 
-- **Angular**: Framework para desenvolvimento da aplicação web.
-- **Node.js + Express**: Backend responsável pela autenticação e gerenciamento de favoritos.
-- **PostgreSQL**: Banco de dados para armazenar usuários e favoritos.
-- **Sequelize**: ORM para interação com o banco de dados PostgreSQL.
-- **Google Books API**: API utilizada para buscar informações sobre os livros.
-- **Bcrypt.js**: Utilizado para criptografar senhas de usuários.
-- **Jasmine e Karma**: Frameworks de testes unitários.
-- **HTML5 e CSS3**: Tecnologias padrão para estruturação e estilização da aplicação.
+- **Angular 19**: Framework principal com SSR (Server-Side Rendering)
+- **TypeScript 5.5**: Linguagem de programação tipada
+- **Tailwind CSS v3**: Framework CSS utility-first para design moderno
+- **Open Library API**: API para buscar informações sobre livros
+- **Firebase 11**: Autenticação (opcional/futuro)
+- **LocalStorage**: Armazenamento local de dados no navegador
+- **Jasmine & Karma**: Frameworks para testes unitários
+- **HTML5 & CSS3**: Tecnologias padrão web
 
-## Uso
+## 🗂️ Estrutura do Projeto
 
-1. **Criar Conta**: Clique em "Registrar", preencha os dados e cadastre-se.
-2. **Login**: Use seu e-mail e senha para acessar a aplicação.
-3. **Buscar Livros**: Digite o título ou autor na barra de busca.
-4. **Visualizar Detalhes**: Clique no botão "Info" para ver mais detalhes.
-5. **Favoritar**: Clique no botão de favoritar para salvar o livro (somente disponível para usuários logados).
-6. **Gerenciar Favoritos**: Edite notas, tags e avaliações dos seus livros favoritos.
+```
+Pesquisa-De-Livros-Angular/
+├── src/
+│   ├── app/
+│   │   ├── core/                    # Serviços e guards principais
+│   │   │   ├── guards/              # AuthGuard para proteção de rotas
+│   │   │   └── services/            # AuthService, BookStorageService, etc.
+│   │   ├── features/                # Componentes de funcionalidades
+│   │   │   ├── about/               # Página sobre o projeto
+│   │   │   ├── auth/                # Login e registro
+│   │   │   │   ├── login/
+│   │   │   │   └── register/
+│   │   │   └── books/               # Funcionalidades de livros
+│   │   │       ├── book-search/     # Busca de livros
+│   │   │       ├── book-list/       # Listagem de resultados
+│   │   │       └── book-favorites/  # Livros favoritos
+│   │   ├── layout/                  # Layout e navegação
+│   │   │   └── navigation/          # Navbar responsivo
+│   │   └── shared/                  # Modelos e componentes compartilhados
+│   │       └── models/              # Interfaces TypeScript
+│   ├── styles.css                   # Estilos globais + Tailwind
+│   └── index.html
+├── tailwind.config.js               # Configuração do Tailwind
+├── angular.json                     # Configuração do Angular
+└── package.json
+```
 
-## Contribuição
+## 📝 Como Usar
 
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull requests.
+1. **🆕 Criar Conta**: Clique em "Registrar", preencha seu nome, e-mail e senha
+2. **🔑 Login**: Use seu e-mail e senha para acessar a aplicação
+3. **🔍 Buscar Livros**: Digite o título, autor ou tema na barra de busca
+4. **ℹ️ Visualizar Detalhes**: Clique no card do livro para ver informações completas
+5. **❤️ Favoritar**: Clique no ícone de coração para salvar na sua biblioteca pessoal
+6. **✏️ Gerenciar Favoritos**: Adicione notas, tags e avaliações aos seus livros
+7. **🎯 Filtrar**: Use os filtros na página de favoritos para encontrar rapidamente
 
-## Licença
+**💡 Dica**: Todos os seus dados ficam salvos localmente no navegador, mesmo depois de fechar a aplicação!
+
+## 🤝 Contribuição
+
+Contribuições são muito bem-vindas! Para contribuir:
+
+1. **Fork** este repositório
+2. Crie uma **branch** para sua feature (`git checkout -b feature/NovaFuncionalidade`)
+3. **Commit** suas mudanças (`git commit -m 'Adiciona nova funcionalidade'`)
+4. **Push** para a branch (`git push origin feature/NovaFuncionalidade`)
+5. Abra um **Pull Request**
+
+### Ideias para Contribuir
+
+- 🌐 Implementar internacionalização (i18n)
+- 🔐 Integrar autenticação real com Firebase
+- 📱 Melhorar ainda mais a responsividade mobile
+- 🎨 Adicionar temas (claro/escuro)
+- 📊 Dashboard com estatísticas de leitura
+- 🔔 Sistema de notificações
+- 📚 Integrar mais APIs de livros (Open Library, etc.)
+
+## 📄 Licença
 
 Este projeto está licenciado sob a licença MIT. Consulte o arquivo LICENSE para obter mais informações.
 
 ---
 
 Feito com ❤️ por [Fernando Souza](https://www.linkedin.com/in/gerfernandosouza/)
-
