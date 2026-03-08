@@ -156,6 +156,23 @@ body {
   margin-bottom: 15px;
 }
 
+.book-meta {
+  text-align: left;
+  background: #f7f8fb;
+  border: 1px solid #ececf2;
+  border-radius: 10px;
+  padding: 14px;
+  margin: 16px 0 6px;
+}
+
+.book-meta p {
+  margin: 0 0 8px;
+}
+
+.book-meta p:last-child {
+  margin-bottom: 0;
+}
+
 .modal-content label {
   display: block;
   text-align: left;

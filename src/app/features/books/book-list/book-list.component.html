@@ -20,33 +20,11 @@
       <img [src]="getCoverUrl(selectedBook.thumbnail)" (error)="onImageError($event)" alt="Capa do Livro" />
 
       <h2>{{ selectedBook.title }}</h2>
-      <p><strong>Autor(es):</strong> {{ selectedBook.authors.join(', ') }}</p>
-      <p><strong>Descricao:</strong> {{ selectedBook.description || 'Nao informada.' }}</p>
-      <p><strong>Data de Lancamento:</strong> {{ selectedBook.publishedDate || 'Nao informada.' }}</p>
-      <p><strong>Editora:</strong> {{ selectedBook.publisher || 'Nao informada.' }}</p>
-
-      <div>
-        <label for="notes">Notas Pessoais:</label>
-        <textarea id="notes" [(ngModel)]="selectedBook.notes"></textarea>
-      </div>
-      <div>
-        <label for="rating">Avaliacao (1 a 5):</label>
-        <input
-          type="number"
-          id="rating"
-          [(ngModel)]="selectedBook.rating"
-          min="1"
-          max="5"
-        />
-      </div>
-      <div>
-        <label for="tags">Tags:</label>
-        <input
-          type="text"
-          id="tags"
-          [(ngModel)]="selectedBook.tags"
-          placeholder="Adicione tags separadas por virgulas"
-        />
+      <div class="book-meta">
+        <p><strong>Autor(es):</strong> {{ selectedBook.authors.join(', ') }}</p>
+        <p><strong>Descricao:</strong> {{ selectedBook.description || 'Nao informada.' }}</p>
+        <p><strong>Data de Lancamento:</strong> {{ selectedBook.publishedDate || 'Nao informada.' }}</p>
+        <p><strong>Editora:</strong> {{ selectedBook.publisher || 'Nao informada.' }}</p>
       </div>
 
       <div class="book-links">
