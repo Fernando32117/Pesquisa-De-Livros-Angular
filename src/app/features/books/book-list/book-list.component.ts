@@ -17,6 +17,7 @@ export class BookListComponent {
   selectedBook: Book | null = null;
   notificationMessage: string | null = null;
   showLoginModal = false;
+  readonly fallbackImage = '/notimg.jpg';
 
   constructor(
     private bookStorage: BookStorageService,
@@ -91,6 +92,20 @@ export class BookListComponent {
 
   closeLoginModal(): void {
     this.showLoginModal = false;
+  }
+
+  getCoverUrl(thumbnail?: string): string {
+    return thumbnail || this.fallbackImage;
+  }
+
+  onImageError(event: Event): void {
+    const image = event.target as HTMLImageElement;
+
+    if (image.src.endsWith(this.fallbackImage)) {
+      return;
+    }
+
+    image.src = this.fallbackImage;
   }
 
   private normalizeTagsForForm(tags?: string[] | string): string {

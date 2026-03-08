@@ -1,23 +1,14 @@
 <div class="book-list">
   <div class="book-card" *ngFor="let book of books">
-    <img
-      *ngIf="book.thumbnail; else noImage"
-      [src]="book.thumbnail"
-      alt="Capa do Livro"
-    />
-    <ng-template #noImage>
-      <img src="/assets/notimg.jpg" alt="Imagem nao disponivel" />
-    </ng-template>
+    <img [src]="getCoverUrl(book.thumbnail)" (error)="onImageError($event)" alt="Capa do Livro" />
 
     <h2>{{ book.title }}</h2>
-    <p>{{ book.authors.join(", ") }}</p>
+    <p>{{ book.authors.join(', ') }}</p>
 
     <div class="book-card-buttons">
       <button (click)="openModal(book)">Info</button>
       <button (click)="toggleFavorite(book)">
-        <span *ngIf="isFavorite(book)">&#10084;</span>
-        <span *ngIf="!isFavorite(book)">&#129321;</span>
-        Favoritar
+        {{ isFavorite(book) ? 'Favoritado' : 'Favoritar' }}
       </button>
     </div>
   </div>
@@ -26,29 +17,13 @@
     <div class="modal-content">
       <span class="close" (click)="closeModal()">&times;</span>
 
-      <img
-        *ngIf="selectedBook.thumbnail; else noImage"
-        [src]="selectedBook.thumbnail"
-        alt="Capa do Livro"
-      />
-      <ng-template #noImage>
-        <img src="/assets/notimg.jpg" alt="Imagem nao disponivel" />
-      </ng-template>
+      <img [src]="getCoverUrl(selectedBook.thumbnail)" (error)="onImageError($event)" alt="Capa do Livro" />
 
       <h2>{{ selectedBook.title }}</h2>
-      <p><strong>Autor(es):</strong> {{ selectedBook.authors.join(", ") }}</p>
-      <p>
-        <strong>Descricao:</strong>
-        {{ selectedBook.description || "Nao informada." }}
-      </p>
-      <p>
-        <strong>Data de Lancamento:</strong>
-        {{ selectedBook.publishedDate || "Nao informada." }}
-      </p>
-      <p>
-        <strong>Editora:</strong>
-        {{ selectedBook.publisher || "Nao informada." }}
-      </p>
+      <p><strong>Autor(es):</strong> {{ selectedBook.authors.join(', ') }}</p>
+      <p><strong>Descricao:</strong> {{ selectedBook.description || 'Nao informada.' }}</p>
+      <p><strong>Data de Lancamento:</strong> {{ selectedBook.publishedDate || 'Nao informada.' }}</p>
+      <p><strong>Editora:</strong> {{ selectedBook.publisher || 'Nao informada.' }}</p>
 
       <div>
         <label for="notes">Notas Pessoais:</label>

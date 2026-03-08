@@ -13,10 +13,7 @@
 
   <div class="favorites-list" *ngIf="filteredFavorites.length > 0; else noFavorites">
     <div class="favorite-card" *ngFor="let book of filteredFavorites">
-      <img *ngIf="book.thumbnail; else noImage" [src]="book.thumbnail" alt="Capa do Livro" />
-      <ng-template #noImage>
-        <img src="/assets/notimg.jpg" alt="Imagem nao disponivel" />
-      </ng-template>
+      <img [src]="getCoverUrl(book.thumbnail)" (error)="onImageError($event)" alt="Capa do Livro" />
 
       <h2>{{ book.title }}</h2>
       <p>{{ book.authors.join(', ') }}</p>
@@ -37,10 +34,7 @@
   <div class="modal-content">
     <span class="close" (click)="closeModal()">&times;</span>
 
-    <img *ngIf="selectedBook.thumbnail; else noImage" [src]="selectedBook.thumbnail" alt="Capa do Livro" />
-    <ng-template #noImage>
-      <img src="/assets/notimg.jpg" alt="Imagem nao disponivel" />
-    </ng-template>
+    <img [src]="getCoverUrl(selectedBook.thumbnail)" (error)="onImageError($event)" alt="Capa do Livro" />
 
     <h2>{{ selectedBook.title }}</h2>
     <p><strong>Autor(es):</strong> {{ selectedBook.authors.join(', ') }}</p>

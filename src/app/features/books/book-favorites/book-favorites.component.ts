@@ -16,6 +16,7 @@ export class BookFavoritesComponent implements OnInit, OnDestroy {
   filteredFavorites: Book[] = [];
   selectedBook: Book | null = null;
   filter = '';
+  readonly fallbackImage = '/notimg.jpg';
   private subscription: Subscription | null = null;
 
   notificationMessage: string | null = null;
@@ -114,6 +115,20 @@ export class BookFavoritesComponent implements OnInit, OnDestroy {
       notes: book.notes ?? '',
       rating: book.rating ?? 0,
     };
+  }
+
+  getCoverUrl(thumbnail?: string): string {
+    return thumbnail || this.fallbackImage;
+  }
+
+  onImageError(event: Event): void {
+    const image = event.target as HTMLImageElement;
+
+    if (image.src.endsWith(this.fallbackImage)) {
+      return;
+    }
+
+    image.src = this.fallbackImage;
   }
 
   showNotification(message: string): void {
