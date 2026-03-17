@@ -1,27 +1,18 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, of, throwError } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { Book } from '../../shared/models/book.model';
-
-interface OpenLibrarySearchResponse {
-  docs?: OpenLibraryBookDoc[];
-}
-
-interface OpenLibraryBookDoc {
-  key?: string;
-  title?: string;
-  author_name?: string[];
-  first_publish_year?: number;
-  publisher?: string[];
-  cover_i?: number;
-  cover_edition_key?: string;
-}
+import { GoogleBookImageLinks } from '../models/google-book-image-links.model';
+import { GoogleBooksSearchResponse } from '../models/google-books-search-response.model';
+import { GoogleBookVolume } from '../models/google-book-volume.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BookSearchService {
-  private readonly apiUrl = 'https://openlibrary.org/search.json';
+  private readonly googleBooksApiUrl = 'https://www.googleapis.com/books/v1/volumes';
+  private readonly maxResults = 20;
 
   constructor(private http: HttpClient) {}
 
@@ -32,20 +23,7 @@ export class BookSearchService {
       return of([]);
     }
 
-    const params = new HttpParams()
-      .set('q', normalizedQuery)
-      .set('limit', '20')
-      .set(
-        'fields',
-        'key,title,author_name,first_publish_year,publisher,cover_i,cover_edition_key'
-      );
-
-    return this.http.get<OpenLibrarySearchResponse>(this.apiUrl, { params }).pipe(
-      map((response) =>
-        (response.docs ?? [])
-          .map((doc) => this.mapDocToBook(doc))
-          .filter((book) => !!book.title)
-      ),
+    return this.searchGoogleBooks(normalizedQuery).pipe(
       catchError((error) => {
         if (error?.status === 429 || error?.status === 403) {
           return throwError(
@@ -66,33 +44,62 @@ export class BookSearchService {
     );
   }
 
-  private mapDocToBook(doc: OpenLibraryBookDoc): Book {
-    const key = doc.key ?? '';
-    const openLibraryUrl = key ? `https://openlibrary.org${key}` : undefined;
+  private searchGoogleBooks(query: string): Observable<Book[]> {
+    let params = new HttpParams()
+      .set('q', query)
+      .set('maxResults', this.maxResults.toString())
+      .set('orderBy', 'relevance')
+      .set('printType', 'books');
+
+    const googleBooksApiKey = environment.googleBooksApiKey.trim();
+
+    if (googleBooksApiKey) {
+      params = params.set('key', googleBooksApiKey);
+    }
+
+    return this.http
+      .get<GoogleBooksSearchResponse>(this.googleBooksApiUrl, { params })
+      .pipe(
+        map((response) =>
+          (response.items ?? [])
+            .map((item) => this.mapVolumeToBook(item))
+            .filter((book) => !!book.title)
+        )
+      );
+  }
+
+  private mapVolumeToBook(volume: GoogleBookVolume): Book {
+    const volumeInfo = volume.volumeInfo ?? {};
+    const accessInfo = volume.accessInfo ?? {};
+    const saleInfo = volume.saleInfo ?? {};
+    const title = volumeInfo.title ?? 'Sem titulo';
 
     return {
-      id: key || `${doc.title ?? 'book'}-${doc.first_publish_year ?? 'unknown'}`,
-      title: doc.title ?? 'Sem titulo',
-      authors: doc.author_name ?? ['Autor desconhecido'],
-      publishedDate: doc.first_publish_year?.toString(),
-      publisher: doc.publisher?.[0],
-      thumbnail: this.buildCoverUrl(doc),
-      infoUrl: openLibraryUrl,
-      readUrl: openLibraryUrl,
+      id: volume.id ?? `${title}-${volumeInfo.publishedDate ?? 'unknown'}`,
+      title,
+      authors: volumeInfo.authors ?? ['Autor desconhecido'],
+      description: volumeInfo.description,
+      publishedDate: volumeInfo.publishedDate,
+      publisher: volumeInfo.publisher,
+      thumbnail: this.buildCoverUrl(volumeInfo.imageLinks),
+      infoUrl: volumeInfo.infoLink ?? volumeInfo.canonicalVolumeLink,
+      readUrl:
+        accessInfo.webReaderLink ??
+        volumeInfo.infoLink ??
+        volumeInfo.canonicalVolumeLink,
+      buyUrl: saleInfo.buyLink,
+      pdfUrl: accessInfo.pdf?.acsTokenLink,
     };
   }
 
-  private buildCoverUrl(doc: OpenLibraryBookDoc): string | undefined {
-    if (doc.cover_i) {
-      return `https://covers.openlibrary.org/b/id/${doc.cover_i}-M.jpg`;
+  private buildCoverUrl(imageLinks?: GoogleBookImageLinks): string | undefined {
+    if (!imageLinks?.thumbnail && !imageLinks?.smallThumbnail) {
+      return undefined;
     }
 
-    const editionOlid = doc.cover_edition_key;
-
-    if (editionOlid) {
-      return `https://covers.openlibrary.org/b/olid/${encodeURIComponent(editionOlid)}-M.jpg`;
-    }
-
-    return undefined;
+    return (imageLinks.thumbnail ?? imageLinks.smallThumbnail)?.replace(
+      'http://',
+      'https://'
+    );
   }
 }
