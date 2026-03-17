@@ -1,124 +1,92 @@
 <div
-  class="min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-fuchsia-50 pt-24 px-4 sm:px-6 lg:px-8"
+  class="min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-fuchsia-50 pt-20 pb-12 px-4 sm:px-6 lg:px-8"
 >
-  <!-- Hero Section -->
-  <div class="max-w-4xl mx-auto text-center mb-12 animate-fade-in">
-    <h1
-      class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 bg-clip-text text-transparent leading-tight pb-2"
-    >
-      O que você quer ler hoje?
-    </h1>
-    <p class="text-gray-600 text-lg md:text-xl max-w-2xl mx-auto">
-      Descubra seu próximo livro favorito entre milhares de títulos
-    </p>
-  </div>
+  <div class="max-w-7xl mx-auto">
+    <app-book-discovery-panel
+      [query]="query"
+      [selectedExploreFilter]="selectedExploreFilter"
+      [exploreFilterOptions]="exploreFilterOptions"
+      (queryChange)="query = $event"
+      (search)="searchBooks()"
+      (filterSelect)="onExploreFilterSelect($event)"
+    ></app-book-discovery-panel>
 
-  <!-- Search Bar -->
-  <div class="max-w-3xl mx-auto mb-12 animate-slide-up">
-    <div class="relative group">
-      <div
-        class="absolute -inset-0.5 bg-gradient-to-r from-violet-600 to-fuchsia-600 rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-300"
-      ></div>
-      <div class="relative flex bg-white rounded-2xl shadow-xl overflow-hidden">
-        <div class="flex-1 flex items-center px-6 py-4">
-          <svg
-            class="w-6 h-6 text-gray-400 mr-3"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            ></path>
-          </svg>
-          <input
-            [(ngModel)]="query"
-            placeholder="Digite o título ou autor do livro..."
-            (keyup.enter)="searchBooks()"
-            class="flex-1 outline-none text-lg text-gray-700 placeholder-gray-400"
-          />
-        </div>
-        <button
-          (click)="searchBooks()"
-          class="px-8 py-4 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white font-semibold transition-all duration-300 transform hover:scale-105 active:scale-95"
-        >
-          Buscar
-        </button>
-      </div>
-    </div>
-  </div>
+    <app-book-recommendations-section
+      [selectedExploreFilter]="selectedExploreFilter"
+      [recommendedBooks]="recommendedBooks"
+      [isRecommendationsLoading]="isRecommendationsLoading"
+      [recommendationsErrorMessage]="recommendationsErrorMessage"
+      [hasLoadedRecommendations]="hasLoadedRecommendations"
+    ></app-book-recommendations-section>
 
-  <!-- Loading State -->
-  <div
-    *ngIf="isLoading"
-    class="flex flex-col items-center justify-center py-16 animate-pulse"
-  >
-    <div class="relative">
-      <div
-        class="w-20 h-20 border-4 border-purple-200 border-t-purple-600 rounded-full animate-spin"
-      ></div>
-    </div>
-    <p class="mt-6 text-purple-700 text-lg font-medium">
-      Buscando livros incríveis...
-    </p>
-  </div>
-
-  <!-- Error Message -->
-  <div *ngIf="errorMessage" class="max-w-2xl mx-auto animate-scale-in">
+    <!-- Search Loading -->
     <div
-      class="bg-red-50 border border-red-200 rounded-2xl p-6 flex items-start space-x-4"
+      *ngIf="isLoading"
+      class="flex flex-col items-center justify-center py-10 animate-pulse"
     >
-      <svg
-        class="w-6 h-6 text-red-500 flex-shrink-0 mt-0.5"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
+      <div
+        class="w-14 h-14 border-4 border-purple-200 border-t-purple-600 rounded-full animate-spin"
+      ></div>
+      <p class="mt-4 text-purple-700 text-lg font-medium">
+        Buscando livros incríveis...
+      </p>
+    </div>
+
+    <!-- Search Error -->
+    <div *ngIf="errorMessage" class="max-w-2xl mx-auto animate-scale-in">
+      <div
+        class="bg-red-50 border border-red-200 rounded-2xl p-6 flex items-start space-x-4"
       >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-        ></path>
-      </svg>
-      <div>
-        <h3 class="text-red-800 font-semibold mb-1">Ops! Algo deu errado</h3>
-        <p class="text-red-600">{{ errorMessage }}</p>
+        <svg
+          class="w-6 h-6 text-red-500 flex-shrink-0 mt-0.5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          ></path>
+        </svg>
+        <div>
+          <h3 class="text-red-800 font-semibold mb-1">Ops! Algo deu errado</h3>
+          <p class="text-red-600">{{ errorMessage }}</p>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- No Results -->
-  <div
-    *ngIf="hasSearched && !isLoading && !errorMessage && books.length === 0"
-    class="max-w-2xl mx-auto text-center py-16 animate-scale-in"
-  >
-    <div class="mb-6">
-      <svg
-        class="w-24 h-24 mx-auto text-gray-300"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-        ></path>
-      </svg>
+    <!-- Search Empty -->
+    <div
+      *ngIf="hasSearched && !isLoading && !errorMessage && books.length === 0"
+      class="max-w-2xl mx-auto text-center py-10 animate-scale-in"
+    >
+      <div class="mb-5">
+        <svg
+          class="w-20 h-20 mx-auto text-gray-300"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+          ></path>
+        </svg>
+      </div>
+      <h3 class="text-xl font-bold text-gray-700 mb-2">
+        Nenhum livro encontrado
+      </h3>
+      <p class="text-gray-500">Tente buscar com outras palavras-chave.</p>
     </div>
-    <h3 class="text-2xl font-bold text-gray-700 mb-3">
-      Nenhum livro encontrado
-    </h3>
-    <p class="text-gray-500 text-lg">Tente buscar com outras palavras-chave</p>
-  </div>
 
-  <!-- Book List -->
-  <div *ngIf="books.length > 0" class="max-w-7xl mx-auto animate-fade-in">
-    <app-book-list [books]="books"></app-book-list>
+    <!-- Search Results -->
+    <div *ngIf="books.length > 0" class="max-w-7xl mx-auto animate-fade-in">
+      <h2 class="text-2xl font-bold text-gray-800 mb-3">Resultados da busca</h2>
+      <app-book-list [books]="books"></app-book-list>
+    </div>
   </div>
 </div>

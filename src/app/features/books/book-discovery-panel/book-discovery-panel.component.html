@@ -1,0 +1,68 @@
+<div class="max-w-3xl mx-auto text-center mb-8 animate-fade-in">
+  <h1
+    class="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 mt-8 py-2 bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 bg-clip-text text-transparent"
+  >
+    O que você quer ler hoje?
+  </h1>
+  <p class="text-gray-600 text-base sm:text-lg">
+    Descubra seu próximo livro favorito entre milhares de títulos.
+  </p>
+</div>
+
+<div class="max-w-4xl mx-auto mb-10 animate-slide-up">
+  <div
+    class="bg-white/90 backdrop-blur-sm rounded-3xl border border-violet-100 shadow-xl p-4 sm:p-5"
+  >
+    <div class="flex flex-col sm:flex-row gap-3">
+      <div class="flex-1 flex items-center bg-violet-50 rounded-2xl px-4 py-3">
+        <svg
+          class="w-5 h-5 text-violet-400 mr-3"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          ></path>
+        </svg>
+        <input
+          [ngModel]="query"
+          (ngModelChange)="onQueryChange($event)"
+          placeholder="Digite o titulo ou autor do livro..."
+          (keyup.enter)="onSearch()"
+          class="flex-1 bg-transparent outline-none text-base text-gray-700 placeholder-gray-400"
+        />
+      </div>
+      <button
+        (click)="onSearch()"
+        class="px-6 py-3 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white font-semibold rounded-2xl transition-all duration-300"
+      >
+        Buscar
+      </button>
+    </div>
+
+    <div class="mt-4 pt-4 border-t border-violet-100">
+      <p class="text-sm text-gray-500 mb-3">
+        Ou explore recomendações sem digitar:
+      </p>
+      <div class="flex flex-wrap gap-2">
+        <button
+          *ngFor="let option of exploreFilterOptions"
+          (click)="onFilterSelect(option.value)"
+          [ngClass]="
+            isSelectedFilter(option.value)
+              ? 'bg-violet-600 text-white shadow-md shadow-violet-200'
+              : 'bg-white text-violet-700 border border-violet-200 hover:bg-violet-50'
+          "
+          class="px-4 py-2 rounded-full font-semibold transition-all duration-200"
+          type="button"
+        >
+          {{ option.label }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -5,12 +5,21 @@ import { BookStorageService } from '../../../core/services/book-storage.service'
 import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { Book } from '../../../shared/models/book.model';
+import { NotificationModalComponent } from '../../../shared/components/notification-modal/notification-modal.component';
+import { LoginRequiredModalComponent } from '../../../shared/components/login-required-modal/login-required-modal.component';
+import { BookDetailsModalComponent } from '../book-details-modal/book-details-modal.component';
 
 @Component({
   selector: 'app-book-list',
   templateUrl: './book-list.component.html',
   styleUrls: ['./book-list.component.css'],
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    NotificationModalComponent,
+    LoginRequiredModalComponent,
+    BookDetailsModalComponent,
+  ],
 })
 export class BookListComponent {
   @Input() books: Book[] = [];
@@ -22,7 +31,7 @@ export class BookListComponent {
   constructor(
     private bookStorage: BookStorageService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
   ) {}
 
   openModal(book: Book): void {
