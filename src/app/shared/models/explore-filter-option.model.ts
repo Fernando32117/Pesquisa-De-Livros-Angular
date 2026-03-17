@@ -1,4 +1,4 @@
-import { ExploreFilter } from '../types/explore-filter.type';
+import { ExploreFilter } from '../../types/explore-filter.type';
 
 export interface ExploreFilterOption {
   value: ExploreFilter;

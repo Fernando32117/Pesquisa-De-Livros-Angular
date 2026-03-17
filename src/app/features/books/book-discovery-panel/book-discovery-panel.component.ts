@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ExploreFilterOption } from '../../../shared/models/explore-filter-option.model';
-import { ExploreFilter } from '../../../shared/types/explore-filter.type';
+import { ExploreFilter } from '../../../types/explore-filter.type';
 
 @Component({
   selector: 'app-book-discovery-panel',

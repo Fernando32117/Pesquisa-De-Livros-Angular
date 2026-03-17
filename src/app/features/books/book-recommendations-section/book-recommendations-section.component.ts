@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Book } from '../../../shared/models/book.model';
-import { ExploreFilter } from '../../../shared/types/explore-filter.type';
+import { ExploreFilter } from '../../../types/explore-filter.type';
 import { BookListComponent } from '../book-list/book-list.component';
 
 @Component({

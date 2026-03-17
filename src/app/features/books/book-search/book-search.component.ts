@@ -6,7 +6,7 @@ import { BookListComponent } from '../book-list/book-list.component';
 import { Book } from '../../../shared/models/book.model';
 import { DEFAULT_EXPLORE_FILTER, EXPLORE_FILTER_OPTIONS } from '../../../shared/constants/explore-filter.constants';
 import { ExploreFilterOption } from '../../../shared/models/explore-filter-option.model';
-import { ExploreFilter } from '../../../shared/types/explore-filter.type';
+import { ExploreFilter } from '../../../types/explore-filter.type';
 import { BookDiscoveryPanelComponent } from '../book-discovery-panel/book-discovery-panel.component';
 import { BookRecommendationsSectionComponent } from '../book-recommendations-section/book-recommendations-section.component';
 
