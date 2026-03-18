@@ -14,6 +14,7 @@ export class BookDiscoveryPanelComponent {
   @Input() query = '';
   @Input() selectedExploreFilter!: ExploreFilter;
   @Input() exploreFilterOptions: readonly ExploreFilterOption[] = [];
+  @Input() showExploreFilters = true;
   @Output() queryChange = new EventEmitter<string>();
   @Output() search = new EventEmitter<void>();
   @Output() filterSelect = new EventEmitter<ExploreFilter>();

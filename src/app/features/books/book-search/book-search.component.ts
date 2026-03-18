@@ -4,9 +4,7 @@ import { finalize } from 'rxjs';
 import { BookSearchService } from '../../../core/services/book-search.service';
 import { BookListComponent } from '../book-list/book-list.component';
 import { Book } from '../../../models/book.model';
-import {
-  DEFAULT_EXPLORE_FILTER,
-} from '../../../constants/default-explore-filter.constant';
+import { DEFAULT_EXPLORE_FILTER } from '../../../constants/default-explore-filter.constant';
 import { EXPLORE_FILTER_OPTIONS } from '../../../constants/explore-filter-options.constant';
 import { ExploreFilterOption } from '../../../models/explore-filter-option.model';
 import { ExploreFilter } from '../../../types/explore-filter.type';
@@ -34,6 +32,7 @@ export class BookSearchComponent implements OnInit {
   recommendationsErrorMessage = '';
   hasSearched = false;
   hasLoadedRecommendations = false;
+  showExploreFilters = true;
   selectedExploreFilter: ExploreFilter = DEFAULT_EXPLORE_FILTER;
   readonly exploreFilterOptions: readonly ExploreFilterOption[] =
     EXPLORE_FILTER_OPTIONS;
@@ -47,14 +46,17 @@ export class BookSearchComponent implements OnInit {
   searchBooks(): void {
     const normalizedQuery = this.query.trim();
 
-    this.hasSearched = true;
     this.errorMessage = '';
     this.books = [];
 
     if (!normalizedQuery) {
+      this.hasSearched = false;
+      this.showExploreFilters = true;
       return;
     }
 
+    this.hasSearched = true;
+    this.showExploreFilters = false;
     this.isLoading = true;
 
     this.booksService

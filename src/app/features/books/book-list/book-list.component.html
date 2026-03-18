@@ -1,15 +1,15 @@
 <!-- Book Grid -->
 <div
-  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 px-2 py-4"
+  class="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 px-2 py-4"
 >
   <div
     *ngFor="let book of books"
-    class="group w-full max-w-[240px] mx-auto bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden cursor-pointer animate-scale-in"
+    class="group w-full max-w-[240px] mx-auto bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden cursor-pointer animate-scale-in flex flex-col h-full"
     (click)="openModal(book)"
   >
     <!-- Book Cover -->
     <div
-      class="relative overflow-hidden bg-gradient-to-br from-purple-100 to-fuchsia-100 aspect-[3/4]"
+      class="relative overflow-hidden bg-gradient-to-br from-purple-100 to-fuchsia-100 lg:aspect-[3/4] aspect-square"
     >
       <img
         [src]="getCoverUrl(book.thumbnail)"
@@ -23,7 +23,7 @@
     </div>
 
     <!-- Book Info -->
-    <div class="p-4">
+    <div class="p-4 flex flex-col flex-1">
       <h2
         class="text-base font-bold text-gray-800 mb-1.5 line-clamp-2 group-hover:text-purple-700 transition-colors"
       >
@@ -34,10 +34,10 @@
       </p>
 
       <!-- Action Buttons -->
-      <div class="flex gap-2">
+      <div class="flex lg:gap-2 gap-1 mt-auto">
         <button
           (click)="openModal(book); $event.stopPropagation()"
-          class="flex-1 px-3 py-2 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white text-sm font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95"
+          class="flex-1 lg:px-3 py-2 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white text-sm font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95"
         >
           Ver Detalhes
         </button>

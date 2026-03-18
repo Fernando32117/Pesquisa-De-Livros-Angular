@@ -6,12 +6,14 @@
       [query]="query"
       [selectedExploreFilter]="selectedExploreFilter"
       [exploreFilterOptions]="exploreFilterOptions"
+      [showExploreFilters]="showExploreFilters"
       (queryChange)="query = $event"
       (search)="searchBooks()"
       (filterSelect)="onExploreFilterSelect($event)"
     ></app-book-discovery-panel>
 
     <app-book-recommendations-section
+      *ngIf="!hasSearched"
       [selectedExploreFilter]="selectedExploreFilter"
       [recommendedBooks]="recommendedBooks"
       [isRecommendationsLoading]="isRecommendationsLoading"

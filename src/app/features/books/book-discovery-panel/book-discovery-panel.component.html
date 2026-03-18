@@ -1,6 +1,6 @@
-<div class="max-w-3xl mx-auto text-center mb-8 animate-fade-in">
+<div class="max-w-3xl mx-auto text-center sm:mb-8 mb-4 animate-fade-in">
   <h1
-    class="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 mt-8 py-2 bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 bg-clip-text text-transparent"
+    class="text-3xl sm:text-4xl md:text-5xl font-bold sm:mb-3 sm:mt-8 mt-4 py-2 bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 bg-clip-text text-transparent"
   >
     O que você quer ler hoje?
   </h1>
@@ -44,11 +44,14 @@
       </button>
     </div>
 
-    <div class="mt-4 pt-4 border-t border-violet-100">
+    <div
+      *ngIf="showExploreFilters"
+      class="mt-4 pt-4 border-t border-violet-100"
+    >
       <p class="text-sm text-gray-500 mb-3">
         Ou explore recomendações sem digitar:
       </p>
-      <div class="flex flex-wrap gap-2">
+      <div class="flex flex-row gap-2">
         <button
           *ngFor="let option of exploreFilterOptions"
           (click)="onFilterSelect(option.value)"
@@ -57,7 +60,7 @@
               ? 'bg-violet-600 text-white shadow-md shadow-violet-200'
               : 'bg-white text-violet-700 border border-violet-200 hover:bg-violet-50'
           "
-          class="px-4 py-2 rounded-full font-semibold transition-all duration-200"
+          class="sm:px-4 px-2 py-2 rounded-full font-semibold transition-all duration-200"
           type="button"
         >
           {{ option.label }}
