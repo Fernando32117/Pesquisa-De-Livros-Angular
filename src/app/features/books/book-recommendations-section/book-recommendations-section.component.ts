@@ -26,6 +26,6 @@ export class BookRecommendationsSectionComponent {
       return 'Mais avaliados';
     }
 
-    return 'Relevancia';
+    return 'Relevância';
   }
 }

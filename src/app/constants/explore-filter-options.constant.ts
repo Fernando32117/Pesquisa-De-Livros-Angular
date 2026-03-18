@@ -7,7 +7,8 @@ export const EXPLORE_FILTER_OPTIONS: readonly ExploreFilterOption[] =
       return {
         value,
         label: 'Mais lidos',
-        description: 'Proxy de popularidade com sinais de engajamento e avaliacao.',
+        description:
+          'Proxy de popularidade com sinais de engajamento e avaliacao.',
       };
     }
 
@@ -21,7 +22,7 @@ export const EXPLORE_FILTER_OPTIONS: readonly ExploreFilterOption[] =
 
     return {
       value,
-      label: 'Relevancia',
-      description: 'Livros alinhados ao tema com base em relevancia da busca.',
+      label: 'Relevância',
+      description: 'Livros alinhados ao tema com base em relevância da busca.',
     };
   });
