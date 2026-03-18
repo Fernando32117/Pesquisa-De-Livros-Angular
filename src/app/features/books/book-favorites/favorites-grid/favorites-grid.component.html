@@ -5,6 +5,7 @@
     <div
       *ngFor="let book of favorites"
       class="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden cursor-pointer animate-scale-in flex flex-col h-full"
+      (click)="openDetails(book)"
     >
       <div
         class="relative overflow-hidden bg-gradient-to-br from-purple-100 to-fuchsia-100 lg:aspect-[3/4] aspect-square"
@@ -42,13 +43,13 @@
 
         <div class="flex gap-2 mt-auto">
           <button
-            (click)="openDetails(book)"
+            (click)="openDetails(book); $event.stopPropagation()"
             class="flex-1 lg:px-3 py-2 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white text-sm font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95"
           >
             Ver Detalhes
           </button>
           <button
-            (click)="removeFavorite(book.id)"
+            (click)="removeFavorite(book.id); $event.stopPropagation()"
             class="px-3 py-2 bg-red-50 border-2 border-red-300 text-red-600 font-semibold text-sm rounded-xl hover:bg-red-100 hover:border-red-400 transition-all duration-300 transform hover:scale-105 active:scale-95"
           >
             <svg
