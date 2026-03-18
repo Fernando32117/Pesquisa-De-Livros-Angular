@@ -98,8 +98,6 @@ npm test
 - ✅ **BookStorageService**: Adicionar, remover e listar favoritos
 - ✅ **BookSearchComponent**: Busca, paginação e estados de loading/erro
 
-````
-
 ## 📝 Como Usar
 
 1. **🆕 Criar Conta**: Clique em "Registrar" e preencha nome, e-mail e senha
@@ -116,7 +114,7 @@ O projeto está configurado para deploy na **Vercel**. Configure a variável de 
 
 ```bash
 vercel --prod
-````
+```
 
 ## 🤝 Contribuição
 
