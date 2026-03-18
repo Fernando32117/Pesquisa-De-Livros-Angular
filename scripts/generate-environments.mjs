@@ -1,54 +1,40 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { dirname, resolve } from 'node:path';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
 
 const rootDir = process.cwd();
 
-const devEnvPath = resolve(rootDir, '.env');
-const prodEnvPath = resolve(rootDir, '.env.prod');
+const envValues = parseEnvFile(resolve(rootDir, ".env"));
 
-const devEnvValues = parseEnvFile(devEnvPath);
-const prodEnvValues = parseEnvFile(prodEnvPath);
-
-const devApiKey = pickFirstNonEmpty([
-  process.env.GOOGLE_BOOKS_API_KEY_DEV,
+const apiKey = pickFirstNonEmpty([
   process.env.GOOGLE_BOOKS_API_KEY,
-  devEnvValues.GOOGLE_BOOKS_API_KEY_DEV,
-  devEnvValues.GOOGLE_BOOKS_API_KEY,
-]);
-
-const prodApiKey = pickFirstNonEmpty([
-  process.env.GOOGLE_BOOKS_API_KEY_PROD,
-  process.env.GOOGLE_BOOKS_API_KEY,
-  prodEnvValues.GOOGLE_BOOKS_API_KEY_PROD,
-  prodEnvValues.GOOGLE_BOOKS_API_KEY,
-  devApiKey,
+  envValues.GOOGLE_BOOKS_API_KEY,
 ]);
 
 writeEnvironmentFile(
-  resolve(rootDir, 'src/environments/environment.ts'),
+  resolve(rootDir, "src/environments/environment.ts"),
   false,
-  devApiKey,
+  apiKey,
 );
 writeEnvironmentFile(
-  resolve(rootDir, 'src/environments/environment.production.ts'),
+  resolve(rootDir, "src/environments/environment.production.ts"),
   true,
-  prodApiKey,
+  apiKey,
 );
 
-console.log('[env] Arquivos de environment gerados com sucesso.');
+console.log("[env] Arquivos de environment gerados com sucesso.");
 
 function parseEnvFile(filePath) {
   if (!existsSync(filePath)) {
     return {};
   }
 
-  const content = readFileSync(filePath, 'utf8');
+  const content = readFileSync(filePath, "utf8");
   const values = {};
 
   for (const rawLine of content.split(/\r?\n/)) {
     const line = rawLine.trim();
 
-    if (!line || line.startsWith('#')) {
+    if (!line || line.startsWith("#")) {
       continue;
     }
 
@@ -78,19 +64,19 @@ function stripQuotes(value) {
 
 function pickFirstNonEmpty(candidates) {
   for (const candidate of candidates) {
-    if (typeof candidate === 'string' && candidate.trim()) {
+    if (typeof candidate === "string" && candidate.trim()) {
       return candidate.trim();
     }
   }
 
-  return '';
+  return "";
 }
 
 function writeEnvironmentFile(filePath, production, googleBooksApiKey) {
   mkdirSync(dirname(filePath), { recursive: true });
 
   const escapedApiKey = googleBooksApiKey
-    .replace(/\\/g, '\\\\')
+    .replace(/\\/g, "\\\\")
     .replace(/'/g, "\\'");
 
   const content = `export const environment = {
@@ -99,5 +85,5 @@ function writeEnvironmentFile(filePath, production, googleBooksApiKey) {
 };
 `;
 
-  writeFileSync(filePath, content, 'utf8');
+  writeFileSync(filePath, content, "utf8");
 }
