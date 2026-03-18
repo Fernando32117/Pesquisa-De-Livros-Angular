@@ -12,6 +12,8 @@ import { GoogleBooksSearchResponse } from '../../models/google-books-search-resp
 export class GoogleBooksApiClientService {
   private readonly googleBooksApiUrl =
     'https://www.googleapis.com/books/v1/volumes';
+  private readonly googleBooksApiKey = (environment.googleBooksApiKey ?? '').trim();
+  private hasWarnedMissingApiKey = false;
 
   constructor(private http: HttpClient) {}
 
@@ -32,12 +34,23 @@ export class GoogleBooksApiClientService {
       .set('orderBy', request.orderBy)
       .set('printType', 'books');
 
-    const googleBooksApiKey = environment.googleBooksApiKey.trim();
-
-    if (googleBooksApiKey) {
-      params = params.set('key', googleBooksApiKey);
+    if (this.googleBooksApiKey) {
+      params = params.set('key', this.googleBooksApiKey);
+    } else {
+      this.warnMissingApiKey();
     }
 
     return params;
+  }
+
+  private warnMissingApiKey(): void {
+    if (this.hasWarnedMissingApiKey) {
+      return;
+    }
+
+    console.warn(
+      '[GoogleBooksApiClientService] GOOGLE_BOOKS_API_KEY nao configurada. Use .env/.env.prod e rode o script de build/start.',
+    );
+    this.hasWarnedMissingApiKey = true;
   }
 }
