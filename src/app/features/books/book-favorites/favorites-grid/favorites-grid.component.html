@@ -1,13 +1,13 @@
 <div class="max-w-7xl mx-auto">
   <div
-    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 px-2 py-4"
+    class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 px-2 py-4"
   >
     <div
       *ngFor="let book of favorites"
-      class="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden cursor-pointer animate-scale-in"
+      class="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden cursor-pointer animate-scale-in flex flex-col h-full"
     >
       <div
-        class="relative overflow-hidden bg-gradient-to-br from-purple-100 to-fuchsia-100 aspect-square"
+        class="relative overflow-hidden bg-gradient-to-br from-purple-100 to-fuchsia-100 lg:aspect-[3/4] aspect-square"
       >
         <img
           [src]="getCoverUrl(book.thumbnail)"
@@ -30,7 +30,7 @@
         </div>
       </div>
 
-      <div class="p-5">
+      <div class="p-4 flex flex-col flex-1">
         <h2
           class="text-lg font-bold text-gray-800 mb-2 line-clamp-2 group-hover:text-purple-700 transition-colors"
         >
@@ -40,16 +40,16 @@
           {{ book.authors.join(", ") }}
         </p>
 
-        <div class="flex gap-2">
+        <div class="flex gap-2 mt-auto">
           <button
             (click)="openDetails(book)"
-            class="flex-1 px-4 py-2.5 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white text-sm font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95"
+            class="flex-1 lg:px-3 py-2 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white text-sm font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95"
           >
             Ver Detalhes
           </button>
           <button
             (click)="removeFavorite(book.id)"
-            class="px-4 py-2.5 bg-red-50 border-2 border-red-300 text-red-600 font-semibold text-sm rounded-xl hover:bg-red-100 hover:border-red-400 transition-all duration-300 transform hover:scale-105 active:scale-95"
+            class="px-3 py-2 bg-red-50 border-2 border-red-300 text-red-600 font-semibold text-sm rounded-xl hover:bg-red-100 hover:border-red-400 transition-all duration-300 transform hover:scale-105 active:scale-95"
           >
             <svg
               class="w-5 h-5"
