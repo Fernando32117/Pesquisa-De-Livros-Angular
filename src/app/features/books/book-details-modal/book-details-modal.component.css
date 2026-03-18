@@ -1,1 +1,26 @@
-/* Tailwind CSS gerencia todos os estilos */
+.modal-body-scroll,
+.description-scroll {
+	scrollbar-width: thin;
+	scrollbar-color: rgba(139, 92, 246, 0.55) transparent;
+}
+
+.modal-body-scroll::-webkit-scrollbar,
+.description-scroll::-webkit-scrollbar {
+	width: 8px;
+}
+
+.modal-body-scroll::-webkit-scrollbar-track,
+.description-scroll::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.modal-body-scroll::-webkit-scrollbar-thumb,
+.description-scroll::-webkit-scrollbar-thumb {
+	background: rgba(139, 92, 246, 0.45);
+	border-radius: 9999px;
+}
+
+.modal-body-scroll::-webkit-scrollbar-thumb:hover,
+.description-scroll::-webkit-scrollbar-thumb:hover {
+	background: rgba(139, 92, 246, 0.7);
+}

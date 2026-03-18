@@ -4,11 +4,11 @@
   (click)="closeModal()"
 >
   <div
-    class="bg-white rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto animate-scale-in"
+    class="bg-white rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden animate-scale-in"
     (click)="$event.stopPropagation()"
   >
     <div
-      class="sticky top-0 bg-gradient-to-r from-violet-600 to-purple-600 text-white px-8 py-6 flex justify-between items-center rounded-t-3xl"
+      class="relative z-20 bg-gradient-to-r from-violet-600 to-purple-600 text-white px-8 py-6 flex justify-between items-center rounded-t-3xl"
     >
       <h2 class="text-2xl font-bold">Detalhes do Livro</h2>
       <button
@@ -31,10 +31,12 @@
       </button>
     </div>
 
-    <div class="p-8">
+    <div
+      class="p-8 overflow-y-auto modal-body-scroll overscroll-contain max-h-[calc(90vh-104px)]"
+    >
       <div class="grid md:grid-cols-3 gap-8">
         <div class="md:col-span-1">
-          <div class="sticky top-24">
+          <div class="md:sticky md:top-16 z-0">
             <div class="relative group">
               <div
                 class="absolute -inset-1 bg-gradient-to-r from-violet-600 to-fuchsia-600 rounded-2xl blur opacity-25"
@@ -49,7 +51,7 @@
           </div>
         </div>
 
-        <div class="md:col-span-2 space-y-6">
+        <div class="md:col-span-2 space-y-4">
           <div>
             <h3 class="text-3xl font-bold text-gray-900 mb-3">
               {{ book.title }}
@@ -62,20 +64,24 @@
           <div class="space-y-4">
             <div class="bg-gray-50 rounded-xl p-4">
               <h4 class="text-sm font-semibold text-gray-500 uppercase mb-2">
-                Descricao
+                Descrição
               </h4>
-              <p class="text-gray-700 leading-relaxed">
-                {{ book.description || "Descricao nao disponivel." }}
-              </p>
+              <div
+                class="description-scroll overflow-y-auto overscroll-contain max-h-40 sm:max-h-52 lg:max-h-64 pr-2"
+              >
+                <p class="text-gray-700 leading-relaxed">
+                  {{ book.description || "Descrição não disponível." }}
+                </p>
+              </div>
             </div>
 
             <div class="grid grid-cols-2 gap-4">
               <div class="bg-purple-50 rounded-xl p-4">
                 <h4 class="text-sm font-semibold text-purple-600 mb-2">
-                  Data de Lancamento
+                  Data de Lançamento
                 </h4>
                 <p class="text-gray-800">
-                  {{ book.publishedDate || "Nao informada" }}
+                  {{ book.publishedDate || "Não informada" }}
                 </p>
               </div>
 
@@ -84,7 +90,7 @@
                   Editora
                 </h4>
                 <p class="text-gray-800">
-                  {{ book.publisher || "Nao informada" }}
+                  {{ book.publisher || "Não informada" }}
                 </p>
               </div>
             </div>
@@ -96,7 +102,7 @@
               [href]="book.readUrl"
               target="_blank"
               rel="noopener"
-              class="flex-1 min-w-[140px] px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold rounded-xl text-center transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg"
+              class="flex-1 min-w-[140px] px-6 py-3 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white font-semibold rounded-xl text-center transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg"
             >
               Ver Livro
             </a>
@@ -105,7 +111,7 @@
               [href]="book.infoUrl"
               target="_blank"
               rel="noopener"
-              class="flex-1 min-w-[140px] px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold rounded-xl text-center transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg"
+              class="flex-1 min-w-[140px] px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-xl text-center transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg"
             >
               Mais Detalhes
             </a>
@@ -114,7 +120,7 @@
               [href]="book.buyUrl"
               target="_blank"
               rel="noopener"
-              class="flex-1 min-w-[140px] px-6 py-3 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-semibold rounded-xl text-center transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg"
+              class="flex-1 min-w-[140px] px-6 py-3 bg-gradient-to-r from-fuchsia-600 to-rose-600 hover:from-fuchsia-700 hover:to-rose-700 text-white font-semibold rounded-xl text-center transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg"
             >
               Comprar
             </a>
@@ -123,7 +129,7 @@
               [href]="book.pdfUrl"
               target="_blank"
               rel="noopener"
-              class="flex-1 min-w-[140px] px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-semibold rounded-xl text-center transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg"
+              class="flex-1 min-w-[140px] px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold rounded-xl text-center transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg"
             >
               Baixar PDF
             </a>
