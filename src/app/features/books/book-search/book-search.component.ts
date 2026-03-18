@@ -42,11 +42,27 @@ export class BookSearchComponent implements OnInit {
   currentPage = 1;
   totalItems = 0;
   readonly itemsPerPage = 18;
+  readonly maxSearchableItems = 1000;
   private lastSearchedQuery = '';
 
+  get searchableTotalItems(): number {
+    return Math.min(this.totalItems, this.maxSearchableItems);
+  }
+
+  get totalItemsLabel(): string {
+    if (this.totalItems > this.maxSearchableItems) {
+      return `${this.maxSearchableItems}+`;
+    }
+
+    return this.totalItems.toString();
+  }
+
+  get isTotalCapped(): boolean {
+    return this.totalItems > this.maxSearchableItems;
+  }
+
   get totalPages(): number {
-    // Google Books API caps usable results at ~1000 (startIndex limit)
-    return Math.min(Math.ceil(this.totalItems / this.itemsPerPage), 56);
+    return Math.ceil(this.searchableTotalItems / this.itemsPerPage);
   }
 
   constructor(private booksService: BookSearchService) {}

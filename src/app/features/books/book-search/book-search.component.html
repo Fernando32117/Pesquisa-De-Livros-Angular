@@ -90,9 +90,12 @@
       <h2 class="text-2xl font-bold text-gray-800 mb-3">
         Resultados da busca
         <span class="text-base font-normal text-gray-500 ml-2"
-          >({{ totalItems }} livros encontrados)</span
+          >({{ totalItemsLabel }} livros encontrados)</span
         >
       </h2>
+      <p *ngIf="isTotalCapped" class="text-sm text-gray-500 -mt-1 mb-3">
+        Exibindo paginação dos primeiros 1000 resultados mais relevantes.
+      </p>
       <app-book-list [books]="books"></app-book-list>
       <app-pagination
         [currentPage]="currentPage"
