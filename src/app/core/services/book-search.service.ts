@@ -12,7 +12,7 @@ import { GoogleBooksBookMapperService } from './google-books-book-mapper.service
   providedIn: 'root',
 })
 export class BookSearchService {
-  private readonly maxResults = 20;
+  private readonly pageSize = 18;
   private readonly maxExploreResults = 40;
 
   constructor(
@@ -22,21 +22,30 @@ export class BookSearchService {
     private errorTranslator: BookSearchErrorTranslatorService,
   ) {}
 
-  searchBooks(query: string): Observable<Book[]> {
+  searchBooks(
+    query: string,
+    page = 1,
+  ): Observable<{ books: Book[]; totalItems: number }> {
     const normalizedQuery = query.trim();
 
     if (!normalizedQuery) {
-      return of([]);
+      return of({ books: [], totalItems: 0 });
     }
 
     const request: GoogleBooksSearchRequest = {
       query: normalizedQuery,
-      maxResults: this.maxResults,
+      maxResults: this.pageSize,
       orderBy: 'relevance',
+      startIndex: (page - 1) * this.pageSize,
     };
 
     return this.googleBooksApiClient.searchVolumes(request).pipe(
-      map((volumes) => this.googleBooksBookMapper.mapVolumesToBooks(volumes)),
+      map((response) => ({
+        books: this.googleBooksBookMapper.mapVolumesToBooks(
+          response.items ?? [],
+        ),
+        totalItems: response.totalItems ?? 0,
+      })),
       catchError((error) =>
         throwError(() => this.errorTranslator.toSearchError(error)),
       ),
@@ -51,10 +60,11 @@ export class BookSearchService {
     };
 
     return this.googleBooksApiClient.searchVolumes(request).pipe(
+      map((response) => response.items ?? []),
       map((volumes) =>
         this.bookExploreRanking.sortVolumesForExplore(volumes, filter),
       ),
-      map((volumes) => volumes.slice(0, this.maxResults)),
+      map((volumes) => volumes.slice(0, this.pageSize)),
       map((volumes) => this.googleBooksBookMapper.mapVolumesToBooks(volumes)),
       catchError((error) =>
         throwError(() => this.errorTranslator.toExploreError(error)),

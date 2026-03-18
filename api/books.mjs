@@ -1,12 +1,13 @@
 export default async function handler(req, res) {
   const apiKey = process.env.GOOGLE_BOOKS_API_KEY ?? "";
-  const { q, maxResults, orderBy, printType } = req.query;
+  const { q, maxResults, orderBy, printType, startIndex } = req.query;
 
   const params = new URLSearchParams();
   if (q) params.set("q", String(q));
   if (maxResults) params.set("maxResults", String(maxResults));
   if (orderBy) params.set("orderBy", String(orderBy));
   if (printType) params.set("printType", String(printType));
+  if (startIndex) params.set("startIndex", String(startIndex));
   if (apiKey) params.set("key", apiKey);
 
   try {

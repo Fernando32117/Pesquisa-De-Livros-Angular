@@ -10,6 +10,7 @@ import { ExploreFilterOption } from '../../../models/explore-filter-option.model
 import { ExploreFilter } from '../../../types/explore-filter.type';
 import { BookDiscoveryPanelComponent } from '../book-discovery-panel/book-discovery-panel.component';
 import { BookRecommendationsSectionComponent } from '../book-recommendations-section/book-recommendations-section.component';
+import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 
 @Component({
   selector: 'app-book-search',
@@ -20,6 +21,7 @@ import { BookRecommendationsSectionComponent } from '../book-recommendations-sec
     BookListComponent,
     BookDiscoveryPanelComponent,
     BookRecommendationsSectionComponent,
+    PaginationComponent,
   ],
 })
 export class BookSearchComponent implements OnInit {
@@ -37,6 +39,16 @@ export class BookSearchComponent implements OnInit {
   readonly exploreFilterOptions: readonly ExploreFilterOption[] =
     EXPLORE_FILTER_OPTIONS;
 
+  currentPage = 1;
+  totalItems = 0;
+  readonly itemsPerPage = 18;
+  private lastSearchedQuery = '';
+
+  get totalPages(): number {
+    // Google Books API caps usable results at ~1000 (startIndex limit)
+    return Math.min(Math.ceil(this.totalItems / this.itemsPerPage), 56);
+  }
+
   constructor(private booksService: BookSearchService) {}
 
   ngOnInit(): void {
@@ -48,6 +60,7 @@ export class BookSearchComponent implements OnInit {
 
     this.errorMessage = '';
     this.books = [];
+    this.totalItems = 0;
 
     if (!normalizedQuery) {
       this.hasSearched = false;
@@ -57,19 +70,18 @@ export class BookSearchComponent implements OnInit {
 
     this.hasSearched = true;
     this.showExploreFilters = false;
-    this.isLoading = true;
+    this.currentPage = 1;
+    this.lastSearchedQuery = normalizedQuery;
+    this.executeSearch(normalizedQuery, 1);
+  }
 
-    this.booksService
-      .searchBooks(normalizedQuery)
-      .pipe(finalize(() => (this.isLoading = false)))
-      .subscribe({
-        next: (books) => {
-          this.books = books;
-        },
-        error: (error: Error) => {
-          this.errorMessage = error.message;
-        },
-      });
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.books = [];
+    this.executeSearch(this.lastSearchedQuery, page);
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }
 
   onExploreFilterSelect(filter: ExploreFilter): void {
@@ -82,6 +94,23 @@ export class BookSearchComponent implements OnInit {
 
     this.selectedExploreFilter = filter;
     this.loadRecommendedBooks();
+  }
+
+  private executeSearch(query: string, page: number): void {
+    this.isLoading = true;
+
+    this.booksService
+      .searchBooks(query, page)
+      .pipe(finalize(() => (this.isLoading = false)))
+      .subscribe({
+        next: ({ books, totalItems }) => {
+          this.books = books;
+          this.totalItems = totalItems;
+        },
+        error: (error: Error) => {
+          this.errorMessage = error.message;
+        },
+      });
   }
 
   private loadRecommendedBooks(): void {

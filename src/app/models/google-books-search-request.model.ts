@@ -4,4 +4,5 @@ export interface GoogleBooksSearchRequest {
   query: string;
   maxResults: number;
   orderBy: GoogleBooksOrderBy;
+  startIndex?: number;
 }

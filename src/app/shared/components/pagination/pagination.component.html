@@ -1,0 +1,54 @@
+<nav
+  *ngIf="totalPages > 1"
+  class="flex justify-center items-center gap-1 mt-10 flex-wrap"
+  aria-label="Paginação"
+>
+  <!-- Anterior -->
+  <button
+    (click)="goToPage(currentPage - 1)"
+    [disabled]="currentPage === 1"
+    [ngClass]="{
+      'text-purple-600 hover:bg-purple-50 cursor-pointer': currentPage > 1,
+      'text-gray-300 cursor-not-allowed': currentPage === 1,
+    }"
+    class="flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors"
+    aria-label="Página anterior"
+  >
+    ‹ Anterior
+  </button>
+
+  <!-- Números -->
+  <ng-container *ngFor="let item of visiblePages; trackBy: trackByIndex">
+    <span *ngIf="isEllipsis(item)" class="px-2 py-2 text-gray-400 select-none">
+      …
+    </span>
+
+    <button
+      *ngIf="!isEllipsis(item)"
+      (click)="goToPage($any(item))"
+      [ngClass]="{
+        'bg-purple-600 text-white shadow-sm': item === currentPage,
+        'text-gray-700 hover:bg-purple-50': item !== currentPage,
+      }"
+      class="min-w-[2.25rem] h-9 px-2 rounded-lg text-sm font-medium transition-colors"
+      [attr.aria-current]="item === currentPage ? 'page' : null"
+    >
+      {{ item }}
+    </button>
+  </ng-container>
+
+  <!-- Próxima -->
+  <button
+    (click)="goToPage(currentPage + 1)"
+    [disabled]="currentPage === totalPages"
+    [ngClass]="{
+      'text-purple-600 hover:bg-purple-50 cursor-pointer':
+        currentPage < totalPages,
+      'text-gray-300 cursor-not-allowed': currentPage === totalPages,
+    }"
+    class="flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors"
+    aria-label="Próxima página"
+  >
+    Próxima ›
+  </button>
+</nav>
