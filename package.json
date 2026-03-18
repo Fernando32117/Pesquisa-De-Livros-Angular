@@ -3,11 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "prepare:env": "node scripts/generate-environments.mjs",
-    "start": "npm run prepare:env && ng serve",
-    "build": "npm run prepare:env && ng build",
-    "watch": "npm run prepare:env && ng build --watch --configuration development",
-    "test": "npm run prepare:env && ng test",
+    "start": "node scripts/dev-serve.mjs",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
     "serve:ssr:pesquisa-de-livros": "node dist/pesquisa-de-livros/server/server.mjs"
   },
   "private": true,

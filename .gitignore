@@ -45,6 +45,3 @@ Thumbs.db
 .env
 .env.*
 !.env.example
-!.env.prod.example
-src/environments/environment.ts
-src/environments/environment.production.ts
