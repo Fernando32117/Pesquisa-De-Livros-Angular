@@ -9,6 +9,7 @@ import { FavoritesGridComponent } from './favorites-grid/favorites-grid.componen
 import { FavoritesHeaderComponent } from './favorites-header/favorites-header.component';
 import { BookFavoritesFacade } from './book-favorites.facade';
 import { BookFavoritesState } from '../../../models/book-favorites-state.model';
+import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 
 @Component({
   selector: 'app-book-favorites',
@@ -21,15 +22,19 @@ import { BookFavoritesState } from '../../../models/book-favorites-state.model';
     FavoritesEmptyStateComponent,
     BookDetailsModalComponent,
     NotificationModalComponent,
+    PaginationComponent,
   ],
   providers: [BookFavoritesFacade],
 })
 export class BookFavoritesComponent implements OnInit, OnDestroy {
   favorites: Book[] = [];
   filteredFavorites: Book[] = [];
+  pagedFavorites: Book[] = [];
   selectedBook: Book | null = null;
   filter = '';
   notificationMessage: string | null = null;
+  currentPage = 1;
+  totalPages = 0;
   readonly fallbackImage = '/notimg.jpg';
 
   private stateSubscription: Subscription | null = null;
@@ -46,6 +51,13 @@ export class BookFavoritesComponent implements OnInit, OnDestroy {
 
   removeFavorite(bookId: string): void {
     this.favoritesFacade.removeFavorite(bookId);
+  }
+
+  goToPage(page: number): void {
+    this.favoritesFacade.goToPage(page);
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }
 
   openModal(book: Book): void {
@@ -72,8 +84,11 @@ export class BookFavoritesComponent implements OnInit, OnDestroy {
   private updateViewState(state: BookFavoritesState): void {
     this.favorites = state.favorites;
     this.filteredFavorites = state.filteredFavorites;
+    this.pagedFavorites = state.pagedFavorites;
     this.selectedBook = state.selectedBook;
     this.filter = state.filter;
     this.notificationMessage = state.notificationMessage;
+    this.currentPage = state.currentPage;
+    this.totalPages = state.totalPages;
   }
 }

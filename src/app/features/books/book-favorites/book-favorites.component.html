@@ -8,10 +8,17 @@
 
   <app-favorites-grid
     *ngIf="filteredFavorites.length > 0; else noFavorites"
-    [favorites]="filteredFavorites"
+    [favorites]="pagedFavorites"
     (details)="openModal($event)"
     (remove)="removeFavorite($event)"
   ></app-favorites-grid>
+
+  <app-pagination
+    *ngIf="filteredFavorites.length > 0"
+    [currentPage]="currentPage"
+    [totalPages]="totalPages"
+    (pageChange)="goToPage($event)"
+  ></app-pagination>
 
   <ng-template #noFavorites>
     <app-favorites-empty-state [filter]="filter"></app-favorites-empty-state>

@@ -5,12 +5,17 @@ import { Book } from '../../../models/book.model';
 import { BookFavoritesState } from '../../../models/book-favorites-state.model';
 import { filterFavorites } from '../../../utils/book-favorites-filter.util';
 
+const PAGE_SIZE = 18;
+
 const INITIAL_STATE: BookFavoritesState = {
   favorites: [],
   filteredFavorites: [],
+  pagedFavorites: [],
   selectedBook: null,
   filter: '',
   notificationMessage: null,
+  currentPage: 1,
+  totalPages: 0,
 };
 
 @Injectable()
@@ -26,16 +31,23 @@ export class BookFavoritesFacade {
   init(): void {
     this.favoritesSubscription = this.bookStorage.favorites$.subscribe(() => {
       const favorites = this.bookStorage.getFavorites();
+      const filteredFavorites = filterFavorites(
+        favorites,
+        this.snapshot.filter,
+      );
       this.patchState({
         favorites,
-        filteredFavorites: filterFavorites(favorites, this.snapshot.filter),
+        filteredFavorites,
+        ...this.computePagination(filteredFavorites, 1),
       });
     });
 
     const favorites = this.bookStorage.getFavorites();
+    const filteredFavorites = filterFavorites(favorites, this.snapshot.filter);
     this.patchState({
       favorites,
-      filteredFavorites: filterFavorites(favorites, this.snapshot.filter),
+      filteredFavorites,
+      ...this.computePagination(filteredFavorites, 1),
     });
   }
 
@@ -44,10 +56,18 @@ export class BookFavoritesFacade {
   }
 
   setFilter(filter: string): void {
+    const filteredFavorites = filterFavorites(this.snapshot.favorites, filter);
     this.patchState({
       filter,
-      filteredFavorites: filterFavorites(this.snapshot.favorites, filter),
+      filteredFavorites,
+      ...this.computePagination(filteredFavorites, 1),
     });
+  }
+
+  goToPage(page: number): void {
+    const { filteredFavorites, totalPages } = this.snapshot;
+    if (page < 1 || page > totalPages) return;
+    this.patchState(this.computePagination(filteredFavorites, page));
   }
 
   openDetails(book: Book): void {
@@ -68,6 +88,20 @@ export class BookFavoritesFacade {
 
   clearNotification(): void {
     this.patchState({ notificationMessage: null });
+  }
+
+  private computePagination(
+    filteredFavorites: Book[],
+    page: number,
+  ): Pick<BookFavoritesState, 'pagedFavorites' | 'currentPage' | 'totalPages'> {
+    const totalPages = Math.ceil(filteredFavorites.length / PAGE_SIZE);
+    const safePage = totalPages === 0 ? 1 : Math.min(page, totalPages);
+    const start = (safePage - 1) * PAGE_SIZE;
+    return {
+      pagedFavorites: filteredFavorites.slice(start, start + PAGE_SIZE),
+      currentPage: safePage,
+      totalPages,
+    };
   }
 
   private showNotification(message: string): void {
