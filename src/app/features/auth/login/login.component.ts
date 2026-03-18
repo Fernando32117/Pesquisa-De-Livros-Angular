@@ -14,25 +14,29 @@ export class LoginComponent {
   username = '';
   password = '';
   errorMessage = '';
+  isLoading = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {}
 
-  login(): void {
-    console.log("Tentando logar com:", this.username, this.password);
-  
-    if (this.authService.login(this.username, this.password)) {
-      console.log("Login bem-sucedido! Redirecionando...");
+  async login(): Promise<void> {
+    this.errorMessage = '';
+    this.isLoading = true;
+
+    const result = await this.authService.login(this.username, this.password);
+
+    this.isLoading = false;
+
+    if (result.success) {
       this.router.navigate(['/book-search']);
     } else {
-      console.log("Falha no login.");
-      this.errorMessage = 'Credenciais inválidas!';
+      this.errorMessage = result.error ?? 'Credenciais inválidas!';
     }
-  }  
+  }
 
-  goToRegister() {
-    console.log("Tentando ir para tela de registro");
+  goToRegister(): void {
     this.router.navigate(['./register']);
   }
-  
-  
 }

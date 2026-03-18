@@ -9,14 +9,17 @@ import { Subscription } from 'rxjs';
   standalone: true,
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css'],
-  imports: [CommonModule]
+  imports: [CommonModule],
 })
 export class NavigationComponent implements OnInit, OnDestroy {
   dropdownOpen = false;
   username: string | null = null;
   private usernameSubscription!: Subscription; // Para limpar a inscrição ao destruir o componente
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {}
 
   ngOnInit() {
     this.usernameSubscription = this.authService.username$.subscribe((name) => {
@@ -38,8 +41,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
     return this.authService.isAuthenticated();
   }
 
-  logout() {
-    this.authService.logout();
+  async logout(): Promise<void> {
+    await this.authService.logout();
     this.router.navigate(['/login']);
   }
 

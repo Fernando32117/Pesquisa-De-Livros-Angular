@@ -62,9 +62,8 @@ export class BookFavoritesFacade {
     this.patchState({ selectedBook: null });
   }
 
-  removeFavorite(bookId: string): void {
-    this.bookStorage.removeFavorite(bookId);
-    this.showNotification('Livro removido dos favoritos!');
+  async removeFavorite(bookId: string): Promise<void> {
+    await this.bookStorage.removeFavorite(bookId);
   }
 
   clearNotification(): void {

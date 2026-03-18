@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -16,11 +17,15 @@ export class RegisterComponent {
   password = '';
   confirmPassword = '';
   errorMessage = '';
-  showSuccessModal: boolean = false;
+  showSuccessModal = false;
+  isLoading = false;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+  ) {}
 
-  register(): void {
+  async register(): Promise<void> {
     if (
       !this.username ||
       !this.email ||
@@ -36,33 +41,28 @@ export class RegisterComponent {
       return;
     }
 
-    let users = JSON.parse(localStorage.getItem('users') || '[]');
+    this.isLoading = true;
+    this.errorMessage = '';
 
-    if (
-      users.some(
-        (user: any) =>
-          user.email === this.email || user.username === this.username,
-      )
-    ) {
-      this.errorMessage = 'Usuário ou e-mail já cadastrados!';
-      return;
+    const result = await this.authService.registerUser(
+      this.username,
+      this.email,
+      this.password,
+    );
+
+    this.isLoading = false;
+
+    if (result.success) {
+      if (result.sessionCreated) {
+        // Supabase fez login automático (sem confirmação de e-mail)
+        this.router.navigate(['/book-search']);
+      } else {
+        // Confirmação de e-mail ativa — pedir para o usuário confirmar
+        this.showSuccessModal = true;
+      }
+    } else {
+      this.errorMessage = result.error ?? 'Erro ao cadastrar usuário.';
     }
-
-    const formattedName = this.username
-      .split(' ')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join(' ');
-
-    const firstName = formattedName.split(' ')[0];
-
-    users.push({
-      username: firstName,
-      email: this.email,
-      password: this.password,
-    });
-    localStorage.setItem('users', JSON.stringify(users));
-
-    this.showSuccessModal = true;
   }
 
   closeModal(): void {

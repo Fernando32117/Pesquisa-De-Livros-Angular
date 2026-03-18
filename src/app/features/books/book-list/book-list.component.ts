@@ -53,35 +53,31 @@ export class BookListComponent {
     this.selectedBook = null;
   }
 
-  toggleFavorite(book: Book): void {
+  async toggleFavorite(book: Book): Promise<void> {
     if (!this.authService.isAuthenticated()) {
       this.showLoginModal = true;
       return;
     }
 
     if (this.bookStorage.isFavorite(book.id)) {
-      this.bookStorage.removeFavorite(book.id);
-      this.showNotification('Livro removido dos favoritos.');
+      await this.bookStorage.removeFavorite(book.id);
     } else {
-      this.bookStorage.addFavorite(this.prepareBookForSave(book));
-      this.showNotification('Livro adicionado aos favoritos.');
+      await this.bookStorage.addFavorite(this.prepareBookForSave(book));
     }
   }
 
-  saveFavorite(book: Book): void {
+  async saveFavorite(book: Book): Promise<void> {
     if (!this.authService.isAuthenticated()) {
       this.showLoginModal = true;
       return;
     }
 
-    this.bookStorage.addFavorite(this.prepareBookForSave(book));
-    this.showNotification('Livro favoritado com sucesso!');
+    await this.bookStorage.addFavorite(this.prepareBookForSave(book));
     this.closeModal();
   }
 
-  updateFavorite(book: Book): void {
-    this.bookStorage.updateFavorite(this.prepareBookForSave(book));
-    this.showNotification('Livro atualizado com sucesso!');
+  async updateFavorite(book: Book): Promise<void> {
+    await this.bookStorage.updateFavorite(this.prepareBookForSave(book));
     this.closeModal();
   }
 

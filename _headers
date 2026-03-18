@@ -1,2 +1,2 @@
-/*
-  Content-Security-Policy: default-src 'self'; img-src 'self' data: https://covers.openlibrary.org https://openlibrary.org https://books.google.com https://*.googleusercontent.com; connect-src 'self' https://openlibrary.org https://www.googleapis.com; style-src 'self' 'unsafe-inline'; media-src 'self' data: *; upgrade-insecure-requests;
+/_
+Content-Security-Policy: default-src 'self'; img-src 'self' data: https://covers.openlibrary.org https://openlibrary.org https://books.google.com https://_.googleusercontent.com; connect-src 'self' https://openlibrary.org https://www.googleapis.com https://_.supabase.co; style-src 'self' 'unsafe-inline'; media-src 'self' data: _; upgrade-insecure-requests;
