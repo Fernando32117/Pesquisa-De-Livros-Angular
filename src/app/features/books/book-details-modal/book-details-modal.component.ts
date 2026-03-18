@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Book } from '../../../shared/models/book.model';
+import { Book } from '../../../models/book.model';
 
 @Component({
   selector: 'app-book-details-modal',
@@ -11,6 +11,8 @@ import { Book } from '../../../shared/models/book.model';
 export class BookDetailsModalComponent {
   @Input() book: Book | null = null;
   @Input() fallbackImage = '/notimg.jpg';
+  @Input() showPrimaryAction = true;
+  @Input() primaryActionLabel = 'Adicionar aos Favoritos';
   @Output() close = new EventEmitter<void>();
   @Output() saveFavorite = new EventEmitter<Book>();
 

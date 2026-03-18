@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ExploreFilter } from '../../types/explore-filter.type';
-import { GoogleBookVolume } from '../models/google-book-volume.model';
+import { GoogleBookVolume } from '../../models/google-book-volume.model';
 
 @Injectable({
   providedIn: 'root',

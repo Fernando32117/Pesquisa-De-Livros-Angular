@@ -4,7 +4,7 @@ import { provideRouter } from '@angular/router';
 import { BookListComponent } from './book-list.component';
 import { BookStorageService } from '../../../core/services/book-storage.service';
 import { AuthService } from '../../../core/services/auth.service';
-import { Book } from '../../../shared/models/book.model';
+import { Book } from '../../../models/book.model';
 
 describe('BookListComponent', () => {
   let component: BookListComponent;
@@ -46,7 +46,7 @@ describe('BookListComponent', () => {
     component.openModal(book);
 
     expect(component.selectedBook).toEqual(
-      jasmine.objectContaining({ id: book.id, title: book.title })
+      jasmine.objectContaining({ id: book.id, title: book.title }),
     );
   });
 
@@ -75,7 +75,7 @@ describe('BookListComponent', () => {
     component.saveFavorite(book);
 
     expect(bookStorageService.getFavorites()).toContain(
-      jasmine.objectContaining({ id: '1' })
+      jasmine.objectContaining({ id: '1' }),
     );
   });
 });

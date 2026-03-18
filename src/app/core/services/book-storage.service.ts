@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Book } from '../../shared/models/book.model';
+import { Book } from '../../models/book.model';
 
 @Injectable({
   providedIn: 'root',
@@ -51,7 +51,7 @@ export class BookStorageService {
     const normalizedBook = this.normalizeBook(book);
 
     this.favorites = this.favorites.map((currentBook) =>
-      currentBook.id === normalizedBook.id ? normalizedBook : currentBook
+      currentBook.id === normalizedBook.id ? normalizedBook : currentBook,
     );
 
     this.saveFavorites();
@@ -114,25 +114,21 @@ export class BookStorageService {
       rawBook?.id ??
         rawBook?.key ??
         legacyVolumeInfo?.canonicalVolumeLink ??
-        `${title}-${legacyVolumeInfo?.publishedDate ?? 'unknown'}`
+        `${title}-${legacyVolumeInfo?.publishedDate ?? 'unknown'}`,
     );
 
-    const authors =
-      rawBook?.authors ??
+    const authors = rawBook?.authors ??
       legacyVolumeInfo?.authors ??
-      (rawBook?.author_name as string[] | undefined) ??
-      ['Autor desconhecido'];
+      (rawBook?.author_name as string[] | undefined) ?? ['Autor desconhecido'];
 
     return {
       id,
       title,
       authors: Array.isArray(authors) ? authors : [String(authors)],
       description: rawBook?.description ?? legacyVolumeInfo?.description,
-      publishedDate:
-        rawBook?.publishedDate ?? legacyVolumeInfo?.publishedDate,
+      publishedDate: rawBook?.publishedDate ?? legacyVolumeInfo?.publishedDate,
       publisher: rawBook?.publisher ?? legacyVolumeInfo?.publisher,
-      thumbnail:
-        rawBook?.thumbnail ?? legacyVolumeInfo?.imageLinks?.thumbnail,
+      thumbnail: rawBook?.thumbnail ?? legacyVolumeInfo?.imageLinks?.thumbnail,
       infoUrl: rawBook?.infoUrl ?? legacyVolumeInfo?.infoLink,
       readUrl:
         rawBook?.readUrl ??

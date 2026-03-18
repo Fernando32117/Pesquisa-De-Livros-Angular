@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ExploreFilterOption } from '../../../shared/models/explore-filter-option.model';
+import { ExploreFilterOption } from '../../../models/explore-filter-option.model';
 import { ExploreFilter } from '../../../types/explore-filter.type';
 
 @Component({

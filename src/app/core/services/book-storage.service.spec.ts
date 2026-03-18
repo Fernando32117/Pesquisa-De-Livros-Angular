@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { BookStorageService } from './book-storage.service';
-import { Book } from '../../shared/models/book.model';
+import { Book } from '../../models/book.model';
 
 describe('BookStorageService', () => {
   let service: BookStorageService;
@@ -30,7 +30,7 @@ describe('BookStorageService', () => {
     service.addFavorite(book);
 
     expect(service.getFavorites()).toContain(
-      jasmine.objectContaining({ id: book.id, title: book.title })
+      jasmine.objectContaining({ id: book.id, title: book.title }),
     );
   });
 
@@ -41,7 +41,7 @@ describe('BookStorageService', () => {
     service.removeFavorite(book.id);
 
     expect(service.getFavorites()).not.toContain(
-      jasmine.objectContaining({ id: book.id })
+      jasmine.objectContaining({ id: book.id }),
     );
   });
 
@@ -53,7 +53,7 @@ describe('BookStorageService', () => {
     service.updateFavorite(updatedBook);
 
     expect(service.getFavorites().find((b) => b.id === book.id)?.notes).toBe(
-      'Updated notes'
+      'Updated notes',
     );
   });
 

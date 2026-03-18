@@ -3,14 +3,18 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BookFavoritesComponent } from './book-favorites.component';
 import { BookStorageService } from '../../../core/services/book-storage.service';
-import { Book } from '../../../shared/models/book.model';
+import { Book } from '../../../models/book.model';
 
 describe('BookFavoritesComponent', () => {
   let component: BookFavoritesComponent;
   let fixture: ComponentFixture<BookFavoritesComponent>;
   let bookStorageService: BookStorageService;
 
-  const createBook = (id: string, title: string, tags: string[] = []): Book => ({
+  const createBook = (
+    id: string,
+    title: string,
+    tags: string[] = [],
+  ): Book => ({
     id,
     title,
     authors: ['Test Author'],
@@ -45,7 +49,7 @@ describe('BookFavoritesComponent', () => {
     fixture.detectChanges();
 
     expect(component.filteredFavorites).toContain(
-      jasmine.objectContaining({ id: '1' })
+      jasmine.objectContaining({ id: '1' }),
     );
   });
 
@@ -63,20 +67,20 @@ describe('BookFavoritesComponent', () => {
     component.applyFilter();
     fixture.detectChanges();
     expect(component.filteredFavorites).toContain(
-      jasmine.objectContaining({ id: '1' })
+      jasmine.objectContaining({ id: '1' }),
     );
     expect(component.filteredFavorites).not.toContain(
-      jasmine.objectContaining({ id: '2' })
+      jasmine.objectContaining({ id: '2' }),
     );
 
     component.filter = 'tag2';
     component.applyFilter();
     fixture.detectChanges();
     expect(component.filteredFavorites).toContain(
-      jasmine.objectContaining({ id: '2' })
+      jasmine.objectContaining({ id: '2' }),
     );
     expect(component.filteredFavorites).not.toContain(
-      jasmine.objectContaining({ id: '1' })
+      jasmine.objectContaining({ id: '1' }),
     );
   });
 
@@ -85,7 +89,7 @@ describe('BookFavoritesComponent', () => {
 
     component.openModal(book);
     expect(component.selectedBook).toEqual(
-      jasmine.objectContaining({ id: '1', title: 'Test Book' })
+      jasmine.objectContaining({ id: '1', title: 'Test Book' }),
     );
 
     component.closeModal();
@@ -103,7 +107,7 @@ describe('BookFavoritesComponent', () => {
     fixture.detectChanges();
 
     expect(component.filteredFavorites).not.toContain(
-      jasmine.objectContaining({ id: '1' })
+      jasmine.objectContaining({ id: '1' }),
     );
   });
 });

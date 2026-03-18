@@ -3,9 +3,12 @@ import { CommonModule } from '@angular/common';
 import { finalize } from 'rxjs';
 import { BookSearchService } from '../../../core/services/book-search.service';
 import { BookListComponent } from '../book-list/book-list.component';
-import { Book } from '../../../shared/models/book.model';
-import { DEFAULT_EXPLORE_FILTER, EXPLORE_FILTER_OPTIONS } from '../../../shared/constants/explore-filter.constants';
-import { ExploreFilterOption } from '../../../shared/models/explore-filter-option.model';
+import { Book } from '../../../models/book.model';
+import {
+  DEFAULT_EXPLORE_FILTER,
+  EXPLORE_FILTER_OPTIONS,
+} from '../../../shared/constants/explore-filter.constants';
+import { ExploreFilterOption } from '../../../models/explore-filter-option.model';
 import { ExploreFilter } from '../../../types/explore-filter.type';
 import { BookDiscoveryPanelComponent } from '../book-discovery-panel/book-discovery-panel.component';
 import { BookRecommendationsSectionComponent } from '../book-recommendations-section/book-recommendations-section.component';
@@ -32,7 +35,8 @@ export class BookSearchComponent implements OnInit {
   hasSearched = false;
   hasLoadedRecommendations = false;
   selectedExploreFilter: ExploreFilter = DEFAULT_EXPLORE_FILTER;
-  readonly exploreFilterOptions: readonly ExploreFilterOption[] = EXPLORE_FILTER_OPTIONS;
+  readonly exploreFilterOptions: readonly ExploreFilterOption[] =
+    EXPLORE_FILTER_OPTIONS;
 
   constructor(private booksService: BookSearchService) {}
 
@@ -67,7 +71,10 @@ export class BookSearchComponent implements OnInit {
   }
 
   onExploreFilterSelect(filter: ExploreFilter): void {
-    if (this.selectedExploreFilter === filter && this.hasLoadedRecommendations) {
+    if (
+      this.selectedExploreFilter === filter &&
+      this.hasLoadedRecommendations
+    ) {
       return;
     }
 

@@ -1,4 +1,4 @@
-import { ExploreFilterOption } from '../models/explore-filter-option.model';
+import { ExploreFilterOption } from '../../models/explore-filter-option.model';
 import { ExploreFilter } from '../../types/explore-filter.type';
 
 export const DEFAULT_EXPLORE_FILTER: ExploreFilter = 'relevance';

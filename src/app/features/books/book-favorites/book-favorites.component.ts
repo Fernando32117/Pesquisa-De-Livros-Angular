@@ -1,142 +1,79 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { BookStorageService } from '../../../core/services/book-storage.service';
-import { Book } from '../../../shared/models/book.model';
+import { Book } from '../../../models/book.model';
+import { NotificationModalComponent } from '../../../shared/components/notification-modal/notification-modal.component';
+import { BookDetailsModalComponent } from '../book-details-modal/book-details-modal.component';
+import { FavoritesEmptyStateComponent } from './favorites-empty-state/favorites-empty-state.component';
+import { FavoritesGridComponent } from './favorites-grid/favorites-grid.component';
+import { FavoritesHeaderComponent } from './favorites-header/favorites-header.component';
+import { BookFavoritesFacade } from './book-favorites.facade';
+import { BookFavoritesState } from '../../../models/book-favorites-state.model';
 
 @Component({
   selector: 'app-book-favorites',
   templateUrl: './book-favorites.component.html',
   styleUrls: ['./book-favorites.component.css'],
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FavoritesHeaderComponent,
+    FavoritesGridComponent,
+    FavoritesEmptyStateComponent,
+    BookDetailsModalComponent,
+    NotificationModalComponent,
+  ],
+  providers: [BookFavoritesFacade],
 })
 export class BookFavoritesComponent implements OnInit, OnDestroy {
   favorites: Book[] = [];
   filteredFavorites: Book[] = [];
   selectedBook: Book | null = null;
   filter = '';
-  readonly fallbackImage = '/notimg.jpg';
-  private subscription: Subscription | null = null;
-
   notificationMessage: string | null = null;
+  readonly fallbackImage = '/notimg.jpg';
 
-  constructor(private bookStorage: BookStorageService) {}
+  private stateSubscription: Subscription | null = null;
+
+  constructor(private favoritesFacade: BookFavoritesFacade) {}
 
   ngOnInit(): void {
-    this.subscription = this.bookStorage.favorites$.subscribe(() => {
-      this.favorites = this.bookStorage.getFavorites();
-      this.applyFilter();
+    this.stateSubscription = this.favoritesFacade.state$.subscribe((state) => {
+      this.updateViewState(state);
     });
 
-    this.favorites = this.bookStorage.getFavorites();
-    this.applyFilter();
+    this.favoritesFacade.init();
   }
 
   removeFavorite(bookId: string): void {
-    this.bookStorage.removeFavorite(bookId);
-    this.showNotification('Livro removido dos favoritos!');
+    this.favoritesFacade.removeFavorite(bookId);
   }
 
   openModal(book: Book): void {
-    const favorite = this.favorites.find((fav) => fav.id === book.id);
-    const mergedBook = favorite ? { ...book, ...favorite } : { ...book };
-
-    this.selectedBook = {
-      ...mergedBook,
-      notes: mergedBook.notes ?? '',
-      rating: mergedBook.rating ?? 0,
-      tags: this.normalizeTagsForForm(mergedBook.tags),
-    };
+    this.favoritesFacade.openDetails(book);
   }
 
   closeModal(): void {
-    this.selectedBook = null;
-  }
-
-  updateFavorite(book: Book): void {
-    this.bookStorage.updateFavorite(this.prepareBookForSave(book));
-    this.showNotification('Livro atualizado com sucesso!');
-    this.closeModal();
+    this.favoritesFacade.closeDetails();
   }
 
   applyFilter(): void {
-    const normalizedFilter = this.normalizeString(this.filter.trim().toLowerCase());
-
-    if (!normalizedFilter) {
-      this.filteredFavorites = [...this.favorites];
-      return;
-    }
-
-    this.filteredFavorites = this.favorites.filter((book) => {
-      const title = this.normalizeString(book.title.toLowerCase());
-      const normalizedTags = this.normalizeTagsForSave(book.tags).map((tag) =>
-        this.normalizeString(tag.toLowerCase())
-      );
-
-      return (
-        title.includes(normalizedFilter) ||
-        normalizedTags.some((tag) => tag.includes(normalizedFilter))
-      );
-    });
+    this.favoritesFacade.setFilter(this.filter);
   }
 
-  private normalizeString(input: string): string {
-    return input.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-  }
-
-  private normalizeTagsForForm(tags?: string[] | string): string {
-    if (!tags) {
-      return '';
-    }
-
-    return Array.isArray(tags) ? tags.join(', ') : tags;
-  }
-
-  private normalizeTagsForSave(tags?: string[] | string): string[] {
-    if (!tags) {
-      return [];
-    }
-
-    if (Array.isArray(tags)) {
-      return tags.map((tag) => tag.trim()).filter(Boolean);
-    }
-
-    return tags
-      .split(',')
-      .map((tag) => tag.trim())
-      .filter(Boolean);
-  }
-
-  private prepareBookForSave(book: Book): Book {
-    return {
-      ...book,
-      tags: this.normalizeTagsForSave(book.tags),
-      notes: book.notes ?? '',
-      rating: book.rating ?? 0,
-    };
-  }
-
-  getCoverUrl(thumbnail?: string): string {
-    return thumbnail || this.fallbackImage;
-  }
-
-  onImageError(event: Event): void {
-    const image = event.target as HTMLImageElement;
-
-    if (image.src.endsWith(this.fallbackImage)) {
-      return;
-    }
-
-    image.src = this.fallbackImage;
-  }
-
-  showNotification(message: string): void {
-    this.notificationMessage = message;
-    setTimeout(() => (this.notificationMessage = null), 4500);
+  clearNotification(): void {
+    this.favoritesFacade.clearNotification();
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.stateSubscription?.unsubscribe();
+    this.favoritesFacade.destroy();
+  }
+
+  private updateViewState(state: BookFavoritesState): void {
+    this.favorites = state.favorites;
+    this.filteredFavorites = state.filteredFavorites;
+    this.selectedBook = state.selectedBook;
+    this.filter = state.filter;
+    this.notificationMessage = state.notificationMessage;
   }
 }

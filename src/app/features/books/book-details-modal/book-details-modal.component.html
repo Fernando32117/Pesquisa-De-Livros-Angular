@@ -130,6 +130,7 @@
           </div>
 
           <button
+            *ngIf="showPrimaryAction"
             (click)="onSaveFavorite()"
             class="w-full px-6 py-4 bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg flex items-center justify-center gap-2"
           >
@@ -138,7 +139,7 @@
                 d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
               ></path>
             </svg>
-            <span>Adicionar aos Favoritos</span>
+            <span>{{ primaryActionLabel }}</span>
           </button>
         </div>
       </div>

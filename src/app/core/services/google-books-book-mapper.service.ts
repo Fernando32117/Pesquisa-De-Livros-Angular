@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Book } from '../../shared/models/book.model';
-import { GoogleBookImageLinks } from '../models/google-book-image-links.model';
-import { GoogleBookVolume } from '../models/google-book-volume.model';
+import { Book } from '../../models/book.model';
+import { GoogleBookImageLinks } from '../../models/google-book-image-links.model';
+import { GoogleBookVolume } from '../../models/google-book-volume.model';
 
 @Injectable({
   providedIn: 'root',

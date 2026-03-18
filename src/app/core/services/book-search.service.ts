@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, of, throwError } from 'rxjs';
-import { Book } from '../../shared/models/book.model';
+import { Book } from '../../models/book.model';
+import { GoogleBooksSearchRequest } from '../../models/google-books-search-request.model';
 import { ExploreFilter } from '../../types/explore-filter.type';
-import { GoogleBooksSearchRequest } from '../models/google-books-search-request.model';
 import { BookExploreRankingService } from './book-explore-ranking.service';
 import { BookSearchErrorTranslatorService } from './book-search-error-translator.service';
 import { GoogleBooksApiClientService } from './google-books-api-client.service';
@@ -37,7 +37,9 @@ export class BookSearchService {
 
     return this.googleBooksApiClient.searchVolumes(request).pipe(
       map((volumes) => this.googleBooksBookMapper.mapVolumesToBooks(volumes)),
-      catchError((error) => throwError(() => this.errorTranslator.toSearchError(error))),
+      catchError((error) =>
+        throwError(() => this.errorTranslator.toSearchError(error)),
+      ),
     );
   }
 
@@ -49,10 +51,14 @@ export class BookSearchService {
     };
 
     return this.googleBooksApiClient.searchVolumes(request).pipe(
-      map((volumes) => this.bookExploreRanking.sortVolumesForExplore(volumes, filter)),
+      map((volumes) =>
+        this.bookExploreRanking.sortVolumesForExplore(volumes, filter),
+      ),
       map((volumes) => volumes.slice(0, this.maxResults)),
       map((volumes) => this.googleBooksBookMapper.mapVolumesToBooks(volumes)),
-      catchError((error) => throwError(() => this.errorTranslator.toExploreError(error))),
+      catchError((error) =>
+        throwError(() => this.errorTranslator.toExploreError(error)),
+      ),
     );
   }
 }

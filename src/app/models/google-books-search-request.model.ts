@@ -1,4 +1,4 @@
-import { GoogleBooksOrderBy } from '../../types/google-books-order-by.type';
+import { GoogleBooksOrderBy } from '../types/google-books-order-by.type';
 
 export interface GoogleBooksSearchRequest {
   query: string;

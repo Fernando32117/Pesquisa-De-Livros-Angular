@@ -2,9 +2,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { GoogleBookVolume } from '../models/google-book-volume.model';
-import { GoogleBooksSearchRequest } from '../models/google-books-search-request.model';
-import { GoogleBooksSearchResponse } from '../models/google-books-search-response.model';
+import { GoogleBookVolume } from '../../models/google-book-volume.model';
+import { GoogleBooksSearchRequest } from '../../models/google-books-search-request.model';
+import { GoogleBooksSearchResponse } from '../../models/google-books-search-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +15,9 @@ export class GoogleBooksApiClientService {
 
   constructor(private http: HttpClient) {}
 
-  searchVolumes(request: GoogleBooksSearchRequest): Observable<GoogleBookVolume[]> {
+  searchVolumes(
+    request: GoogleBooksSearchRequest,
+  ): Observable<GoogleBookVolume[]> {
     const params = this.buildParams(request);
 
     return this.http
